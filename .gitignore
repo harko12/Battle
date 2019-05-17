@@ -43,7 +43,7 @@ UnityPlayer\.dll
 
 battle_*
 
-#tnet
+#tnet*
 Logs
 Debug
 Assets/Tnet
