@@ -4,14 +4,13 @@ using UnityEngine;
 using TNet;
 using UnityEditor;
 
-public class PrefabSpawner : TNBehaviour
+public class PrefabSpawner : MonoBehaviour //TNBehaviour
 {
-    // prefab preview code taken from http://https://github.com/editkid/unity3d-gizmo-mesh-preview
-
-    // The prefab that we want to draw gizmo meshes for
-    public GameObject prefab;
-    public string prefabPath;
+    public PrefabPath prefab;
+    [HideInInspector]
     public GameObject preview;
+
+    protected string mSpawnFunction = "SpawnPrefab";
 
     private void OnEnable()
     {
@@ -25,22 +24,25 @@ public class PrefabSpawner : TNBehaviour
 
     protected void OnJoinChannel(int channelID, bool success, string message)
     {
-        if (!TNManager.IsHosting(tno.channelID))
+        if (!TNManager.IsHosting(channelID))
         {
             return;
         }
-        var parent = prefab.transform.root.gameObject;
-        /*
-        var path = AssetDatabase.GetAssetPath(parent);
-        path = path.Replace("Assets/Project/Resources/", "");
-        path = path.Replace(".prefab", "");
-        */
-        var path = prefabPath;
-        TNManager.Instantiate(channelID, "SpawnPrefab", path, false,  transform.position, transform.rotation);
+        if (prefab == null)
+        {
+            Debug.LogErrorFormat("No prefab assigned for {0}", gameObject.name);
+            return;
+        }
+        Spawn(channelID);
+    }
+
+    protected virtual void Spawn(int channelID)
+    {
+        TNManager.Instantiate(channelID, mSpawnFunction, prefab.PathInResources, false, transform.position, transform.rotation);
     }
 
     [RCC]
-    static GameObject SpawnPrefab(GameObject prefab, Vector3 pos, Quaternion rot)
+    public static GameObject SpawnPrefab(GameObject prefab, Vector3 pos, Quaternion rot)
     {
         // Instantiate the prefab
         GameObject go = prefab.Instantiate();
@@ -49,7 +51,6 @@ public class PrefabSpawner : TNBehaviour
         Transform t = go.transform;
         t.position = pos;
         t.rotation = rot;
-
         return go;
     }
 }

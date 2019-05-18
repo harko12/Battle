@@ -1268,8 +1268,8 @@ MonoBehaviour:
   PickCooldown: {fileID: 11400000, guid: 54c4f64b693fc5b489ed073749bb204a, type: 2}
   ObstacleParent: {fileID: 0}
   ObstaclePrefabs:
-  - {fileID: 1628900819865977983, guid: c3ff149e26e16f446b4d5627f2622fdd, type: 3}
-  - {fileID: 4902033385793966914, guid: e2209407e9cb6c54282e5a22dc5c0a39, type: 3}
+  - {fileID: 11400000, guid: 4458ddb190ecae243a21980aeb235a01, type: 2}
+  - {fileID: 11400000, guid: 24c28f9581880cd428c816b30ba8e765, type: 2}
   ObstaclePreview: {fileID: 5551259344696332383}
   ObstacleCooldown: {fileID: 11400000, guid: 90a966350687433419c7d2cd6836dc22, type: 2}
   shootOrigin: {fileID: 5551259344623235514}

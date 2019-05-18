@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424b702ecd3a30b4caff514d935a8347, type: 3}
+  m_Name: Obstacle H
+  m_EditorClassIdentifier: 
+  PrefabObject: {fileID: 85130898385327779, guid: c3ff149e26e16f446b4d5627f2622fdd,
+    type: 3}
+  ResourcesPath: Assets/Project/Resources/
+  AssetPath: Assets/Project/Resources/Prefabs/Obstacle H.prefab
+  PathInResources: Prefabs/Obstacle H

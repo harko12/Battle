@@ -43,4 +43,19 @@ public class Obstacle : TNBehaviour, IDamagable
     {
         this.transform.localScale = Vector3.zero;
     }
+
+    [RCC]
+    static GameObject CreateObstacle(GameObject prefab, Vector3 pos, Quaternion rot)
+    {
+        // Instantiate the prefab
+        GameObject go = prefab.Instantiate();
+
+        // Set the position and rotation based on the passed values
+        Transform t = go.transform;
+        t.position = pos;
+        t.rotation = rot;
+
+        return go;
+    }
+
 }

@@ -66,7 +66,8 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     public Cooldown PickCooldown;
     [SerializeField]
     private GameObject ObstacleParent;
-    public Obstacle[] ObstaclePrefabs;
+    private Obstacle[] ObstacleScripts;
+    public PrefabPath[] ObstaclePrefabs;
     private int lastObstacleIndex;
     public GameObject ObstaclePreview;
     private Mesh ObstaclePreviewMesh;
@@ -287,12 +288,25 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
             }
         }
     }
-
+    void UpdateObstacleScripts()
+    {
+        var scripts = new List<Obstacle>();
+        foreach (var prefab in ObstaclePrefabs)
+        {
+            scripts.Add(prefab.PrefabObject.GetComponent<Obstacle>());
+        }
+        ObstacleScripts = scripts.ToArray();
+    }
     void UpdateObstacleTool()
     {
         if (ObstaclePrefabs.Length < 1)
         {
             return;
+        }
+
+        if (ObstacleScripts == null ||  ObstaclePrefabs.Length != ObstacleScripts.Length)
+        {
+            UpdateObstacleScripts();
         }
 
         var index = lastObstacleIndex;
@@ -307,9 +321,10 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
             index = CycleArrayIndex(index, ObstaclePrefabs.Length, -1);
         }
 
-        var currentObs = ObstaclePrefabs[index];
-        uiValues.ToolMessage = string.Format("{0} costs {1}/{2}", currentObs.name, currentObs.Cost, Resources);
-        var currentMesh = currentObs.GetComponentInChildren<MeshFilter>();
+        var currentObsPrefab = ObstaclePrefabs[index];
+        var currentObsScript = ObstacleScripts[index];
+        uiValues.ToolMessage = string.Format("{0} costs {1}/{2}", currentObsScript.name, currentObsScript.Cost, Resources);
+        var currentMesh = currentObsPrefab.PrefabObject.GetComponentInChildren<MeshFilter>();
         var verts = currentMesh.sharedMesh.vertices;
         ObstaclePreview.transform.localScale = currentMesh.transform.localScale;
         ObstaclePreviewMesh.vertices = verts;
@@ -325,22 +340,23 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         lastObstacleIndex = index;
         if (Input.GetAxis("Fire1") > 0)
         {
-            PlaceObstacle(currentObs.gameObject, ObstaclePreview.transform);
+            PlaceObstacle(currentObsPrefab, currentObsScript, ObstaclePreview.transform);
             StartCoroutine(ObstacleCooldown.Run());
         }
     }
 
-    void PlaceObstacle(GameObject o, Transform obsPosition)
+    void PlaceObstacle(PrefabPath p, Obstacle obs, Transform obsPosition)
     {
         if (ObstacleCooldown.IsRunning) { return; }
-        var obs = o.GetComponent<Obstacle>();
         if (Resources < obs.Cost)
         {
             return;
         }
 
         Resources -= obs.Cost;
-        var newObs = Instantiate(o, obsPosition.position, obsPosition.rotation, ObstacleParent.transform);
+//        var newObs = Instantiate(p, obsPosition.position, obsPosition.rotation, ObstacleParent.transform);
+        TNManager.Instantiate(tno.channelID, "CreateObstacle", p.PathInResources, false, obsPosition.position, obsPosition.rotation);
+
     }
 
     public void AddResource(int r)

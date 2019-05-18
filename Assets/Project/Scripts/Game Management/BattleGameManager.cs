@@ -92,7 +92,7 @@ public class BattleGameManager : TNEventReceiver
     }
     public void SpawnPlayer(int channelID)
     {
-        var index = Random.Range(0, SpawnPoints.Length - 1);
+        var index = Random.Range(0, SpawnPoints.Length);
         var sp = SpawnPoints[index];
         var p = GameObject.FindGameObjectsWithTag("Player");
         BattlePlayer found = null;

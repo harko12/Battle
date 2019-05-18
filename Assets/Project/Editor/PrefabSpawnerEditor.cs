@@ -20,7 +20,7 @@ public class PrefabSpawnerEditor : Editor
         preview = ppScript.preview;
         if (preview == null)
         {
-            preview = GameObject.Instantiate(ppScript.prefab);
+            preview = GameObject.Instantiate(ppScript.prefab.PrefabObject);
             var t = ppScript.transform;
             preview.hideFlags = HideFlags.HideAndDontSave;
             preview.transform.SetParent(t);
