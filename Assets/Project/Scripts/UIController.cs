@@ -42,11 +42,13 @@ public class UIController : MonoBehaviour
 
     public void onGameOver(BattlePlayer p)
     {
-        gameOverScreen.alpha = 1;
+        hudScreen.alpha = 0;
+        gameOverScreen.alpha = 0;
     }
 
     public void onPlayerSpawn()
     {
+        hudScreen.alpha = 1;
         gameOverScreen.alpha = 0;
     }
 

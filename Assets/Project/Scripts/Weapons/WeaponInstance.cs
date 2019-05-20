@@ -178,11 +178,9 @@ public class WeaponInstance
 
     public void FireProjectile(Vector3 targetPoint)
     {
-        var p = GameObject.Instantiate<Projectile>(baseWeapon.ProjectilePrefab);
-        p.Shoot(raycastOrigin.position, (targetPoint - raycastOrigin.position).normalized);
-//        UseAmmo(1);
+        TNManager.Instantiate(tno.channelID, "FireProjectile", baseWeapon.ProjectilePrefab.PathInResources, false, raycastOrigin.position, (targetPoint - raycastOrigin.position).normalized);
     }
-
+    
     [RFC]
     public void Fire(RaycastHit lookTargetHit)
     {
@@ -220,6 +218,7 @@ public class WeaponInstance
                         if (destruct == null) { hit.collider.gameObject.GetComponent<IDamagable>(); }
                         if (destruct == null) { destruct = hit.collider.GetComponentInParent<IDamagable>(); }
                     }
+
                     if (baseWeapon.RaysPerShot > 1)
                     {
                         // store object's destructable, if there is one, null if there isn't
@@ -231,7 +230,8 @@ public class WeaponInstance
                     {
                         float damage = 2;
                         Debug.LogFormat("{0} taking damage {1}", hit.collider.gameObject.name, damage);
-                        destruct.TakeDamage(damage);
+                        hit.collider.GetComponent<TNObject>().Send("TakeDamage", Target.AllSaved, damage);
+//                        destruct.TakeDamage(damage);
                     }
                 }
             }

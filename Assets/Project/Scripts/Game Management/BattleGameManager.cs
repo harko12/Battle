@@ -72,7 +72,6 @@ public class BattleGameManager : TNEventReceiver
         var respawnTime = 10f;
         while (respawnTime > 0)
         {
-            Debug.Log("waiting to respawn..");
             respawnTime -= Time.deltaTime;
             yield return null;
         }

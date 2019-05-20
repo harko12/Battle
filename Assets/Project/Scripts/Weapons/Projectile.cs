@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TNet;
 
-public class Projectile : MonoBehaviour
+public class Projectile : TNBehaviour
 {
     public float speed;
     public float ttl;
@@ -11,8 +12,9 @@ public class Projectile : MonoBehaviour
 
     private float lifetime = 0f;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         myRigidbody = GetComponent<Rigidbody>();
     }
 
@@ -23,10 +25,24 @@ public class Projectile : MonoBehaviour
         myRigidbody.velocity = shootDirection * speed;
     }
 
-    private void Explode()
+    [RCC]
+    public static GameObject FireProjectile(GameObject prefab, Vector3 spawn, Vector3 shootDirection)
     {
-        var e = GameObject.Instantiate<Explosion>(explosionPrefab, transform.position, Quaternion.identity);
-        e.Explode(5, 2);
+        // Instantiate the prefab
+        GameObject go = prefab.Instantiate();
+
+        // Set the position and rotation based on the passed values
+        Transform t = go.transform;
+        var p = go.GetComponent<Projectile>();
+        p.Shoot(spawn, shootDirection);
+        return go;
+    }
+
+    [RFC]
+    private void Explode(Vector3 pos, float range, float damage)
+    {
+        var e = GameObject.Instantiate<Explosion>(explosionPrefab, pos, Quaternion.identity);
+        e.Explode(range, damage);
         Destroy(gameObject);
     }
 
@@ -39,15 +55,20 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!tno.isMine) { return; }
         lifetime += Time.deltaTime;
         if (lifetime >= ttl)
         {
-            Explode();
+            tno.Send("Explode", Target.All, transform.position, 5, 2);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Explode();
+        if (!tno.isMine) { return; }
+        if (other.GetComponent<Pickup>() == null)
+        {
+            tno.Send("Explode", Target.All, transform.position, 5, 2);
+        }
     }
 }

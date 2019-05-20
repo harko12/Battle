@@ -22,6 +22,5 @@ MonoBehaviour:
   IsAutomatic: 0
   AimVariation: 0
   RaysPerShot: 1
-  ProjectilePrefab: {fileID: 6253729325231375625, guid: 2ee8436946a40b44c919e39d8b99acaf,
-    type: 3}
+  ProjectilePrefab: {fileID: 11400000, guid: c8706b41191a3dc49b644da6ad244ed2, type: 2}
   ZoomFactor: 30

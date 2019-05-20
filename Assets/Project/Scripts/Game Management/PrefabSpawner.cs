@@ -7,6 +7,7 @@ using UnityEditor;
 public class PrefabSpawner : MonoBehaviour //TNBehaviour
 {
     public PrefabPath prefab;
+    public bool Persistent = false;
     [HideInInspector]
     public GameObject preview;
 
@@ -38,7 +39,8 @@ public class PrefabSpawner : MonoBehaviour //TNBehaviour
 
     protected virtual void Spawn(int channelID)
     {
-        TNManager.Instantiate(channelID, mSpawnFunction, prefab.PathInResources, false, transform.position, transform.rotation);
+        if (transform.childCount > 0) return;
+        TNManager.Instantiate(channelID, mSpawnFunction, prefab.PathInResources, Persistent, transform.position, transform.rotation);
     }
 
     [RCC]
@@ -51,6 +53,7 @@ public class PrefabSpawner : MonoBehaviour //TNBehaviour
         Transform t = go.transform;
         t.position = pos;
         t.rotation = rot;
+//        t.SetParent(parent);
         return go;
     }
 }

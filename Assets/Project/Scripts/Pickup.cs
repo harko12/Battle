@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TNet;
 
 public enum PickupType { Ammo, Health, Shield, Weapon };
 
-public class Pickup : MonoBehaviour
+public class Pickup : TNBehaviour
 {
     public float PickupRadius;
     public PickupType myType;
@@ -43,15 +44,25 @@ public class Pickup : MonoBehaviour
         pickupTransform.Rotate(0, rotationAngle * Time.deltaTime, 0);
     }
 
+    [RFC]
+    public void Die()
+    {
+        DestroySelf();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         var pickupCollector = other.GetComponent<IPickupCollector>();
         if (pickupCollector != null)
         {
-            var success = pickupCollector.PickedUp(this);
-            if (success)
+            var playerTno = other.gameObject.GetComponent<TNObject>();
+            if (playerTno.isMine)
             {
-                this.gameObject.SetActive(false);
+                var success = pickupCollector.PickedUp(this);
+                if (success)
+                {
+                    tno.Send("Die", Target.AllSaved);
+                }
             }
         }
     }

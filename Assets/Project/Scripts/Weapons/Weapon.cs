@@ -20,7 +20,7 @@ public class Weapon : ScriptableObject
     public float AimVariation;
     [Header("Ammo")]
     public int RaysPerShot = 1;
-    public Projectile ProjectilePrefab;
+    public PrefabPath ProjectilePrefab;
 
     [Header("Scope")]
     public float ZoomFactor = 15;

@@ -125,8 +125,10 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
 
     }
 
+    [RFC]
     public void Die()
     {
+        if (!tno.isMine) { return; }
         waitingToRespawn = true;
         gameCamera.Release();
         gameEvents.OnPlayerDeath.Invoke(this);
@@ -456,8 +458,10 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         return pickedUp;
     }
 
+    [RFC]
     public void TakeDamage(float damageAmount)
     {
+        if (!tno.isMine) { return;  }
         Health -= damageAmount;
         uiValues.PlayerHealth = Health;
         CheckDamage();
@@ -467,7 +471,8 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
         if (Health <= 0)
         {
-            Die();
+            tno.Send("Die", Target.AllSaved);
+//            Die();
         }
     }
 }

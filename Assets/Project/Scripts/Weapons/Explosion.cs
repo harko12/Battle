@@ -15,7 +15,6 @@ public class Explosion : TNBehaviour
     {
         if (tno.isMine)
         {
-
             Range = range;
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, range, transform.forward);
             foreach (var hit in hits)

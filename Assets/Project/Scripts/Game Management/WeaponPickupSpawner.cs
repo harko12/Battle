@@ -16,7 +16,8 @@ public class WeaponPickupSpawner : PrefabSpawner
 
     protected override void Spawn(int channelID)
     {
-        TNManager.Instantiate(channelID, mSpawnFunction, prefab.PathInResources, false, transform.position, transform.rotation, Contents, Value);
+        if (transform.childCount > 0) return;
+        TNManager.Instantiate(channelID, mSpawnFunction, prefab.PathInResources, Persistent, transform.position, transform.rotation, Contents, Value);
     }
 
     [RCC]
@@ -28,6 +29,4 @@ public class WeaponPickupSpawner : PrefabSpawner
         pickup.Value = v;
         return go;
     }
-
-
 }

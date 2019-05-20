@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b702ecd3a30b4caff514d935a8347, type: 3}
-  m_Name: PrefabPath
+  m_Name: Flying Enemy
   m_EditorClassIdentifier: 
-  PrefabObject: {fileID: 0}
+  PrefabObject: {fileID: 7584252098597358487, guid: 2a50614a308e8ae418ed43ea0e72882c,
+    type: 3}
   ResourcesPath: Assets/Project/Resources/
-  AssetPath: 
-  PathInResources: 
+  AssetPath: Assets/Project/Resources/Prefabs/Enemies/Flying Enemy.prefab
+  PathInResources: Prefabs/Enemies/Flying Enemy

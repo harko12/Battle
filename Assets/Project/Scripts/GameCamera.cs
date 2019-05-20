@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameCamera : MonoBehaviour {
     [SerializeField] private GameObject target;
     [SerializeField] private GameObject rotationAnchorObject;
+    public GameObject GlobalRotationAnchor;
+    public GameObject DefaultTarget;
     [SerializeField] private Vector3 translationOffset;
     [SerializeField] private Vector3 followOffset;
     [SerializeField] private float maxViewingAngle;
@@ -15,7 +17,20 @@ public class GameCamera : MonoBehaviour {
 
     public Transform GetRotationAnchor()
     {
-        return rotationAnchorObject.transform;
+        if (rotationAnchorObject != null)
+        {
+            return rotationAnchorObject.transform;
+        }
+        return GlobalRotationAnchor.transform;
+    }
+
+    public Transform GetTarget()
+    {
+        if (target != null)
+        {
+            return target.transform;
+        }
+        return DefaultTarget.transform;
     }
 
 	// Use this for initialization
@@ -41,17 +56,27 @@ public class GameCamera : MonoBehaviour {
 
     private void FixedUpdate()
 	{
-        if (target == null) { return; }
-        // Make the camera look at the target.
-        float yAngle = target.transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, yAngle, 0);
+        if (target != null)
+        {
+            var t = GetTarget();
+            // Make the camera look at the target.
+            float yAngle = t.eulerAngles.y;
+            Quaternion rotation = Quaternion.Euler(0, yAngle, 0);
 
-        transform.position = target.transform.position - (rotation * followOffset);
-        transform.LookAt(target.transform.position + translationOffset);
+            transform.position = t.position - (rotation * followOffset);
+            transform.LookAt(t.position + translationOffset);
 
-        // Make the camera look up or down.
-        verticalRotationAngle = Mathf.Clamp(verticalRotationAngle + Input.GetAxis("Mouse Y") * rotationSensitivity, minViewingAngle, maxViewingAngle);
-
-        transform.RotateAround(rotationAnchorObject.transform.position, rotationAnchorObject.transform.right, -verticalRotationAngle);
+            // Make the camera look up or down.
+            verticalRotationAngle = Mathf.Clamp(verticalRotationAngle + Input.GetAxis("Mouse Y") * rotationSensitivity, minViewingAngle, maxViewingAngle);
+            var rot = GetRotationAnchor();
+            transform.RotateAround(rot.transform.position, rot.transform.right, -verticalRotationAngle);
+        }
+        else
+        {
+            var anchor = GetRotationAnchor().transform;
+            transform.position = anchor.position;
+            transform.rotation = anchor.rotation;
+            transform.LookAt(DefaultTarget.transform.position);
+        }
     }
 }
