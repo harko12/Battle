@@ -142,7 +142,7 @@ namespace Battle
 
         [RFC]
         protected void SetInputs(Vector3 m, float t, bool c) {
-            Debug.LogFormat("{0} setting inputs m:{1}", tno.owner.name, m);
+            //Debug.LogFormat("{0} setting inputs m:{1}", tno.owner.name, m);
             m_Move = m; m_TurnAmount = t;  m_Crouch = c;
         }
 
@@ -163,7 +163,7 @@ namespace Battle
         {
             if (!tno.isMine)
             {
-                Debug.LogFormat("{0} updating character with inputs m:{1}", tno.owner.name, m_Move);
+                //Debug.LogFormat("{0} updating character with inputs m:{1}", tno.owner.name, m_Move);
             }
             // pass all parameters to the character control script
             Vector3 vizOrigin = transform.position + Vector3.up * 1;

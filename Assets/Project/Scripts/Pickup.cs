@@ -5,7 +5,7 @@ using TNet;
 
 public enum PickupType { Ammo, Health, Shield, Weapon };
 
-public class Pickup : TNBehaviour
+public class Pickup : DynamicTNBehaviour
 {
     public float PickupRadius;
     public PickupType myType;

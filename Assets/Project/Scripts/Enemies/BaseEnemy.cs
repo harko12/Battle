@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TNet;
 
-public class BaseEnemy : TNBehaviour, IDamagable
+public class BaseEnemy : DynamicTNBehaviour, IDamagable
 {
     [SerializeField]
     private float _health;
@@ -22,7 +22,14 @@ public class BaseEnemy : TNBehaviour, IDamagable
             _health = value;
         }
     }
-
+    /*
+    private void OnDisconnect()
+    {
+        Debug.LogFormat("Destroying {0}", gameObject.name);
+        gameObject.DestroySelf();
+        
+    }
+    */
     protected override void Awake()
     {
         base.Awake();
@@ -44,6 +51,7 @@ public class BaseEnemy : TNBehaviour, IDamagable
     public void ApplyDamage(float damageAmount)
     {
         Health -= damageAmount;
+        Debug.Log("Enemy damaged for " + damageAmount.ToString());
         if (Health <= 0)
         {
             Die();

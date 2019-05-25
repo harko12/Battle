@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum SceneNames { Game, GameUI};
+public enum SceneNames { connect, Game, GameUI};
 public class GameSceneManager : MonoBehaviour
 {
     public GameEvents gameEvents;
@@ -24,6 +24,11 @@ public class GameSceneManager : MonoBehaviour
             yield return null;
         }
        // gameEvents.OnPlayerSpawn.Invoke();
+    }
+
+    public static void ReturnToConnect()
+    {
+        SceneManager.LoadScene(SceneNames.connect.ToString());
     }
 
 

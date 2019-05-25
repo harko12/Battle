@@ -5,11 +5,25 @@ using UnityEngine;
 
 public class BattleGameManager : TNEventReceiver
 {
+    public static BattleGameManager instance { get; private set; }
     public GameObject[] SpawnPoints;
     public Transform parkTransform;
     public GameEvents gameEvents;
 
     private int channelID;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     [RCC]
     static GameObject CreateBattlePlayer(GameObject prefab, Vector3 pos, Quaternion rot)
     {
@@ -29,6 +43,7 @@ public class BattleGameManager : TNEventReceiver
         base.OnEnable();
         gameEvents.OnPlayerSpawn.AddListener(onPlayerSpawn);
         gameEvents.OnPlayerDeath.AddListener(onGameOver);
+        gameEvents.OnPlayerDisconnect.AddListener(onPlayerClickedDisconnect);
     }
 
     protected override void OnDisable()
@@ -36,6 +51,7 @@ public class BattleGameManager : TNEventReceiver
         base.OnDisable();
         gameEvents.OnPlayerSpawn.RemoveListener(onPlayerSpawn);
         gameEvents.OnPlayerDeath.RemoveListener(onGameOver);
+        gameEvents.OnPlayerDisconnect.RemoveListener(onPlayerClickedDisconnect);
     }
     // Start is called before the first frame update
     void Start()
@@ -53,6 +69,30 @@ public class BattleGameManager : TNEventReceiver
             onPlayerSpawn();
         }
    
+    }
+
+    public void onPlayerClickedDisconnect()
+    {
+        Disconnect();
+    }
+
+    public void Disconnect()
+    {
+        // find other players
+        var otherplayers = TNManager.GetPlayers(channelID);
+        if (otherplayers.Count > 0)
+        {
+            var newHost = otherplayers.buffer[0];
+            TNManager.SetHost(channelID, newHost);
+            gameEvents.OnChangeHost.Invoke(newHost.id);
+        }
+        Debug.Log("Disconnecting");
+        TNManager.Disconnect();
+    }
+
+    protected override void OnDisconnect()
+    {
+        GameSceneManager.ReturnToConnect();
     }
 
     protected override void OnJoinChannel(int channelID, bool success, string message)

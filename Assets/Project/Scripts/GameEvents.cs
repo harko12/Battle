@@ -10,6 +10,8 @@ public class GameEvents : ScriptableObject
     public ToolChangeEvent OnToolChanged;
     public BattlePlayerEvent OnPlayerDeath;
     public UnityEvent OnPlayerSpawn;
+    public UnityEvent OnPlayerDisconnect;
+    public IntEvent OnChangeHost;
 }
 
 [System.Serializable]
@@ -20,6 +22,12 @@ public class ToolChangeEvent: UnityEvent<BattlePlayer.PlayerTool>
 
 [System.Serializable]
 public class BattlePlayerEvent: UnityEvent<BattlePlayer>
+{
+
+}
+
+[System.Serializable]
+public class IntEvent : UnityEvent<int>
 {
 
 }

@@ -230,8 +230,8 @@ public class WeaponInstance
                     {
                         float damage = 2;
                         Debug.LogFormat("{0} taking damage {1}", hit.collider.gameObject.name, damage);
-                        hit.collider.GetComponent<TNObject>().Send("TakeDamage", Target.AllSaved, damage);
-//                        destruct.TakeDamage(damage);
+//                        hit.collider.GetComponentInParent<TNObject>().Send("TakeDamage", Target.AllSaved, damage);
+                        destruct.TakeDamage(damage);
                     }
                 }
             }

@@ -458,10 +458,14 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         return pickedUp;
     }
 
-    [RFC]
     public void TakeDamage(float damageAmount)
     {
-        if (!tno.isMine) { return;  }
+        tno.Send("ApplyDamage", Target.AllSaved, damageAmount);
+    }
+
+    [RFC]
+    public void ApplyDamage(float damageAmount)
+    {
         Health -= damageAmount;
         uiValues.PlayerHealth = Health;
         CheckDamage();

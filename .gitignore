@@ -43,6 +43,8 @@ UnityPlayer\.dll
 
 battle_*
 
+#third party stuff
+Assets/Third Party*
 #tnet*
 Logs
 Debug
