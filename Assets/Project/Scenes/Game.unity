@@ -751,7 +751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 471cb5623d27b3348b1e65bbea266db6, type: 2}
   ParentTransform: {fileID: 406069237}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
   Contents: 3
@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 809e63b669f29744cb0a2a7d87506f9d, type: 2}
   ParentTransform: {fileID: 1248104175}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &204583847
@@ -1812,7 +1812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!4 &244314178 stripped
@@ -2086,7 +2086,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: b78e7f248bc58a74da2ce7cc132329e3, type: 2}
   ParentTransform: {fileID: 1564799983}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!4 &285990839 stripped
@@ -3527,7 +3527,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &455873353
@@ -5826,7 +5826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 41186aba4f0d83942b7c492f2f86dbd3, type: 2}
   ParentTransform: {fileID: 1248104175}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &822689423
@@ -6371,7 +6371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: d65090c6a9036b544b000f56ac55ce76, type: 2}
   ParentTransform: {fileID: 406069237}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
   Contents: 3
@@ -7120,8 +7120,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919098288}
-  m_LocalRotation: {x: 0.14528233, y: 0.40391046, z: 0.06514045, w: -0.90083635}
-  m_LocalPosition: {x: 76.965866, y: -14.61935, z: -15.962109}
+  m_LocalRotation: {x: 0.051062036, y: 0.94108605, z: 0.16542186, w: -0.2904917}
+  m_LocalPosition: {x: 106.0917, y: -31.503365, z: 31.269894}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7332,7 +7332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!4 &952279428 stripped
@@ -7824,7 +7824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 41186aba4f0d83942b7c492f2f86dbd3, type: 2}
   ParentTransform: {fileID: 1248104175}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!4 &1016913523 stripped
@@ -8427,7 +8427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 41186aba4f0d83942b7c492f2f86dbd3, type: 2}
   ParentTransform: {fileID: 1248104175}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &1078150718
@@ -8856,7 +8856,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1 &1155258937
@@ -9370,7 +9370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: b78e7f248bc58a74da2ce7cc132329e3, type: 2}
   ParentTransform: {fileID: 1564799983}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &1218461016
@@ -10710,7 +10710,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: d65090c6a9036b544b000f56ac55ce76, type: 2}
   ParentTransform: {fileID: 406069237}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
   Contents: 0
@@ -10976,7 +10976,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1 &1367791374
@@ -11839,7 +11839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 41186aba4f0d83942b7c492f2f86dbd3, type: 2}
   ParentTransform: {fileID: 1248104175}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &1437982642
@@ -12573,7 +12573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 471cb5623d27b3348b1e65bbea266db6, type: 2}
   ParentTransform: {fileID: 406069237}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
   Contents: 0
@@ -15212,7 +15212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1001 &1939283048
@@ -16785,7 +16785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 11400000, guid: 8fae3eb2456cadc4794ef669d0f3acbd, type: 2}
   ParentTransform: {fileID: 813281437}
-  Persistent: 0
+  Persistent: 1
   preview: {fileID: 0}
   Index: 0
 --- !u!1 &2139278331 stripped

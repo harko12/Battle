@@ -13,7 +13,7 @@ public class DynamicTNBehaviour : TNBehaviour
             Debug.LogFormat("enable too soon for {0}", gameObject.name);
             return;
         }
-        BattleGameManager.instance.gameEvents.OnChangeHost.AddListener(onChangeHost);
+       //BattleGameManager.instance.gameEvents.OnChangeHost.AddListener(onChangeHost);
     }
 
     protected virtual void OnDisable()
@@ -23,7 +23,7 @@ public class DynamicTNBehaviour : TNBehaviour
             Debug.LogFormat("disable too soon for {0}", gameObject.name);
             return;
         }
-        BattleGameManager.instance.gameEvents.OnChangeHost.RemoveListener(onChangeHost);
+        //BattleGameManager.instance.gameEvents.OnChangeHost.RemoveListener(onChangeHost);
     }
 
     private void onChangeHost(int playerID)

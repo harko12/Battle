@@ -23,7 +23,7 @@ public class PrefabSpawner : MonoBehaviour
     {
         PrefabSpawner.spawners.Add(this);
         Index = PrefabSpawner.spawners.IndexOf(this);
-        Debug.LogFormat("{0} setting index to {1}", gameObject.name, Index);
+        //Debug.LogFormat("{0} setting index to {1}", gameObject.name, Index);
     }
 
     private void OnEnable()

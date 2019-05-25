@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TNet;
 
-public class Obstacle : DynamicTNBehaviour, IDamagable
+public class Obstacle : TNBehaviour, IDamagable
 {
     public int Cost;
     public float Health

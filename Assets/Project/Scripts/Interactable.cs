@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TNet;
 
-public abstract class Interactable : DynamicTNBehaviour, IInteractable
+public abstract class Interactable : TNBehaviour, IInteractable
 {
     public virtual void Interact(BattlePlayer p)
     {
