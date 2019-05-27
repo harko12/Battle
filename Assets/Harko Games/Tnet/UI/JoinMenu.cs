@@ -86,12 +86,12 @@ public class JoinMenu : MonoBehaviour
         SceneManager.LoadScene(targetSceneName, LoadSceneMode.Single);
         TNManager.JoinChannel(count, false, true);
     }
-
+    /*
     void OnLevelWasLoaded(int level)
     {
         TNManager.SetTimeout(10); // set it back to 10 after level loads
     }
-
+    */
     List<GameObject> ChannelLines = new List<GameObject>();
     IEnumerator UpdateChannelList()
     {
@@ -109,8 +109,8 @@ public class JoinMenu : MonoBehaviour
                     go.transform.SetParent(ChannelListRoot.transform);
                     ChannelLines.Add(go);
                 }
-                var ent = list[i];
-                go = ChannelLines[i];
+                var ent = list.buffer[i];
+                go = ChannelLines.buffer[i];
                 go.SetActive(true);
                 var button = go.GetComponentInChildren<UnityEngine.UI.Button>();
                 var textFields = go.GetComponentsInChildren<Text>();

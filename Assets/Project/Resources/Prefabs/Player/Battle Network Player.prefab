@@ -1216,6 +1216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9e5c91c891152498556d70a880a9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Settings: {fileID: 11400000, guid: 4acdb71a81de17d4a98f5b35b8933407, type: 2}
   inputUpdates: 10
   rigidbodyUpdates: 1
 --- !u!114 &979381792796712129

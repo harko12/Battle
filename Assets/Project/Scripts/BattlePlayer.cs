@@ -7,6 +7,7 @@ using UnityStandardAssets.Characters.ThirdPerson;
 
 public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
 {
+    public static BattlePlayer instance;
     public GameEvents gameEvents;
     [SerializeField] public UIValues uiValues;
     public enum PlayerTool
@@ -80,6 +81,15 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     public Transform shootOrigin;
 
     private bool isFocalPointOnLeft = true;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        if (tno.isMine)
+        {
+            BattlePlayer.instance = this;
+        }
+    }
 
     private void OnEnable()
     {

@@ -5,62 +5,25 @@ using System;
 using System.Linq;
 using UnityEngine.UI;
 
-public class InputDialog : MonoBehaviour {
-
-    public static InputDialog instance;
-
-    void Start()
-    {
-        ShowDialog(false);
-    }
-
-    public static void ShowDialog(bool show)
-    {
-        instance.ModalBackground.enabled = instance.IsModal;
-        var grp = instance.GetComponent<CanvasGroup>();
-        grp.alpha = (show ? 1 : 0);
-        grp.interactable = show;
-        grp.blocksRaycasts = show;
-    }
-    
-
-    public string DialogName;
-    public bool IsModal;
-    public Image ModalBackground;
-
+public class InputItemDisplay : MonoBehaviour
+{
     public Transform InputListRoot;
     public List<InputItem> items;
 
     public GameObject InputLinePrefab;
 
     List<GameObject> InputLines = new List<GameObject>();
-    public UnityEngine.UI.Button OkButton;
 
-    void OnEnable()
+    protected virtual void Awake()
     {
-        Init();
-    }
-
-    void Awake()
-    {
-        instance = this;
-    }
-
-    public void OpenDialog(List<InputItem> itemList, UnityEngine.Events.UnityAction okFunc)
-    {
-        items = itemList;
-        Init();
-        OkButton.onClick.AddListener(okFunc);
-        ShowDialog(true);
-    }
-
-    public void CloseDialog()
-    {
-        ShowDialog(false);
     }
 
     public void Init()
     {
+        if (items == null)
+        {
+            return;
+        }
         // get cached lines out of the way
         foreach (GameObject go in InputLines)
         {
@@ -81,19 +44,31 @@ public class InputDialog : MonoBehaviour {
             line.SetActive(true);
             var text = line.GetComponentInChildren<Text>();
             var input = line.GetComponentInChildren<InputField>();
+            input.gameObject.SetActive(false);
+            var checkbox = line.GetComponentInChildren<Toggle>();
+            checkbox.gameObject.SetActive(false);
             text.text = i.InputName;
             switch (i.InputType.ToString().ToUpper())
             {
                 case "STRING":
+                    input.gameObject.SetActive(true);
+                    input.contentType = InputField.ContentType.Alphanumeric;
                     input.text = string.Format("{0}", i.InputValue);
                     break;
                 case "INT":
                 case "INT32":
                 case "FLOAT":
+                case "SINGLE":
                 case "DECIMAL":
+                    input.gameObject.SetActive(true);
+                    input.contentType = InputField.ContentType.DecimalNumber;
                     input.text = string.Format("{0}", i.InputValue);
                     break;
                 case "ENUM":
+                    break;
+                case "BOOLEAN":
+                    checkbox.gameObject.SetActive(true);
+                    checkbox.isOn = (bool)i.InputValue;
                     break;
                 default:
                     Debug.LogError("InputDialog unable to parse type " + i.InputType.ToString().ToUpper());
@@ -113,7 +88,8 @@ public class InputDialog : MonoBehaviour {
             line = InputLines[lcv];
             var text = line.GetComponentInChildren<Text>();
             var input = line.GetComponentInChildren<InputField>();
-            text.text = i.name;
+            var checkbox = line.GetComponentInChildren<Toggle>();
+            text.text = i.InputName;
             var t = i.InputType.ToString().ToUpper();
             switch (t)
             {
@@ -130,6 +106,7 @@ public class InputDialog : MonoBehaviour {
                     i.InputValue = intVal;
                     break;
                 case "FLOAT":
+                case "SINGLE":
                     float fVal;
                     if (!float.TryParse(input.text, out fVal))
                     {
@@ -145,6 +122,9 @@ public class InputDialog : MonoBehaviour {
                     }
                     i.InputValue = dVal;
                     break;
+                case "BOOLEAN":
+                    i.InputValue = checkbox.isOn;
+                    break;
                 default:
                     Debug.LogError("InputDialog unable to parse type " + t);
                     break;
@@ -155,7 +135,7 @@ public class InputDialog : MonoBehaviour {
 
     public object GetValue(string inputName)
     {
-        var item =  items.Where(i => i.InputName == inputName).FirstOrDefault();
+        var item = items.Where(i => i.InputName == inputName).FirstOrDefault();
         if (item != null)
             return item.InputValue;
         else
@@ -177,14 +157,16 @@ public class InputDialog : MonoBehaviour {
     }
 }
 
-public class InputItem : ScriptableObject
+public class InputItem
 {
-    public string InputName{get; set;}
-    public string InputType{get; set;}
-    public object InputValue{get; set;}
+    public string InputName { get; set; }
+    public string InputType { get; set; }
+    public object InputValue { get; set; }
+    public bool ReadOnly { get; set; }
 
     public InputItem()
     {
-
+        ReadOnly = false;
     }
+
 }

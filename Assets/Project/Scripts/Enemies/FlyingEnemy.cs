@@ -145,7 +145,8 @@ public class FlyingEnemy : BaseEnemy
             var damagable = collision.gameObject.GetComponent<IDamagable>();
             if (damagable != null)
             {
-                collision.gameObject.GetComponent<TNObject>().Send("TakeDamage", Target.AllSaved, Damage);
+                damagable.TakeDamage(Damage);
+//                collision.gameObject.GetComponent<TNObject>().Send("TakeDamage", Target.AllSaved, Damage);
             }
 
             myRigidbody.velocity = collision.GetContact(0).normal.normalized * bounceBackSpeed;

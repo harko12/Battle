@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Battle;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ public class GameCamera : MonoBehaviour {
     [SerializeField] private Vector3 followOffset;
     [SerializeField] private float maxViewingAngle;
     [SerializeField] private float minViewingAngle;
-    [SerializeField] private float rotationSensitivity;
+//    [SerializeField] private float rotationSensitivity;
 
     private float verticalRotationAngle;
 
@@ -32,15 +33,6 @@ public class GameCamera : MonoBehaviour {
         }
         return DefaultTarget.transform;
     }
-
-	// Use this for initialization
-	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
-	}
 
     public void Init(BattlePlayer p)
     {
@@ -66,8 +58,15 @@ public class GameCamera : MonoBehaviour {
             transform.position = t.position - (rotation * followOffset);
             transform.LookAt(t.position + translationOffset);
 
+            var verticalInput = BattlePlayerInput.instance.VerticalAngle;
+            if (BattlePlayerInput.instance.Settings.InvertMouse)
+            {
+                Debug.Log("Inverting mouse input");
+                verticalInput *= -1;
+            }
+            var rotationSensitivity = BattlePlayerInput.instance.Settings.MouseSensitivity;
             // Make the camera look up or down.
-            verticalRotationAngle = Mathf.Clamp(verticalRotationAngle + Input.GetAxis("Mouse Y") * rotationSensitivity, minViewingAngle, maxViewingAngle);
+            verticalRotationAngle = Mathf.Clamp(verticalRotationAngle + verticalInput * rotationSensitivity, minViewingAngle, maxViewingAngle);
             var rot = GetRotationAnchor();
             transform.RotateAround(rot.transform.position, rot.transform.right, -verticalRotationAngle);
         }

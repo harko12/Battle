@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class UIController : SingletonMonoBehaviour<UIController>
 {
     public CanvasGroup playerMenu;
     public CanvasGroup hudScreen;
@@ -19,6 +19,11 @@ public class UIController : MonoBehaviour
 
     [Header("Tools")]
     public UIToolIcon[] Tools;
+
+    [Header("Menu Panel Objects")]
+    public SlideMenu MainMenuPanel;
+    public List<SlideMenu> MenuPanels;
+
 
     private void Start()
     {
@@ -71,12 +76,35 @@ public class UIController : MonoBehaviour
             t.Selected(selected);
         }
     }
-
-    private void ToggleMenu()
+    public void ToggleMenu()
     {
         var newAlpha = 1;
         if (playerMenu.alpha == 1) { newAlpha = 0; }
         playerMenu.alpha = newAlpha;
+        var showing = newAlpha == 1;
+        gameEvents.OnMouseReleased.Invoke(showing); // 
+        CloseAllMenuPanels();
+        if (showing)
+        {
+            TogglePanel(MainMenuPanel);
+        }
+    }
+
+    public void TogglePanel(SlideMenu mPanel)
+    {
+        CloseAllMenuPanels();
+        mPanel.Toggle();
+    }
+
+    private void CloseAllMenuPanels()
+    {
+        foreach (var mp in MenuPanels)
+        {
+            if (mp.IsShowing)
+            {
+                mp.Toggle();
+            }
+        }
     }
 
     private void Update()

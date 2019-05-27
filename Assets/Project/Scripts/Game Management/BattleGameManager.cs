@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Battle;
+using System.Collections;
 using System.Collections.Generic;
 using TNet;
 using UnityEngine;
@@ -44,6 +45,7 @@ public class BattleGameManager : TNEventReceiver
         gameEvents.OnPlayerSpawn.AddListener(onPlayerSpawn);
         gameEvents.OnPlayerDeath.AddListener(onGameOver);
         gameEvents.OnPlayerDisconnect.AddListener(onPlayerClickedDisconnect);
+        gameEvents.OnMouseReleased.AddListener(onMouseReleased);
     }
 
     protected override void OnDisable()
@@ -52,6 +54,7 @@ public class BattleGameManager : TNEventReceiver
         gameEvents.OnPlayerSpawn.RemoveListener(onPlayerSpawn);
         gameEvents.OnPlayerDeath.RemoveListener(onGameOver);
         gameEvents.OnPlayerDisconnect.RemoveListener(onPlayerClickedDisconnect);
+        gameEvents.OnMouseReleased.RemoveListener(onMouseReleased);
     }
     // Start is called before the first frame update
     void Start()
@@ -69,6 +72,15 @@ public class BattleGameManager : TNEventReceiver
             onPlayerSpawn();
         }
    
+    }
+
+    public void onMouseReleased(bool release)
+    {
+        var bp = BattlePlayer.instance;
+        if (bp != null)
+        {
+            bp.GetComponent<BattlePlayerInput>().SuspendInputs(release);
+        }
     }
 
     public void onPlayerClickedDisconnect()

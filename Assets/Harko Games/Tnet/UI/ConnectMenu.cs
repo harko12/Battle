@@ -118,7 +118,7 @@ public class ConnectMenu : MonoBehaviour {
     public void OpenServerDialog()
     {
         var inputs = new System.Collections.Generic.List<InputItem>();
-        var i = ScriptableObject.CreateInstance<InputItem>();
+        var i = new InputItem(); // ScriptableObject.CreateInstance<InputItem>();
         i.InputName = INPUT_SERVERNAME; i.InputType = typeof(string).Name;
         inputs.Add(i);
         //        inputs.Add(new InputItem() { InputName = INPUT_SERVERNAME, InputType = typeof(string).Name });

@@ -12,6 +12,7 @@ public class GameEvents : ScriptableObject
     public UnityEvent OnPlayerSpawn;
     public UnityEvent OnPlayerDisconnect;
     public IntEvent OnChangeHost;
+    public BoolEvent OnMouseReleased;
 }
 
 [System.Serializable]
@@ -28,6 +29,12 @@ public class BattlePlayerEvent: UnityEvent<BattlePlayer>
 
 [System.Serializable]
 public class IntEvent : UnityEvent<int>
+{
+
+}
+
+[System.Serializable]
+public class BoolEvent : UnityEvent<bool>
 {
 
 }

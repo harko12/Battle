@@ -11,10 +11,12 @@ public class TeamDefinition
 }
 
 [CreateAssetMenu]
-public class LevelInfo : ScriptableObject {
-
+public class LevelInfo : InputItemSource {
+    [InputItem(INPUT_MaxPlayers, 0)]
     public int MaxPlayers;
+    [InputItem(INPUT_RoomName, 1)]
     public string RoomName;
+    [InputItem(INPUT_LevelName, 2)]
     public string LevelName;
 
     public const string INPUT_MaxPlayers = "Max Players";
@@ -24,14 +26,10 @@ public class LevelInfo : ScriptableObject {
 
     public List<TeamDefinition> TeamDefinitions;
 
-    public List<InputItem> GetInputItemList()
+    public override List<InputItem> GetInputItemList()
     {
-        var list = new List<InputItem>();
-        list.Add(new InputItem() { InputName = INPUT_RoomName, InputType = typeof(string).Name, InputValue = RoomName });
-        list.Add(new InputItem() { InputName = INPUT_MaxPlayers, InputType = typeof(int).Name, InputValue = MaxPlayers });
-        list.Add(new InputItem() { InputName = INPUT_LevelName, InputType = typeof(string).Name, InputValue = LevelName });
-        list.Add(new InputItem() { InputName = INPUT_TeamCount, InputType = typeof(int).Name, InputValue = TeamDefinitions.Count });
+        var list = GetInputItemListFromProperties<LevelInfo>();
+        list.Add(new InputItem() { InputName = INPUT_TeamCount, InputType = typeof(int).Name, InputValue = TeamDefinitions.Count, ReadOnly = true });
         return list;
     }
-
 }

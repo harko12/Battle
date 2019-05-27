@@ -10,6 +10,8 @@ namespace Battle
     [RequireComponent(typeof(BattleThirdPersonController))]
     public class BattlePlayerInput : TNBehaviour
     {
+        public static BattlePlayerInput instance;
+        public BattleGameSettings Settings;
         private BattlePlayer _battlePlayer;
         private BattleThirdPersonController m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
@@ -18,6 +20,7 @@ namespace Battle
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
         private bool m_Crouch;
         private float m_TurnAmount;
+        public float VerticalAngle { get; private set; }
 
         [Range(1f, 20f)]
         public float inputUpdates = 10f;
@@ -33,6 +36,35 @@ namespace Battle
             base.Awake();
             _battlePlayer = GetComponent<BattlePlayer>();
             mRb = GetComponent<Rigidbody>();
+            if (tno.isMine)
+            {
+                instance = this;
+            }
+        }
+
+        CursorLockMode wantedMode;
+
+        // Apply requested cursor state
+        void SetCursorState()
+        {
+            Cursor.lockState = wantedMode;
+            // Hide cursor when locking
+            Cursor.visible = (CursorLockMode.Locked != wantedMode);
+        }
+
+        private bool mInputSuspended;
+        public void SuspendInputs(bool suspend)
+        {
+            mInputSuspended = suspend;
+            wantedMode = suspend ? CursorLockMode.None : CursorLockMode.Locked;
+            SetCursorState();
+            if (suspend)
+            {
+                m_TurnAmount = 0;
+                VerticalAngle = 0;
+                m_Move = Vector3.zero;
+                tno.Send("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_Crouch);
+            }
         }
 
         private void Start()
@@ -50,12 +82,14 @@ namespace Battle
             }
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<BattleThirdPersonController>();
+            wantedMode = CursorLockMode.Locked;
+            SetCursorState();
         }
 
 
         private void Update()
         {
-            if (tno.isMine)
+            if (tno.isMine && !mInputSuspended)
             {
                 if (!m_Jump)
                 {
@@ -68,14 +102,14 @@ namespace Battle
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
-            if (tno.isMine)
+            if (tno.isMine && !mInputSuspended)
             {
                 // read inputs
                 float h = CrossPlatformInputManager.GetAxis("Horizontal");
                 float v = CrossPlatformInputManager.GetAxis("Vertical");
                 m_Crouch = Input.GetKey(KeyCode.C);
                 m_TurnAmount = Input.GetAxis("Mouse X");
-
+                VerticalAngle = Input.GetAxis("Mouse Y");
                 // calculate move direction to pass to character
                 if (m_Cam != null)
                 {
@@ -172,17 +206,7 @@ namespace Battle
             m_Jump = false;
         }
 
-
-        CursorLockMode wantedMode;
-
-        // Apply requested cursor state
-        void SetCursorState()
-        {
-            Cursor.lockState = wantedMode;
-            // Hide cursor when locking
-            Cursor.visible = (CursorLockMode.Locked != wantedMode);
-        }
-
+        /*
         void OnGUI()
         {
             GUILayout.BeginVertical();
@@ -219,6 +243,7 @@ namespace Battle
 
             SetCursorState();
         }
+        */
     }
 }
 
