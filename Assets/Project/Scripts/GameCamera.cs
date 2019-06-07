@@ -61,7 +61,6 @@ public class GameCamera : MonoBehaviour {
             var verticalInput = BattlePlayerInput.instance.VerticalAngle;
             if (BattlePlayerInput.instance.Settings.InvertMouse)
             {
-                Debug.Log("Inverting mouse input");
                 verticalInput *= -1;
             }
             var rotationSensitivity = BattlePlayerInput.instance.Settings.MouseSensitivity;

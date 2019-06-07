@@ -15,7 +15,8 @@ public class Pickup : TNBehaviour
     [Header("Pickup Movement")]
     private Vector3 offset;
     public Transform pickupTransform;
-
+    //public WeaponPrefab prefab { get; private set; }
+ 
     private float verticalAngle;
     public float rotationAngle;
 
@@ -30,8 +31,34 @@ public class Pickup : TNBehaviour
         coll.radius = PickupRadius;
         coll.isTrigger = true;
         offset = new Vector3(0, verticalRange + pickupTransform.localScale.y, 0); 
+        /*
         // the localscale thing is because it is moving base on the 'center' of the cube.  the scale tells us how much height from the 'bottom' to the 'center'
+        if (prefab == null && baseWeapon.WeaponPrefab.PrefabObject != null)
+        {
+            TNManager.Instantiate(tno.channelID,"CreatePickupPrefab", "Prefabs/Weapons/WeaponPack_glock (battle)", true, tno.uid);
+            var wp =   Instantiate<WeaponPrefab>(baseWeapon.WeaponPrefab, pickupTransform);
+            wp.transform.position = pickupTransform.position;
+            wp.transform.rotation = pickupTransform.rotation;
+            prefab = wp;
+        }
+        */
     }
+    /*
+    [RCC]
+    public static GameObject CreatePickupPrefab(GameObject prefab, uint pickupID)
+    {
+        // Instantiate the prefab
+        GameObject go = prefab.Instantiate();
+
+        var parentObj = TNObject.Find(pickupID);
+        var p = parentObj.GetComponent<Pickup>();
+        var parent = p.pickupTransform; // it's mounting the whole spawner, not just the pistol part
+        go.transform.SetParent(parent);
+        go.transform.position = parent.position;
+        go.transform.rotation = parent.rotation;
+        return go;
+    }
+    */
 
     // Update is called once per frame
     void Update()
@@ -47,7 +74,7 @@ public class Pickup : TNBehaviour
     [RFC]
     public void Die()
     {
-        DestroySelf();
+        this.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)

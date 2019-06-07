@@ -47,6 +47,7 @@ namespace Battle
         // Apply requested cursor state
         void SetCursorState()
         {
+//            return;
             Cursor.lockState = wantedMode;
             // Hide cursor when locking
             Cursor.visible = (CursorLockMode.Locked != wantedMode);
@@ -193,6 +194,15 @@ namespace Battle
             mRb.angularVelocity = angVel;
         }
 
+        public void NewEvent()
+        {
+
+        }
+        public void WeaponHolstered()
+        {
+
+        }
+
         void UpdateCharacter()
         {
             if (!tno.isMine)
@@ -206,6 +216,33 @@ namespace Battle
             m_Jump = false;
         }
 
+        [RFC]
+        public void SetWeapon(int weaponIndex) //needs to be tnet serializable
+        {
+            var index = 0;
+            float weight = 1;
+            if (weaponIndex > 0)
+            {
+                index = weaponIndex;
+                weight = 1;
+            }
+            m_Character.SetAnimValue("WeaponType", "INT", index);
+            m_Character.SetAnimValue("SwitchWeapon", "TRIGGER");
+            m_Character.SetAnimLayerWeight("Upper Body", weight);
+        }
+
+        [RFC]
+        public void SetAnimTrigger(string triggerName)
+        {
+            m_Character.SetAnimValue(triggerName, "TRIGGER");
+        }
+
+        [RFC]
+        public void SetTimedTrigger(string triggerName, string timeParm, float t)
+        {
+            m_Character.SetAnimValue(triggerName, "TRIGGER");
+            m_Character.SetAnimValue(timeParm, "FLOAT", t);
+        }
         /*
         void OnGUI()
         {

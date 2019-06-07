@@ -157,7 +157,7 @@ public class BattleGameManager : TNEventReceiver
         }
         if (!found)
         {
-            TNManager.Instantiate(channelID, "CreateBattlePlayer", "Prefabs/Player/Battle Network Player", false, sp.transform.position, sp.transform.rotation);
+            TNManager.Instantiate(channelID, "CreateBattlePlayer", "Prefabs/Player/Battle Network Player - swat", false, sp.transform.position, sp.transform.rotation);
         }
         else
         {

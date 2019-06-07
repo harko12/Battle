@@ -98,6 +98,7 @@ public class ConnectMenu : MonoBehaviour {
             return;
         }
         TNManager.playerName = playerName.text;
+        Debug.LogFormat("connecting to ext: {0} int: {1}", extAddress, intAddress);
         TNManager.Connect(extAddress, intAddress);
         mMessage = "Connecting...";
     }

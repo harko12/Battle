@@ -18,6 +18,10 @@ public class Weapon : ScriptableObject
     public float MaxRange = 1000;
     public bool IsAutomatic;
     public float AimVariation;
+
+    [Header("model and mount points")]
+    public PrefabPath WeaponPrefab;
+
     [Header("Ammo")]
     public int RaysPerShot = 1;
     public PrefabPath ProjectilePrefab;

@@ -74,10 +74,12 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     private Mesh ObstaclePreviewMesh;
     public Cooldown ObstacleCooldown;
     [Header("Weapons")]
+    public Transform PistolHolsterMountPoint;
+    public Transform HeldWeaponMountPoint;
     [SerializeField]
     private WeaponInstance currentWeapon;
     private SCG.List<WeaponInstance> weapons;
-    private Cooldown_counter WeaponFireCooldown, WeaponReloadCooldown;
+    private Cooldown_counter WeaponFireCooldown, WeaponReloadCooldown, WeaponEquipCooldown;
     public Transform shootOrigin;
 
     private bool isFocalPointOnLeft = true;
@@ -115,6 +117,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         weapons = new SCG.List<WeaponInstance>();
         WeaponFireCooldown = new Cooldown_counter();
         WeaponReloadCooldown = new Cooldown_counter();
+        WeaponEquipCooldown = new Cooldown_counter();
         PickCooldown.Reset();
         ObstacleCooldown.Reset();
         SetTool(PlayerTool.None);
@@ -152,12 +155,13 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
         WeaponFireCooldown.Tick(Time.deltaTime);
         WeaponReloadCooldown.Tick(Time.deltaTime);
+        WeaponEquipCooldown.Tick(Time.deltaTime);
     }
     // Update is called once per frame
     void Update()
     {
         if (!tno.isMine || gameCamera == null || waitingToRespawn) { return; }
-        handleCursorMode();
+        //handleCursorMode();
 
         updateCooldowns();
         uiValues.ToolMessage = "";
@@ -210,7 +214,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         UpdateWeapon();
 
     }
-
+    /*
     void handleCursorMode()
     {
         if (Input.GetKey(KeyCode.LeftBracket))
@@ -225,15 +229,17 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
             }
         }
     }
-
+    */
+    private bool weaponSwitching = false;
     void handleWeaponSwitchKeys()
     {
+        if (weaponSwitching) return;
         for (int lcv = 1, length = weapons.Count; lcv <= length; lcv++)
         {
             if (lcv > 9) { break; } // max 9 for now
-            if (Input.GetKey(lcv.ToString()))
+            if (Input.GetKeyDown(lcv.ToString()))
             {
-                SwitchWeapon(lcv - 1);
+                SwitchWeapon(lcv);
             }
         }
     }
@@ -251,9 +257,15 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         }
     }
 
-    void SwitchWeapon(int index)
+    void SwitchWeapon(int weaponType)
     {
-        if (currentWeapon != null) { currentWeapon.SwitchingOut(); }
+        int index = weaponType - 1;
+        if (currentWeapon != null)
+        {
+            currentWeapon.SwitchingOut();
+            if (currentWeapon.WeaponTypeIndex() == weaponType) { index = -1; } // reclickng the same weapon key unequps the weapon for now
+        }
+
         if (index < 0) // setting weapon to none
         {
             currentWeapon = null;
@@ -263,6 +275,10 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
             SetTool(PlayerTool.None);
             currentWeapon = weapons[index];
         }
+        weaponSwitching = true;
+        WeaponEquipCooldown.Start(2, () => { weaponSwitching = false; });
+        var wpTypeIndex = currentWeapon != null ? currentWeapon.WeaponTypeIndex() : 0;
+        Battle.BattlePlayerInput.instance.tno.Send("SetWeapon", Target.AllSaved, wpTypeIndex);
     }
 
     void handleInteractionKey(IInteractable i)
@@ -442,6 +458,16 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         return pickedUp;
     }
 
+    [RFC]
+    public void PlacePrefab(uint prefabID)
+    {
+        var parent = PistolHolsterMountPoint; // it's mounting the whole spawner, not just the pistol part
+        var prefab = TNObject.Find(prefabID);
+        prefab.transform.SetParent(parent);
+        prefab.transform.position = parent.position;
+        prefab.transform.rotation = parent.rotation;
+    }
+
     private bool AddWeaponFromPickup(Pickup p)
     {
         var currentWeapon = weapons.Where(w => w.baseWeapon.myType == p.baseWeapon.myType).FirstOrDefault();
@@ -449,6 +475,11 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         {
             currentWeapon = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
             weapons.Add(currentWeapon);
+            currentWeapon.prefabInstance = p.GetComponent<WeaponPrefab>();
+            if (currentWeapon.prefabInstance != null)
+            {
+                tno.Send("PlacePrefab", Target.AllSaved, p.tno.uid);
+            }
         }
         currentWeapon.AddAmmo(p.Value);
         uiValues.WeaponStatus = currentWeapon.GetStatus();

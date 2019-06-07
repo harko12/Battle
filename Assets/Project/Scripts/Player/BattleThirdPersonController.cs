@@ -125,6 +125,30 @@ namespace Battle
             }
         }
 
+        public void SetAnimLayerWeight(string layerName, float weight)
+        {
+            var index = m_Animator.GetLayerIndex(layerName);
+            m_Animator.SetLayerWeight(index, weight);
+        }
+
+        public void SetAnimValue(string propName, string valueType, object value = null)
+        {
+            switch (valueType.ToUpper())
+            {
+                case "FLOAT":
+                    m_Animator.SetFloat(propName, float.Parse(value.ToString()));
+                    break;
+                case "INT":
+                    m_Animator.SetInteger(propName, int.Parse(value.ToString()));
+                    break;
+                case "BOOL":
+                    m_Animator.SetBool(propName, bool.Parse(value.ToString()));
+                    break;
+                case "TRIGGER":
+                    m_Animator.SetTrigger(propName);
+                    break;
+            }
+        }
 
         void UpdateAnimator(Vector3 move)
         {
@@ -178,7 +202,7 @@ namespace Battle
         void HandleGroundedMovement(bool crouch, bool jump)
         {
             // check whether conditions are right to allow a jump:
-            if (jump && !crouch && m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
+            if (jump && !crouch && m_IsGrounded) // m_Animator.GetCurrentAnimatorStateInfo(0).IsName("Grounded"))
             {
                 // jump!
                 m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, m_JumpPower, m_Rigidbody.velocity.z);

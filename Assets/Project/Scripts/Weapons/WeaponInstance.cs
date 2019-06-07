@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TNet;
+using Battle;
 
 public class WeaponInstance
 {
@@ -12,10 +13,27 @@ public class WeaponInstance
     private Transform raycastOrigin;
     private Camera mainCam;
     private TNObject tno;
+    public WeaponPrefab prefabInstance;
 
     public int TotalAmmo { get; set; }
     public int ClipAmmo { get; set; }
 
+    public int WeaponTypeIndex()
+    {
+        switch (baseWeapon.myType)
+        {
+            case WeaponType.Pistol:
+                return 1;
+            case WeaponType.Shotgun:
+                return 2;
+            case WeaponType.Rifle:
+            case WeaponType.Sniper:
+                return 3;
+            case WeaponType.RocketLauncher:
+                return 4;
+        }
+        return 0;
+    }
 
     public WeaponInstance(Weapon w, Cooldown_counter fire, Cooldown_counter reload, Transform t, TNet.TNObject tnObject)
     {
@@ -181,9 +199,9 @@ public class WeaponInstance
         TNManager.Instantiate(tno.channelID, "FireProjectile", baseWeapon.ProjectilePrefab.PathInResources, false, raycastOrigin.position, (targetPoint - raycastOrigin.position).normalized);
     }
     
-    [RFC]
     public void Fire(RaycastHit lookTargetHit)
     {
+        BattlePlayerInput.instance.tno.Send("SetAnimTrigger", Target.All, "FireWeapon");
         if (baseWeapon.ProjectilePrefab != null)
         {
             FireProjectile(lookTargetHit.point);
@@ -204,7 +222,7 @@ public class WeaponInstance
                 if (Physics.Raycast(raycastOrigin.position, dir, out hit))
                 {
                     Debug.Log("hit " + hit.collider.gameObject.name);
-                    MarkerManager.Instance.Place(hit.point);
+//                    MarkerManager.Instance.Place(hit.point);
                     var gId = hit.collider.gameObject.GetInstanceID();
                     var destruct = hitObjects.ContainsKey(gId) ? hitObjects[gId] : null;
                     if (hitObjects.ContainsKey(gId) && destruct == null)
@@ -243,6 +261,7 @@ public class WeaponInstance
     {
         if (ClipAmmo < baseWeapon.ClipSize)
         {
+            BattlePlayerInput.instance.tno.Send("SetTimedTrigger", Target.All, "Reload", "ReloadTime", baseWeapon.ReloadTime);
             ReloadCooldown.Start(baseWeapon.ReloadTime, () => { FillClip(); });
         }
     }
