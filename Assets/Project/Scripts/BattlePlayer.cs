@@ -458,31 +458,75 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         return pickedUp;
     }
 
-    [RFC]
-    public void PlacePrefab(uint prefabID)
+    public void DrawWeapon(int weaponType)
     {
-        var parent = PistolHolsterMountPoint; // it's mounting the whole spawner, not just the pistol part
-        var prefab = TNObject.Find(prefabID);
+        if (!tno.isMine) return;
+        Debug.Log("drawing Weapon");
+        tno.Send("PlacePrefab", Target.AllSaved, currentWeapon.prefabInstance.tno.uid, WeaponMountPoints.RightHand);
+/*
+        var t = currentWeapon.prefabInstance.transform;
+        t.position = HeldWeaponMountPoint.position;
+        t.rotation = HeldWeaponMountPoint.rotation;
+        t.SetParent(HeldWeaponMountPoint);
+        */
+    }
+
+    public void PlaceWeapon(int weaponType)
+    {
+        if (!tno.isMine) return;
+        Debug.Log("Holstering Weapon");
+        var prevWeapon = weapons.Where(w => w.WeaponTypeIndex() == weaponType).FirstOrDefault();
+        if (prevWeapon != null && prevWeapon.prefabInstance != null)
+        {
+            tno.Send("PlacePrefab", Target.AllSaved, prevWeapon.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
+/*
+            var t = prevWeapon.prefabInstance.transform;
+            t.position = PistolHolsterMountPoint.position;
+            t.rotation = PistolHolsterMountPoint.rotation;
+            t.SetParent(PistolHolsterMountPoint);
+            */
+        }
+    }
+
+    public enum WeaponMountPoints { RightHand, Pistol, Auto, Sniper, RPG};
+    [RFC]
+    public void PlacePrefab(uint prefabID, int mountPoint)
+    {
+        Transform parent = transform;
+        switch((WeaponMountPoints)mountPoint)
+        {
+            case WeaponMountPoints.Pistol:
+                parent = PistolHolsterMountPoint;
+                break;
+            case WeaponMountPoints.RightHand:
+                parent = HeldWeaponMountPoint;
+                break;
+            default:
+                break;
+        }
+        var prefab = TNObject.Find(tno.channelID, prefabID);
         prefab.transform.SetParent(parent);
-        prefab.transform.position = parent.position;
-        prefab.transform.rotation = parent.rotation;
+        prefab.transform.localPosition = Vector3.zero;
+        prefab.transform.localRotation = Quaternion.identity;
+        //        prefab.transform.position = parent.position;
+        //        prefab.transform.rotation = parent.rotation;
     }
 
     private bool AddWeaponFromPickup(Pickup p)
     {
-        var currentWeapon = weapons.Where(w => w.baseWeapon.myType == p.baseWeapon.myType).FirstOrDefault();
-        if (currentWeapon == null)
+        var weaponToAdd = weapons.Where(w => w.baseWeapon.myType == p.baseWeapon.myType).FirstOrDefault();
+        if (weaponToAdd == null)
         {
-            currentWeapon = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
-            weapons.Add(currentWeapon);
-            currentWeapon.prefabInstance = p.GetComponent<WeaponPrefab>();
-            if (currentWeapon.prefabInstance != null)
+            weaponToAdd = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
+            weapons.Add(weaponToAdd);
+            weaponToAdd.prefabInstance = p.GetComponent<WeaponPrefab>();
+            if (weaponToAdd.prefabInstance != null)
             {
-                tno.Send("PlacePrefab", Target.AllSaved, p.tno.uid);
+                tno.Send("PlacePrefab", Target.AllSaved, weaponToAdd.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
             }
         }
-        currentWeapon.AddAmmo(p.Value);
-        uiValues.WeaponStatus = currentWeapon.GetStatus();
+        weaponToAdd.AddAmmo(p.Value);
+        uiValues.WeaponStatus = weaponToAdd.GetStatus();
         return true;
     }
 

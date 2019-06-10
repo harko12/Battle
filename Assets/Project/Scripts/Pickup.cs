@@ -5,7 +5,7 @@ using TNet;
 
 public enum PickupType { Ammo, Health, Shield, Weapon };
 
-public class Pickup : TNBehaviour
+public class Pickup : MonoBehaviour
 {
     public float PickupRadius;
     public PickupType myType;
@@ -21,10 +21,12 @@ public class Pickup : TNBehaviour
     public float rotationAngle;
 
     public float verticalRange, verticalSpeed;
+    private TNObject tno;
 
     // Start is called before the first frame update
     void Start()
     {
+        tno = GetComponent<TNObject>();
         var coll = gameObject.AddComponent<CapsuleCollider>();
         coll.height = verticalRange;
         coll.center = new Vector3(0, verticalRange * .5f, 0);
