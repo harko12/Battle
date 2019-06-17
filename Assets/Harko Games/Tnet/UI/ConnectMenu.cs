@@ -65,6 +65,14 @@ public class ConnectMenu : MonoBehaviour {
         {
             playerName.text = TNManager.playerName;
         }
+        else
+        {
+            name = CommandLineArgReader.GetArg("-playerName");
+            if (name != null)
+            {
+                playerName.text = name;
+            }
+        }
 
         var serverIP = pInfo.ServerIP;
         if (!string.IsNullOrEmpty(serverIP))
