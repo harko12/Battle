@@ -455,6 +455,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
                 pickedUp = AddWeaponFromPickup(p);
                 break;
         }
+        if (pickedUp) { Debug.LogFormat("picked up {0}", p.name); }
         return pickedUp;
     }
 
@@ -515,16 +516,18 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     private bool AddWeaponFromPickup(Pickup p)
     {
         var weaponToAdd = weapons.Where(w => w.baseWeapon.myType == p.baseWeapon.myType).FirstOrDefault();
-        if (weaponToAdd == null)
+        if (weaponToAdd != null)
         {
-            weaponToAdd = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
-            weapons.Add(weaponToAdd);
-            weaponToAdd.prefabInstance = p.GetComponent<WeaponPrefab>();
-            if (weaponToAdd.prefabInstance != null)
-            {
-                tno.Send("PlacePrefab", Target.AllSaved, weaponToAdd.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
-            }
+            return false; // can't pick up a weapon type you already have, for now
         }
+        weaponToAdd = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
+        weapons.Add(weaponToAdd);
+        weaponToAdd.prefabInstance = p.GetComponent<WeaponPrefab>();
+        if (weaponToAdd.prefabInstance != null)
+        {
+            tno.Send("PlacePrefab", Target.AllSaved, weaponToAdd.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
+        }
+
         weaponToAdd.AddAmmo(p.Value);
         uiValues.WeaponStatus = weaponToAdd.GetStatus();
         return true;

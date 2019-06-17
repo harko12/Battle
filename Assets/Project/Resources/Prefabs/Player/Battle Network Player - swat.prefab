@@ -486,7 +486,7 @@ MonoBehaviour:
   uiValues: {fileID: 11400000, guid: cc92710da2ac4a2459fad2bb48c4643a, type: 2}
   rotationPoint: {fileID: 4617419499131841296}
   focalPoint: {fileID: 4617419499739712382}
-  focalDistance: 0.5
+  focalDistance: 0.05
   focalSmoothness: 3
   changeFocalSideKey: 113
   gameCamera: {fileID: 0}
@@ -669,10 +669,6 @@ PrefabInstance:
       propertyPath: m_LODs.Array.data[0].renderers.Array.data[2].renderer
       value: 
       objectReference: {fileID: 945287959707605155}
-    - target: {fileID: 20500000, guid: a980fb7137f2e194a8a2e064607659c8, type: 3}
-      propertyPath: m_LODs.Array.data[0].fadeTransitionWidth
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a980fb7137f2e194a8a2e064607659c8, type: 3}
 --- !u!4 &945287959694035421 stripped

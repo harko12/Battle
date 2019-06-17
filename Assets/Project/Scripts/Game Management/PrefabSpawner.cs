@@ -3,7 +3,7 @@ using scg = System.Collections.Generic;
 using UnityEngine;
 using TNet;
 using UnityEditor;
-
+[ExecuteInEditMode]
 public class PrefabSpawner : MonoBehaviour
 {
     public static int lastId = -1;
@@ -24,6 +24,21 @@ public class PrefabSpawner : MonoBehaviour
         PrefabSpawner.spawners.Add(this);
         Index = PrefabSpawner.spawners.IndexOf(this);
         //Debug.LogFormat("{0} setting index to {1}", gameObject.name, Index);
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            if (preview == null)
+            {
+                preview = GameObject.Instantiate(prefab.PrefabObject);
+                var t = transform;
+                preview.hideFlags = HideFlags.HideAndDontSave;
+                preview.transform.SetParent(t);
+                preview.transform.position = t.position;
+                preview.transform.rotation = t.rotation;
+                preview.transform.localScale = t.localScale;
+            }
+        }
+#endif
     }
 
     private void OnEnable()

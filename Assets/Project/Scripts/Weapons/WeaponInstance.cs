@@ -35,7 +35,7 @@ public class WeaponInstance
         return 0;
     }
 
-    public WeaponInstance(Weapon w, Cooldown_counter fire, Cooldown_counter reload, Transform t, TNet.TNObject tnObject)
+    public WeaponInstance(Weapon w, Cooldown_counter fire, Cooldown_counter reload, Transform t, TNObject tnObject)
     {
         FireCooldown = fire;
         ReloadCooldown = reload;

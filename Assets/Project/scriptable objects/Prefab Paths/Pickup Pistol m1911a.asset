@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 424b702ecd3a30b4caff514d935a8347, type: 3}
-  m_Name: Weapon - Glock
+  m_Name: Pickup Pistol m1911a
   m_EditorClassIdentifier: 
-  PrefabObject: {fileID: 9166748540578407462, guid: 91f38da8e4c1aad4099ab91dd1516ce0,
+  PrefabObject: {fileID: 9166748540578407462, guid: 903bdb4a8cb59fd4e90c49f4dbbdaa16,
     type: 3}
   ResourcesPath: Assets/Project/Resources/
-  AssetPath: Assets/Project/Resources/Prefabs/Weapons/Glock weapon.prefab
-  PathInResources: Prefabs/Weapons/Glock weapon
+  AssetPath: Assets/Project/Resources/Prefabs/Weapons/M1911_weapon .prefab
+  PathInResources: 'Prefabs/Weapons/M1911_weapon '

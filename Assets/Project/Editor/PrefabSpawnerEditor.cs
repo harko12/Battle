@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEditor;
 
 [CanEditMultipleObjects]
-[InitializeOnLoad]
+//[InitializeOnLoad]
 [CustomEditor(typeof(PrefabSpawner), true)]
 public class PrefabSpawnerEditor : Editor
 {
     private GameObject preview;
     private void Awake()
     {
-        PreviewPrefab();
+       // PreviewPrefab();
     }
 
     void PreviewPrefab()

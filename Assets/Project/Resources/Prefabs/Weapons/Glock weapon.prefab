@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3438595896832918843
+--- !u!1 &8687992184748655628
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 838955928277270195}
+  - component: {fileID: 7721059995855462631}
   m_Layer: 0
   m_Name: shootOrigin
   m_TagString: Untagged
@@ -16,21 +16,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &838955928277270195
+--- !u!4 &7721059995855462631
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3438595896832918843}
+  m_GameObject: {fileID: 8687992184748655628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.08, z: 0.18}
+  m_LocalPosition: {x: 0, y: 0.083, z: 0.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8010138688870854838}
+  m_Father: {fileID: 3291271581832056429}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3923623188083112146
+--- !u!1 &9166748540252620491
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6968233206464337015}
+  - component: {fileID: 9166748540252620490}
   m_Layer: 0
   m_Name: pickup mount
   m_TagString: Untagged
@@ -46,27 +46,62 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6968233206464337015
+--- !u!4 &9166748540252620490
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3923623188083112146}
+  m_GameObject: {fileID: 9166748540252620491}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8010138688870854838}
-  m_RootOrder: 3
+  m_Children:
+  - {fileID: 3291271581832056429}
+  m_Father: {fileID: 9166748540578407483}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-1160827166601606614
+--- !u!1 &9166748540578407462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9166748540578407483}
+  - component: {fileID: 9166748540578407482}
+  - component: {fileID: 9166748540578407461}
+  - component: {fileID: 9166748540578407460}
+  m_Layer: 0
+  m_Name: Glock weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9166748540578407483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166748540578407462}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.214, y: 1.307, z: -0.377}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9166748540252620490}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9166748540578407482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8010138688871017622}
+  m_GameObject: {fileID: 9166748540578407462}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b60cb76d8d8319469ddbb94bac31d01, type: 3}
@@ -74,13 +109,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mStaticID: 0
   ignoreWarnings: 0
---- !u!114 &162708197447016821
+--- !u!114 &9166748540578407461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8010138688871017622}
+  m_GameObject: {fileID: 9166748540578407462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40709fabfa4640e40a3a8e7a0ca4c172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShootOrigin: {fileID: 7721059995855462631}
+--- !u!114 &9166748540578407460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166748540578407462}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a3f525b6b58965488b9e8fe4ab8d0f6, type: 3}
@@ -90,33 +138,20 @@ MonoBehaviour:
   myType: 3
   baseWeapon: {fileID: 11400000, guid: 87d2d0a0bc7d4a644b328d92160e441f, type: 2}
   Value: 24
-  pickupTransform: {fileID: 6968233206464337015}
+  pickupTransform: {fileID: 9166748540252620490}
   rotationAngle: 30
   verticalRange: 0.5
   verticalSpeed: 2
---- !u!114 &6340596722318369903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8010138688871017622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40709fabfa4640e40a3a8e7a0ca4c172, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShootOrigin: {fileID: 838955928277270195}
---- !u!1001 &8010138688870984242
+--- !u!1001 &3291271581832451305
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 9166748540252620490}
     m_Modifications:
     - target: {fileID: 100004, guid: 9e8f82940ed70ca4da26809d40de5496, type: 3}
       propertyPath: m_Name
-      value: WeaponPack_glock (battle)
+      value: WeaponPack_glock
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 9e8f82940ed70ca4da26809d40de5496, type: 3}
       propertyPath: m_LocalPosition.x
@@ -164,15 +199,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e8f82940ed70ca4da26809d40de5496, type: 3}
---- !u!1 &8010138688871017622 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100004, guid: 9e8f82940ed70ca4da26809d40de5496,
-    type: 3}
-  m_PrefabInstance: {fileID: 8010138688870984242}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8010138688870854838 stripped
+--- !u!4 &3291271581832056429 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 9e8f82940ed70ca4da26809d40de5496,
     type: 3}
-  m_PrefabInstance: {fileID: 8010138688870984242}
+  m_PrefabInstance: {fileID: 3291271581832451305}
   m_PrefabAsset: {fileID: 0}
