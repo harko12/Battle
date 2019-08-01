@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using HarkoGames.Utilities;
+using System.Collections;
 using System.Collections.Generic;
 using TNet;
 using UnityEngine;
@@ -18,8 +20,10 @@ namespace Battle
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+        [SerializeField]
+        private bool m_Aim;
         private bool m_Crouch;
-        private float m_TurnAmount;
+        public float m_TurnAmount { get; private set; }
         public float VerticalAngle { get; private set; }
 
         [Range(1f, 20f)]
@@ -34,12 +38,22 @@ namespace Battle
         protected override void Awake()
         {
             base.Awake();
-            _battlePlayer = GetComponent<BattlePlayer>();
-            mRb = GetComponent<Rigidbody>();
             if (tno.isMine)
             {
                 instance = this;
             }
+            _battlePlayer = GetComponent<BattlePlayer>();
+            mRb = GetComponent<Rigidbody>();
+        }
+
+        private CinemachineBrain GetCmBrain()
+        {
+            if (CinemachineCore.Instance.BrainCount > 0)
+            {
+                return CinemachineCore.Instance.GetActiveBrain(0);
+            }
+            return null;
+
         }
 
         CursorLockMode wantedMode;
@@ -47,7 +61,6 @@ namespace Battle
         // Apply requested cursor state
         void SetCursorState()
         {
-//            return;
             Cursor.lockState = wantedMode;
             // Hide cursor when locking
             Cursor.visible = (CursorLockMode.Locked != wantedMode);
@@ -68,30 +81,67 @@ namespace Battle
             }
         }
 
+        public float GetAxis(string axis)
+        {
+            if (mInputSuspended)
+            {
+                return 0;
+            }
+            return Input.GetAxis(axis);
+        }
+
+        public bool GetKey(KeyCode code)
+        {
+            if (mInputSuspended)
+            {
+                return false;
+            }
+            return Input.GetKey(code);
+        }
+
         private void Start()
         {
-            // get the transform of the main camera
-            if (Camera.main != null)
-            {
-                m_Cam = Camera.main.transform;
-            }
-            else
-            {
-                Debug.LogWarning(
-                    "Warning: no main camera found. Third person character needs a Camera tagged \"MainCamera\", for camera-relative controls.", gameObject);
-                // we use self-relative controls in this case, which probably isn't what the user wants, but hey, we warned them!
-            }
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<BattleThirdPersonController>();
             wantedMode = CursorLockMode.Locked;
             SetCursorState();
+            Cinemachine.CinemachineCore.GetInputAxis = GetAxisCustom;
         }
 
+        public float GetAxisCustom(string axisName)
+        {
+            if (axisName == "Mouse X")
+            {
+                //return 0;
+                return UnityEngine.Input.GetAxis("Mouse X");
+            }
+            else if (axisName == "Mouse Y")
+            {
+                var multiplier = 1;
+                if (BattlePlayerInput.instance.Settings.InvertMouse)
+                {
+                    multiplier = -1;
+                }
+                return UnityEngine.Input.GetAxis("Mouse Y") * multiplier;
+            }
+            return UnityEngine.Input.GetAxis(axisName);
+        }
 
         private void Update()
         {
             if (tno.isMine && !mInputSuspended)
             {
+                m_Cam = null;
+                var cmBrain = GetCmBrain();
+                if (cmBrain != null)
+                {
+                    var blah = cmBrain.ActiveVirtualCamera;
+                    if (blah != null)
+                    {
+                        m_Cam = blah.VirtualCameraGameObject.transform;
+                    }
+                }
+
                 if (!m_Jump)
                 {
                     tno.Send("SetJump", Target.AllSaved, CrossPlatformInputManager.GetButtonDown("Jump"));
@@ -99,7 +149,7 @@ namespace Battle
             }
         }
 
-
+        public float MaxFreelookFacingDiff = .1f;
         // Fixed update is called in sync with physics
         private void FixedUpdate()
         {
@@ -108,12 +158,23 @@ namespace Battle
                 // read inputs
                 float h = CrossPlatformInputManager.GetAxis("Horizontal");
                 float v = CrossPlatformInputManager.GetAxis("Vertical");
+                var inputVector = new Vector3(h, 0, v);
                 m_Crouch = Input.GetKey(KeyCode.C);
-                m_TurnAmount = Input.GetAxis("Mouse X");
+                
+                var new_aim = Input.GetAxis("Fire2") > .01f;
+                if (m_Aim != new_aim)
+                {
+                    _battlePlayer.tno.Send("ToggleAim", Target.AllSaved, new_aim);
+                }
+                m_Aim = new_aim;
+                
+                //_battlePlayer.ToggleAim(m_Aim);
+                m_TurnAmount =  Input.GetAxis("Mouse X");
                 VerticalAngle = Input.GetAxis("Mouse Y");
                 // calculate move direction to pass to character
                 if (m_Cam != null)
                 {
+//                    Debug.Log("setting move from camera perspective");
                     // calculate camera relative direction to move:
                     m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
                     m_Move = v * m_CamForward + h * m_Cam.right;
@@ -153,7 +214,7 @@ namespace Battle
                     }
                     */
                     mLastInputSend = time;
-                    tno.Send("SetInputs", Target.OthersSaved, m_Move,m_TurnAmount, m_Crouch);
+                    tno.Send("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_Crouch);
                     
                     // Since the input is sent frequently, rigidbody only needs to be corrected every couple of seconds.
                     // Faster-paced games will require more frequent updates.
@@ -162,11 +223,9 @@ namespace Battle
                         mNextRB = time + 1f / rigidbodyUpdates;
                         tno.Send("SetRB", Target.OthersSaved, mRb.position, mRb.rotation, mRb.velocity, mRb.angularVelocity);
                     }
-                    
                 }
             }
             UpdateCharacter();
-
         }
 
         [RFC]
@@ -212,6 +271,7 @@ namespace Battle
             // pass all parameters to the character control script
             Vector3 vizOrigin = transform.position + Vector3.up * 1;
             Debug.DrawLine(vizOrigin, vizOrigin + m_Move.normalized, Color.green);
+            m_Character.SetAnimValue("Aiming", "BOOL", m_Aim);
             m_Character.Move(m_Move, m_TurnAmount, m_Crouch, m_Jump);
             m_Jump = false;
         }
@@ -243,44 +303,6 @@ namespace Battle
             m_Character.SetAnimValue(triggerName, "TRIGGER");
             m_Character.SetAnimValue(timeParm, "FLOAT", t);
         }
-        /*
-        void OnGUI()
-        {
-            GUILayout.BeginVertical();
-            // Release cursor on escape keypress
-            if (Input.GetKeyDown(KeyCode.Escape))
-                Cursor.lockState = wantedMode = CursorLockMode.None;
-
-            switch (Cursor.lockState)
-            {
-                case CursorLockMode.None:
-                    GUILayout.Label("Cursor is normal");
-                    if (GUILayout.Button("Lock cursor"))
-                        wantedMode = CursorLockMode.Locked;
-                    if (GUILayout.Button("Confine cursor"))
-                        wantedMode = CursorLockMode.Confined;
-                    break;
-                case CursorLockMode.Confined:
-                    GUILayout.Label("Cursor is confined");
-                    if (GUILayout.Button("Lock cursor"))
-                        wantedMode = CursorLockMode.Locked;
-                    if (GUILayout.Button("Release cursor"))
-                        wantedMode = CursorLockMode.None;
-                    break;
-                case CursorLockMode.Locked:
-                    GUILayout.Label("Cursor is locked");
-                    if (GUILayout.Button("Unlock cursor"))
-                        wantedMode = CursorLockMode.None;
-                    if (GUILayout.Button("Confine cursor"))
-                        wantedMode = CursorLockMode.Confined;
-                    break;
-            }
-
-            GUILayout.EndVertical();
-
-            SetCursorState();
-        }
-        */
     }
 }
 

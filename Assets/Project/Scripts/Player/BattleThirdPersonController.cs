@@ -216,6 +216,7 @@ namespace Battle
         {
             // help the character turn faster (this is in addition to root rotation in the animation)
             float turnSpeed = Mathf.Lerp(m_StationaryTurnSpeed, m_MovingTurnSpeed, m_ForwardAmount);
+//            Debug.LogFormat("turn speed: {0} turn amount {1}", turnSpeed, m_TurnAmount);
             transform.Rotate(0, m_TurnAmount * turnSpeed * Time.deltaTime, 0);
         }
 

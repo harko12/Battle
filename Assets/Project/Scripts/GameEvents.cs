@@ -38,3 +38,9 @@ public class BoolEvent : UnityEvent<bool>
 {
 
 }
+
+[System.Serializable]
+public class Vector2Event : UnityEvent<Vector2>
+{
+
+}

@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f84d40c6c9a184a9935b62c2bfa66e, type: 3}
   m_Name: UI Values 1
   m_EditorClassIdentifier: 
-  ResourceCount: 400
+  ResourceCount: 0
+  ToolMessage: 
+  WeaponStatus: "Pistol\r\n clip: 6 reserve: 141\r\nCan fire"
+  PlayerHealth: 50
+  AimTargetPosition: {x: 0, y: 0, z: 0}

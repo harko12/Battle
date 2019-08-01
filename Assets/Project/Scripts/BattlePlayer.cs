@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using SCG = System.Collections.Generic;
+﻿using SCG = System.Collections.Generic;
 using System.Linq;
 using TNet;
 using UnityEngine;
-using UnityStandardAssets.Characters.ThirdPerson;
+using Battle;
 
 public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
 {
@@ -20,16 +19,22 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     [Header("Focal Point variables")]
     public GameObject rotationPoint;
     public GameObject focalPoint;
-    [SerializeField] private float focalDistance;
-    [SerializeField] private float focalSmoothness;
-    [SerializeField] private KeyCode changeFocalSideKey;
+    public float focalSmoothness;
+    public KeyCode changeFocalSideKey;
 
     [Header("Interaction")]
-    [SerializeField]
+    public GameCamera[] GameCameras;
     private GameCamera gameCamera;
     public KeyCode InteractionKey;
     public KeyCode ToolSwitchKey;
     public float InteractionDistance;
+    [Header("Camera")]
+    [SerializeField]
+    public Transform aimTarget;
+    [SerializeField]
+    private Cinemachine.CinemachineVirtualCamera aimCamera;
+    [SerializeField]
+    private Cinemachine.CinemachineVirtualCamera followCamera;
 
     [Header("Gameplay")]
     [SerializeField]
@@ -81,7 +86,8 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     private SCG.List<WeaponInstance> weapons;
     private Cooldown_counter WeaponFireCooldown, WeaponReloadCooldown, WeaponEquipCooldown;
     public Transform shootOrigin;
-
+    private bool isAiming;
+    public BattleIKManager ikManager;
     private bool isFocalPointOnLeft = true;
 
     protected override void Awake()
@@ -90,17 +96,30 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         if (tno.isMine)
         {
             BattlePlayer.instance = this;
+            gameCamera = GameCameras[0];
+            tno.Send("ToggleAim", Target.AllSaved, false);
         }
     }
 
-    private void OnEnable()
+    [RFC]
+    public void ToggleAim(bool aiming)
     {
-        //gameEvents.OnToolChanged.AddListener(onToolChanged);
-    }
+        var gameCameraIndex = 1;
+        var aimCamPriority = 10;
+        var lookCamPriority = 0;
+        if (!aiming)
+        {
+            gameCameraIndex = 0;
+            aimCamPriority = 0; lookCamPriority = 10;
+        }
+        gameCamera = GameCameras[gameCameraIndex];
+        isAiming = aiming;
 
-    private void OnDisable()
-    {
-        //gameEvents.OnToolChanged.RemoveListener(onToolChanged);
+        if (tno.isMine)
+        {
+            aimCamera.Priority = aimCamPriority;
+            followCamera.Priority = lookCamPriority;
+        }
     }
 
     // Use this for initialization
@@ -112,7 +131,6 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
 
     public void Init()
     {
-        gameCamera = Camera.main.GetComponent<GameCamera>();
         ObstacleParent = GameObject.FindGameObjectWithTag("ObstacleParent");
         weapons = new SCG.List<WeaponInstance>();
         WeaponFireCooldown = new Cooldown_counter();
@@ -130,7 +148,14 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         if (tno.isMine)
         {
             //Cursor.lockState = CursorLockMode.Locked;
-            gameCamera.Init(this);
+            BattleGameCameraManager.instance.SetFreeLookTarget(this);
+//            lookIk.solver.target = BattleGameCameraManager.instance.FreeLookDefaultTarget;
+//            gameCamera.Init(this);
+        }
+        else
+        {
+            aimCamera.Priority = 0;
+            followCamera.Priority = 0;
         }
         Health = 50;
         Resources = 0;// to init the counter
@@ -143,7 +168,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
         if (!tno.isMine) { return; }
         waitingToRespawn = true;
-        gameCamera.Release();
+        //gameCamera.Release();
         gameEvents.OnPlayerDeath.Invoke(this);
     }
 
@@ -157,11 +182,30 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         WeaponReloadCooldown.Tick(Time.deltaTime);
         WeaponEquipCooldown.Tick(Time.deltaTime);
     }
+    
+    void LateUpdate()
+    {
+        UpdateIK();
+        if (!tno.isMine) { return; }
+        /*
+                if (currentWeapon != null)
+                {
+                    aimIk.solver.axis = aimIk.solver.transform.InverseTransformDirection(currentWeapon.prefabInstance.transform.forward);
+                }
+                */
+    }
+
+    [RFC]
+    public void SetAimTargetPosition(Vector3 pos)
+    {
+        aimTarget.position = pos;
+    }
+    public float weaponRange = 100f;
+
     // Update is called once per frame
     void Update()
     {
         if (!tno.isMine || gameCamera == null || waitingToRespawn) { return; }
-        //handleCursorMode();
 
         updateCooldowns();
         uiValues.ToolMessage = "";
@@ -171,22 +215,25 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         {
             isFocalPointOnLeft = !isFocalPointOnLeft;
         }
-
-        float targetX = focalDistance * (isFocalPointOnLeft ? -1 : 1);
+        
+        float targetX = gameCamera.focalDistance * (isFocalPointOnLeft ? -1 : 1);
         float smoothX = Mathf.Lerp(focalPoint.transform.localPosition.x, targetX, focalSmoothness * Time.deltaTime);
         focalPoint.transform.localPosition = new Vector3(smoothX, focalPoint.transform.localPosition.y, focalPoint.transform.localPosition.z);
-
+        
         // interaction
         var cameraTransform = gameCamera.transform;
         var cameraAnchor = gameCamera.GetRotationAnchor();
-        Ray r = new Ray(cameraAnchor.position, cameraTransform.forward);
+        var aimTargetPos = cameraTransform.position + (cameraTransform.forward * weaponRange);
+        SetAimTargetPosition(aimTargetPos);
+        tno.Send("SetAimTargetPosition", Target.Others, aimTargetPos);
+//        Debug.DrawLine(cameraTransform.position, aimTargetPos, Color.blue);
 #if UNITY_EDITOR
-        Debug.DrawLine(cameraAnchor.position, cameraTransform.position + cameraTransform.forward * InteractionDistance, Color.green);
 #endif
         // get any interactable in our range (only one)
 
         RaycastHit hit;
         IInteractable interactable = null;
+        Ray r = new Ray(cameraAnchor.position, cameraTransform.forward);
         if (Physics.Raycast(r, out hit, 5f))
         {
             interactable = hit.collider.GetComponentInParent<IInteractable>();
@@ -212,24 +259,8 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         }
 
         UpdateWeapon();
+    }
 
-    }
-    /*
-    void handleCursorMode()
-    {
-        if (Input.GetKey(KeyCode.LeftBracket))
-        {
-            if (Cursor.lockState == CursorLockMode.None)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
-    }
-    */
     private bool weaponSwitching = false;
     void handleWeaponSwitchKeys()
     {
@@ -242,6 +273,11 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
                 SwitchWeapon(lcv);
             }
         }
+    }
+
+    void UpdateIK()
+    {
+        if (ikManager != null) { ikManager.UpdateIK(currentWeapon, isAiming); }
     }
 
     void UpdateWeapon()
@@ -276,7 +312,9 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
             currentWeapon = weapons[index];
         }
         weaponSwitching = true;
-        WeaponEquipCooldown.Start(2, () => { weaponSwitching = false; });
+        WeaponEquipCooldown.Start(2, () => {
+            weaponSwitching = false;
+        });
         var wpTypeIndex = currentWeapon != null ? currentWeapon.WeaponTypeIndex() : 0;
         Battle.BattlePlayerInput.instance.tno.Send("SetWeapon", Target.AllSaved, wpTypeIndex);
     }
@@ -300,7 +338,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
             {
                 if (!PickCooldown.IsRunning)
                 {
-                    if (Input.GetAxis("Fire1") > 0)
+                    if (BattlePlayerInput.instance.GetAxis("Fire1") > 0)
                     {
                         StartCoroutine(PickCooldown.Run());
                         i.Interact(this);
@@ -366,7 +404,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         }
 
         lastObstacleIndex = index;
-        if (Input.GetAxis("Fire1") > 0)
+        if (BattlePlayerInput.instance.GetAxis("Fire1") > 0)
         {
             PlaceObstacle(currentObsPrefab, currentObsScript, ObstaclePreview.transform);
             StartCoroutine(ObstacleCooldown.Run());
@@ -382,9 +420,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         }
 
         Resources -= obs.Cost;
-//        var newObs = Instantiate(p, obsPosition.position, obsPosition.rotation, ObstacleParent.transform);
         TNManager.Instantiate(tno.channelID, "CreateObstacle", p.PathInResources, false, obsPosition.position, obsPosition.rotation);
-
     }
 
     public void AddResource(int r)
@@ -464,12 +500,6 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         if (!tno.isMine) return;
         Debug.Log("drawing Weapon");
         tno.Send("PlacePrefab", Target.AllSaved, currentWeapon.prefabInstance.tno.uid, WeaponMountPoints.RightHand);
-/*
-        var t = currentWeapon.prefabInstance.transform;
-        t.position = HeldWeaponMountPoint.position;
-        t.rotation = HeldWeaponMountPoint.rotation;
-        t.SetParent(HeldWeaponMountPoint);
-        */
     }
 
     public void PlaceWeapon(int weaponType)
@@ -480,12 +510,6 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         if (prevWeapon != null && prevWeapon.prefabInstance != null)
         {
             tno.Send("PlacePrefab", Target.AllSaved, prevWeapon.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
-/*
-            var t = prevWeapon.prefabInstance.transform;
-            t.position = PistolHolsterMountPoint.position;
-            t.rotation = PistolHolsterMountPoint.rotation;
-            t.SetParent(PistolHolsterMountPoint);
-            */
         }
     }
 
@@ -509,8 +533,6 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         prefab.transform.SetParent(parent);
         prefab.transform.localPosition = Vector3.zero;
         prefab.transform.localRotation = Quaternion.identity;
-        //        prefab.transform.position = parent.position;
-        //        prefab.transform.rotation = parent.rotation;
     }
 
     private bool AddWeaponFromPickup(Pickup p)
@@ -522,9 +544,10 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
         }
         weaponToAdd = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
         weapons.Add(weaponToAdd);
-        weaponToAdd.prefabInstance = p.GetComponent<WeaponPrefab>();
-        if (weaponToAdd.prefabInstance != null)
+        var weaponPrefabInstance= p.GetComponent<WeaponPrefab>();
+        if (weaponPrefabInstance != null)
         {
+            weaponToAdd.SetWeaponPrefab(weaponPrefabInstance);
             tno.Send("PlacePrefab", Target.AllSaved, weaponToAdd.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
         }
 
@@ -563,8 +586,7 @@ public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
         if (Health <= 0)
         {
-            tno.Send("Die", Target.AllSaved);
-//            Die();
+            tno.Send("Die", Target.All);
         }
     }
 }

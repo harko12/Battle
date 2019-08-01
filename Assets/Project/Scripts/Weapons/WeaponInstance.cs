@@ -13,7 +13,13 @@ public class WeaponInstance
     private Transform raycastOrigin;
     private Camera mainCam;
     private TNObject tno;
-    public WeaponPrefab prefabInstance;
+    public WeaponPrefab prefabInstance { get; private set; }
+
+    public void SetWeaponPrefab(WeaponPrefab w)
+    {
+        prefabInstance = w;
+        raycastOrigin = w.ShootOrigin;
+    }
 
     public int TotalAmmo { get; set; }
     public int ClipAmmo { get; set; }
@@ -129,7 +135,7 @@ public class WeaponInstance
             return;
         }
 
-        if (Input.GetKey(KeyCode.R))
+        if (BattlePlayerInput.instance.GetKey(KeyCode.R))
         {
             Reload();
             return;
@@ -137,7 +143,7 @@ public class WeaponInstance
 
         if (!CanFireWeapon()) { return; }
 
-        var pressingTrigger = Input.GetAxis("Fire1") > .01f;
+        var pressingTrigger = BattlePlayerInput.instance.GetAxis("Fire1") > .01f;
         if (!pressingTrigger)
         {
             canShootSemiAuto = true;
@@ -145,7 +151,7 @@ public class WeaponInstance
 
         if (!FireCooldown.IsRunning)
         {
-            if (Input.GetAxis("Fire1") > .01f)
+            if (BattlePlayerInput.instance.GetAxis("Fire1") > .01f)
             {
                 if (ClipAmmo == 0) { Reload(); return; }
                 if (!baseWeapon.IsAutomatic)
@@ -163,6 +169,7 @@ public class WeaponInstance
                 canShootSemiAuto = false;
             }
         }
+        //Debug.DrawLine(raycastOrigin.position, raycastOrigin.forward * 5f, Color.blue);
     }
 
     public bool CanFireWeapon()
@@ -201,7 +208,6 @@ public class WeaponInstance
     
     public void Fire(RaycastHit lookTargetHit)
     {
-        BattlePlayerInput.instance.tno.Send("SetAnimTrigger", Target.All, "FireWeapon");
         if (baseWeapon.ProjectilePrefab != null)
         {
             FireProjectile(lookTargetHit.point);
@@ -222,7 +228,7 @@ public class WeaponInstance
                 if (Physics.Raycast(raycastOrigin.position, dir, out hit))
                 {
                     Debug.Log("hit " + hit.collider.gameObject.name);
-//                    MarkerManager.Instance.Place(hit.point);
+                    MarkerManager.PlaceMarker(hit.point);
                     var gId = hit.collider.gameObject.GetInstanceID();
                     var destruct = hitObjects.ContainsKey(gId) ? hitObjects[gId] : null;
                     if (hitObjects.ContainsKey(gId) && destruct == null)
@@ -233,7 +239,7 @@ public class WeaponInstance
                     else
                     {
                         // need to see if there is a new destructable object hit
-                        if (destruct == null) { hit.collider.gameObject.GetComponent<IDamagable>(); }
+                        if (destruct == null) { destruct = hit.collider.gameObject.GetComponent<IDamagable>(); }
                         if (destruct == null) { destruct = hit.collider.GetComponentInParent<IDamagable>(); }
                     }
 
@@ -247,13 +253,12 @@ public class WeaponInstance
                     if (destruct != null)
                     {
                         float damage = 2;
-                        Debug.LogFormat("{0} taking damage {1}", hit.collider.gameObject.name, damage);
-//                        hit.collider.GetComponentInParent<TNObject>().Send("TakeDamage", Target.AllSaved, damage);
                         destruct.TakeDamage(damage);
                     }
                 }
             }
         }
+        Debug.DrawLine(raycastOrigin.position, lookTargetHit.point, Color.magenta,2f);
         UseAmmo(1);
     }
 
@@ -270,5 +275,4 @@ public class WeaponInstance
     {
         ClipAmmo -= Mathf.Min((int)amount, ClipAmmo);
     }
-
 }

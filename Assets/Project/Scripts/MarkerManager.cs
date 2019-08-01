@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MarkerManager : MonoBehaviour
+public class MarkerManager : SingletonMonoBehaviour<MarkerManager>
 {
-    public static MarkerManager Instance;
     public Marker MarkerPrefab;
 
-    private void Awake()
+    public static void PlaceMarker(Vector3 pos)
     {
-        Instance = this;
+        if (instance != null)
+        {
+            instance.Place(pos);
+        }
     }
 
     public void Place(Vector3 pos)

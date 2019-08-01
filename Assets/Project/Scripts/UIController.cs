@@ -9,6 +9,7 @@ public class UIController : SingletonMonoBehaviour<UIController>
     public CanvasGroup hudScreen;
     public CanvasGroup gameOverScreen;
     public GameEvents gameEvents;
+    public RectTransform crossHair;
     public UIValues myValues;
 
     [Header("Text Displays")]
@@ -24,6 +25,13 @@ public class UIController : SingletonMonoBehaviour<UIController>
     public SlideMenu MainMenuPanel;
     public List<SlideMenu> MenuPanels;
 
+    private Canvas myCanvas;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        myCanvas = GetComponent<Canvas>();
+    }
 
     private void Start()
     {

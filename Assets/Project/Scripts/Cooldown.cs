@@ -46,6 +46,11 @@ public class Cooldown_counter
     private System.Action StopCallback;
     private float runTime = 0;
 
+    public Cooldown_counter(System.Action stopCallback = null)
+    {
+        StopCallback = stopCallback;
+    }
+
     public void Reset()
     {
         Progress = 0;

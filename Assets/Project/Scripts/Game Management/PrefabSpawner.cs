@@ -23,7 +23,7 @@ public class PrefabSpawner : MonoBehaviour
     {
         PrefabSpawner.spawners.Add(this);
         Index = PrefabSpawner.spawners.IndexOf(this);
-        //Debug.LogFormat("{0} setting index to {1}", gameObject.name, Index);
+        //Debug.LogFormat("adding spawner {0} index  {1}", gameObject.name, Index);
 #if UNITY_EDITOR
         if (!Application.isPlaying)
         {
@@ -78,11 +78,19 @@ public class PrefabSpawner : MonoBehaviour
         GameObject go = prefab.Instantiate();
 
         // Set the position and rotation based on the passed values
-        var spawner = PrefabSpawner.spawners[spawnerIndex];
         Transform t = go.transform;
         t.position = pos;
         t.rotation = rot;
-        t.SetParent(spawner.ParentTransform);
+
+        if (spawnerIndex > spawners.Count - 1)
+        {
+            var spawner = PrefabSpawner.spawners[spawnerIndex];
+            t.SetParent(spawner.ParentTransform);
+        }
+        else
+        {
+            var blah = "why";
+        }
         return go;
     }
 }
