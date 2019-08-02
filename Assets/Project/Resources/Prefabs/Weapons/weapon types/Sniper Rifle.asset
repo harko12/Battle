@@ -21,5 +21,7 @@ MonoBehaviour:
   MaxRange: 1000
   IsAutomatic: 0
   AimVariation: 0
+  WeaponPrefab: {fileID: 0}
   RaysPerShot: 1
+  ProjectilePrefab: {fileID: 0}
   ZoomFactor: 45

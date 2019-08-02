@@ -15,5 +15,6 @@ MonoBehaviour:
   PrefabObject: {fileID: 9166748540578407462, guid: 903bdb4a8cb59fd4e90c49f4dbbdaa16,
     type: 3}
   ResourcesPath: Assets/Project/Resources/
-  AssetPath: Assets/Project/Resources/Prefabs/Weapons/M1911_weapon .prefab
-  PathInResources: 'Prefabs/Weapons/M1911_weapon '
+  AssetPath: Assets/Project/Resources/Prefabs/Weapons/Weapon Pickups/M1911_weapon
+    .prefab
+  PathInResources: 'Prefabs/Weapons/Weapon Pickups/M1911_weapon '

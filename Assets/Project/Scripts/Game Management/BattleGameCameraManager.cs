@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class BattleGameCameraManager : SingletonMonoBehaviour<BattleGameCameraManager>
+namespace Battle
 {
-    public CinemachineBrain MainBrain;
-
-    public CinemachineFreeLook CharacterFreeLook;
-    public Transform FreeLookDefaultTarget;
-
-    public CinemachineVirtualCamera OrbitCam;
-
-    private void Start()
+    public class BattleGameCameraManager : SingletonMonoBehaviour<BattleGameCameraManager>
     {
-        OrbitCam.Priority = 15;
-        CharacterFreeLook.Priority = 0;
-    }
+        public CinemachineBrain MainBrain;
 
-    public void SetFreeLookTarget(BattlePlayer p)
-    {
-        if (!p.tno.isMine)
+        public CinemachineFreeLook CharacterFreeLook;
+        public Transform FreeLookDefaultTarget;
+
+        public CinemachineVirtualCamera OrbitCam;
+
+        private void Start()
         {
-            return;
+            OrbitCam.Priority = 15;
+            CharacterFreeLook.Priority = 0;
         }
-        OrbitCam.Priority = 5;
-        /*
-        CharacterFreeLook.m_Follow = p.transform;
-        CharacterFreeLook.m_LookAt = p.rotationPoint.transform;
-        CharacterFreeLook.Priority = 10;
-        */
+
+        public void SetFreeLookTarget(BattlePlayer p)
+        {
+            if (!p.tno.isMine)
+            {
+                return;
+            }
+            OrbitCam.Priority = 5;
+            /*
+            CharacterFreeLook.m_Follow = p.transform;
+            CharacterFreeLook.m_LookAt = p.rotationPoint.transform;
+            CharacterFreeLook.Priority = 10;
+            */
+        }
     }
 }

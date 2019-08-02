@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3781c10bdaf90904a9d977351a93b081, type: 3}
-  m_Name: MachineGun
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  myType: 2
+  myType: 1
   WeaponName: 
-  ClipSize: 30
-  MaxAmmo: 120
-  ReloadTime: 2
-  CooldownTime: 0.15
-  MaxRange: 600
-  IsAutomatic: 1
-  AimVariation: 0.008
-  RaysPerShot: 1
+  ClipSize: 6
+  MaxAmmo: 20
+  ReloadTime: 5
+  CooldownTime: 1
+  MaxRange: 50
+  IsAutomatic: 0
+  AimVariation: 0.1
+  WeaponPrefab: {fileID: 0}
+  RaysPerShot: 10
+  ProjectilePrefab: {fileID: 0}
   ZoomFactor: 0

@@ -167,7 +167,7 @@ namespace Battle
                     _battlePlayer.tno.Send("ToggleAim", Target.AllSaved, new_aim);
                 }
                 m_Aim = new_aim;
-                
+
                 //_battlePlayer.ToggleAim(m_Aim);
                 m_TurnAmount =  Input.GetAxis("Mouse X");
                 VerticalAngle = Input.GetAxis("Mouse Y");
@@ -261,7 +261,7 @@ namespace Battle
         {
 
         }
-
+        bool lastAim = false;
         void UpdateCharacter()
         {
             if (!tno.isMine)
@@ -271,7 +271,14 @@ namespace Battle
             // pass all parameters to the character control script
             Vector3 vizOrigin = transform.position + Vector3.up * 1;
             Debug.DrawLine(vizOrigin, vizOrigin + m_Move.normalized, Color.green);
-            m_Character.SetAnimValue("Aiming", "BOOL", m_Aim);
+
+            if (m_Aim != lastAim)
+            {
+                m_Character.SetAnimValue("Aiming", "BOOL", m_Aim);
+                tno.Send("SetAnimValue", Target.Others, "Aiming", "BOOL", m_Aim);
+                lastAim = m_Aim;
+            }
+
             m_Character.Move(m_Move, m_TurnAmount, m_Crouch, m_Jump);
             m_Jump = false;
         }
@@ -281,14 +288,23 @@ namespace Battle
         {
             var index = 0;
             float weight = 1;
+            bool actionStance = false;
             if (weaponIndex > 0)
             {
+                actionStance = true;
                 index = weaponIndex;
                 weight = 1;
             }
             m_Character.SetAnimValue("WeaponType", "INT", index);
+            SetAnimValue("ActionStance", "BOOL", actionStance);
             m_Character.SetAnimValue("SwitchWeapon", "TRIGGER");
             m_Character.SetAnimLayerWeight("Upper Body", weight);
+        }
+
+        [RFC]
+        public void SetAnimValue(string key, string type, object value)
+        {
+            m_Character.SetAnimValue(key, type,value);
         }
 
         [RFC]

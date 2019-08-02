@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TNet;
 
-public abstract class Interactable : TNBehaviour, IInteractable
+namespace Battle
 {
-    public virtual void Interact(BattlePlayer p)
+    public abstract class Interactable : TNBehaviour, IInteractable
     {
-        throw new System.NotImplementedException();
-    }
+        public virtual void Interact(BattlePlayer p)
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public virtual bool CanInteract(BattlePlayer p)
-    {
-        return true;
+        public virtual bool CanInteract(BattlePlayer p)
+        {
+            return true;
+        }
     }
 }

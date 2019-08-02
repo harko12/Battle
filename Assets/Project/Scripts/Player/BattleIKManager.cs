@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleIKManager : MonoBehaviour
+namespace Battle
 {
-    [SerializeField]
-    private RootMotion.FinalIK.AimIK aimIk;
-    [SerializeField]
-    private RootMotion.FinalIK.LookAtIK lookIk;
-
-    public void UpdateIK(WeaponInstance currentWeapon, bool isAiming)
+    public class BattleIKManager : MonoBehaviour
     {
-        var lookWeight = 0;
-        var aimWeight = currentWeapon != null && currentWeapon.WeaponTypeIndex() > 0 ? 1 : 0;
-        aimIk.solver.IKPositionWeight = aimWeight;
-        lookIk.solver.IKPositionWeight = lookWeight;
-
+        [SerializeField]
+        private RootMotion.FinalIK.AimIK aimIk;
+        [SerializeField]
+        private RootMotion.FinalIK.LookAtIK lookIk;
+        /*
+        public void UpdateIK(WeaponInstance currentWeapon, bool isAiming)
+        {
+            var lookWeight = 0;
+            var aimWeight = currentWeapon != null && InActionStance && currentWeapon.WeaponTypeIndex() > 0 ? 1 : 0;
+            aimIk.solver.IKPositionWeight = aimWeight;
+            lookIk.solver.IKPositionWeight = lookWeight;
+        }
+        */
     }
 }

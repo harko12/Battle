@@ -3,59 +3,63 @@ using System.Collections.Generic;
 using TNet;
 using UnityEngine;
 
-public class Door : Interactable, IInteractable
+namespace Battle
 {
-    [SerializeField] public Vector3 openAngle = new Vector3(0,-90f,0);
-    [SerializeField] public float openSpeed = 2f;
-    private Quaternion initial;
-    private Quaternion targetAngle;
-    private bool moving, isOpen;
-    public bool touched;
-    // Start is called before the first frame update
-    void Start()
-    {
-        initial = transform.localRotation;
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class Door : Interactable, IInteractable
     {
-        if (touched)
+        [SerializeField] public Vector3 openAngle = new Vector3(0, -90f, 0);
+        [SerializeField] public float openSpeed = 2f;
+        private Quaternion initial;
+        private Quaternion targetAngle;
+        private bool moving, isOpen;
+        public bool touched;
+        // Start is called before the first frame update
+        void Start()
         {
-            Interact(null);
-            touched = false;
+            initial = transform.localRotation;
         }
 
-        if (moving)
+        // Update is called once per frame
+        void Update()
         {
-            var currentRot = transform.localRotation;
-            //var rot = Quaternion.Lerp(currentRot, targetAngle, openSpeed * Time.deltaTime);
-            var rot = Quaternion.RotateTowards(currentRot, targetAngle, openSpeed);
-            if (transform.localRotation == targetAngle) { moving = false; }
-            transform.localRotation = rot;
-        }
-    }
+            if (touched)
+            {
+                Interact(null);
+                touched = false;
+            }
 
-    public override void Interact(BattlePlayer p)
-    {
-        if (!moving)
-        {
-            tno.Send("TriggerInteraction", Target.AllSaved);
+            if (moving)
+            {
+                var currentRot = transform.localRotation;
+                //var rot = Quaternion.Lerp(currentRot, targetAngle, openSpeed * Time.deltaTime);
+                var rot = Quaternion.RotateTowards(currentRot, targetAngle, openSpeed);
+                if (transform.localRotation == targetAngle) { moving = false; }
+                transform.localRotation = rot;
+            }
         }
-    }
 
-    [RFC]
-    public void TriggerInteraction()
-    {
-        if (isOpen)
+        public override void Interact(BattlePlayer p)
         {
-            targetAngle = initial;
+            if (!moving)
+            {
+                tno.Send("TriggerInteraction", Target.AllSaved);
+            }
         }
-        else
+
+        [RFC]
+        public void TriggerInteraction()
         {
-            targetAngle = Quaternion.Euler(openAngle);
+            if (isOpen)
+            {
+                targetAngle = initial;
+            }
+            else
+            {
+                targetAngle = Quaternion.Euler(openAngle);
+            }
+            moving = true;
+            isOpen = !isOpen;
         }
-        moving = true;
-        isOpen = !isOpen;
     }
 }

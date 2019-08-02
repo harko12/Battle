@@ -15,5 +15,5 @@ MonoBehaviour:
   PrefabObject: {fileID: 9166748540578407462, guid: 91f38da8e4c1aad4099ab91dd1516ce0,
     type: 3}
   ResourcesPath: Assets/Project/Resources/
-  AssetPath: Assets/Project/Resources/Prefabs/Weapons/Glock weapon.prefab
-  PathInResources: Prefabs/Weapons/Glock weapon
+  AssetPath: Assets/Project/Resources/Prefabs/Weapons/Weapon Pickups/Glock weapon.prefab
+  PathInResources: Prefabs/Weapons/Weapon Pickups/Glock weapon

@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIToolIcon : UIIcon
+namespace Battle
 {
-    public BattlePlayer.PlayerTool ToolType;
+    public class UIToolIcon : UIIcon
+    {
+        public BattlePlayer.PlayerTool ToolType;
+    }
 }

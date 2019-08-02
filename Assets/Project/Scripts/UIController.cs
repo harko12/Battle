@@ -3,133 +3,137 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIController : SingletonMonoBehaviour<UIController>
+namespace Battle
 {
-    public CanvasGroup playerMenu;
-    public CanvasGroup hudScreen;
-    public CanvasGroup gameOverScreen;
-    public GameEvents gameEvents;
-    public RectTransform crossHair;
-    public UIValues myValues;
 
-    [Header("Text Displays")]
-    public Text resourceText;
-    public Text toolMessage;
-    public Text weaponMessage;
-    public Text playerHealth;
-
-    [Header("Tools")]
-    public UIToolIcon[] Tools;
-
-    [Header("Menu Panel Objects")]
-    public SlideMenu MainMenuPanel;
-    public List<SlideMenu> MenuPanels;
-
-    private Canvas myCanvas;
-
-    protected override void Awake()
+    public class UIController : SingletonMonoBehaviour<UIController>
     {
-        base.Awake();
-        myCanvas = GetComponent<Canvas>();
-    }
+        public CanvasGroup playerMenu;
+        public CanvasGroup hudScreen;
+        public CanvasGroup gameOverScreen;
+        public GameEvents gameEvents;
+        public RectTransform crossHair;
+        public UIValues myValues;
 
-    private void Start()
-    {
-        playerMenu.alpha = 0;
-        gameOverScreen.alpha = 0;
-        hudScreen.alpha = 1;
-        onToolChanged(BattlePlayer.PlayerTool.None);
-    }
+        [Header("Text Displays")]
+        public Text resourceText;
+        public Text toolMessage;
+        public Text weaponMessage;
+        public Text playerHealth;
 
-    private void OnEnable()
-    {
-        gameEvents.OnToolChanged.AddListener(onToolChanged);
-        gameEvents.OnPlayerDeath.AddListener(onGameOver);
-        gameEvents.OnPlayerSpawn.AddListener(onPlayerSpawn);
-    }
+        [Header("Tools")]
+        public UIToolIcon[] Tools;
 
-    private void OnDisable()
-    {
-        gameEvents.OnToolChanged.RemoveListener(onToolChanged);
-        gameEvents.OnPlayerDeath.RemoveListener(onGameOver);
-        gameEvents.OnPlayerSpawn.RemoveListener(onPlayerSpawn);
-    }
+        [Header("Menu Panel Objects")]
+        public SlideMenu MainMenuPanel;
+        public List<SlideMenu> MenuPanels;
 
-    public void Disconnect()
-    {
-        gameEvents.OnPlayerDisconnect.Invoke();
-    }
+        private Canvas myCanvas;
 
-    public void onGameOver(BattlePlayer p)
-    {
-        hudScreen.alpha = 0;
-        gameOverScreen.alpha = 0;
-    }
-
-    public void onPlayerSpawn()
-    {
-        hudScreen.alpha = 1;
-        gameOverScreen.alpha = 0;
-    }
-
-    public void onToolChanged(BattlePlayer.PlayerTool tool)
-    {
-        foreach (var t in Tools)
+        protected override void Awake()
         {
-            bool selected = false;
-            if (t.ToolType == tool)
-            {
-                selected = true;
-            }
-            t.Selected(selected);
+            base.Awake();
+            myCanvas = GetComponent<Canvas>();
         }
-    }
-    public void ToggleMenu()
-    {
-        var newAlpha = 1;
-        if (playerMenu.alpha == 1) { newAlpha = 0; }
-        playerMenu.alpha = newAlpha;
-        var showing = newAlpha == 1;
-        gameEvents.OnMouseReleased.Invoke(showing); // 
-        CloseAllMenuPanels();
-        if (showing)
+
+        private void Start()
         {
-            TogglePanel(MainMenuPanel);
+            playerMenu.alpha = 0;
+            gameOverScreen.alpha = 0;
+            hudScreen.alpha = 1;
+            onToolChanged(BattlePlayer.PlayerTool.None);
         }
-    }
 
-    public void TogglePanel(SlideMenu mPanel)
-    {
-        CloseAllMenuPanels();
-        mPanel.Toggle();
-    }
-
-    private void CloseAllMenuPanels()
-    {
-        foreach (var mp in MenuPanels)
+        private void OnEnable()
         {
-            if (mp.IsShowing)
+            gameEvents.OnToolChanged.AddListener(onToolChanged);
+            gameEvents.OnPlayerDeath.AddListener(onGameOver);
+            gameEvents.OnPlayerSpawn.AddListener(onPlayerSpawn);
+        }
+
+        private void OnDisable()
+        {
+            gameEvents.OnToolChanged.RemoveListener(onToolChanged);
+            gameEvents.OnPlayerDeath.RemoveListener(onGameOver);
+            gameEvents.OnPlayerSpawn.RemoveListener(onPlayerSpawn);
+        }
+
+        public void Disconnect()
+        {
+            gameEvents.OnPlayerDisconnect.Invoke();
+        }
+
+        public void onGameOver(BattlePlayer p)
+        {
+            hudScreen.alpha = 0;
+            gameOverScreen.alpha = 0;
+        }
+
+        public void onPlayerSpawn()
+        {
+            hudScreen.alpha = 1;
+            gameOverScreen.alpha = 0;
+        }
+
+        public void onToolChanged(BattlePlayer.PlayerTool tool)
+        {
+            foreach (var t in Tools)
             {
-                mp.Toggle();
+                bool selected = false;
+                if (t.ToolType == tool)
+                {
+                    selected = true;
+                }
+                t.Selected(selected);
             }
         }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        public void ToggleMenu()
         {
-            ToggleMenu();
+            var newAlpha = 1;
+            if (playerMenu.alpha == 1) { newAlpha = 0; }
+            playerMenu.alpha = newAlpha;
+            var showing = newAlpha == 1;
+            gameEvents.OnMouseReleased.Invoke(showing); // 
+            CloseAllMenuPanels();
+            if (showing)
+            {
+                TogglePanel(MainMenuPanel);
+            }
         }
-        resourceText.text = string.Format("Resources: {0}", myValues.ResourceCount);
-        toolMessage.text = myValues.ToolMessage;
-        weaponMessage.text = myValues.WeaponStatus;
 
-        playerHealth.color = Color.white;
-        playerHealth.text = string.Format("Health: {0}", myValues.PlayerHealth);
-        if (myValues.PlayerHealth < 10)
+        public void TogglePanel(SlideMenu mPanel)
         {
-            playerHealth.color = Color.red;
+            CloseAllMenuPanels();
+            mPanel.Toggle();
+        }
+
+        private void CloseAllMenuPanels()
+        {
+            foreach (var mp in MenuPanels)
+            {
+                if (mp.IsShowing)
+                {
+                    mp.Toggle();
+                }
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                ToggleMenu();
+            }
+            resourceText.text = string.Format("Resources: {0}", myValues.ResourceCount);
+            toolMessage.text = myValues.ToolMessage;
+            weaponMessage.text = myValues.WeaponStatus;
+
+            playerHealth.color = Color.white;
+            playerHealth.text = string.Format("Health: {0}", myValues.PlayerHealth);
+            if (myValues.PlayerHealth < 10)
+            {
+                playerHealth.color = Color.red;
+            }
         }
     }
 }

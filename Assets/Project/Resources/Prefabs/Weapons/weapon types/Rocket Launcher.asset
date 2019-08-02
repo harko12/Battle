@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3781c10bdaf90904a9d977351a93b081, type: 3}
-  m_Name: Shotgun
+  m_Name: Rocket Launcher
   m_EditorClassIdentifier: 
-  myType: 1
+  myType: 4
   WeaponName: 
-  ClipSize: 6
-  MaxAmmo: 20
-  ReloadTime: 5
-  CooldownTime: 1
-  MaxRange: 50
+  ClipSize: 1
+  MaxAmmo: 10
+  ReloadTime: 0
+  CooldownTime: 0
+  MaxRange: 1000
   IsAutomatic: 0
-  AimVariation: 0.1
-  RaysPerShot: 10
-  ZoomFactor: 0
+  AimVariation: 0
+  WeaponPrefab: {fileID: 0}
+  RaysPerShot: 1
+  ProjectilePrefab: {fileID: 11400000, guid: c8706b41191a3dc49b644da6ad244ed2, type: 2}
+  ZoomFactor: 30

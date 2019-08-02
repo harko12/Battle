@@ -75,6 +75,11 @@ public class Cooldown_counter
         }
     }
 
+    public void Restart()
+    {
+        runTime = 0f;
+    }
+
     public void Tick(float deltaTime)
     {
         if (!IsRunning) return;

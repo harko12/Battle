@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IInteractable
+namespace Battle
 {
-    void Interact(BattlePlayer p);
-    bool CanInteract(BattlePlayer p);
+    public interface IInteractable
+    {
+        void Interact(BattlePlayer p);
+        bool CanInteract(BattlePlayer p);
+    }
 }

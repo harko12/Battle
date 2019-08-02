@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Battle;
 
 [CreateAssetMenu(menuName = "Game Event Manager", fileName = "GameEvents")]
 public class GameEvents : ScriptableObject

@@ -15,5 +15,5 @@ MonoBehaviour:
   PrefabObject: {fileID: 8567652957375891846, guid: 2ee8436946a40b44c919e39d8b99acaf,
     type: 3}
   ResourcesPath: Assets/Project/Resources/
-  AssetPath: Assets/Project/Resources/Prefabs/Weapons/Rocket.prefab
-  PathInResources: Prefabs/Weapons/Rocket
+  AssetPath: Assets/Project/Resources/Prefabs/Weapons/projectiles/Rocket.prefab
+  PathInResources: Prefabs/Weapons/projectiles/Rocket

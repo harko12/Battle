@@ -163,9 +163,8 @@ public class WeaponInstance
                     }
                 }
                 FireCooldown.Start(baseWeapon.CooldownTime);
+                BattlePlayer.instance.UpdateActionStance(true);
                 Fire(lookTargetHit);
-                // do firing stuff
-                Debug.Log("Bang!");
                 canShootSemiAuto = false;
             }
         }
