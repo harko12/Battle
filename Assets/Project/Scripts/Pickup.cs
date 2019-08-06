@@ -47,7 +47,6 @@ public class Pickup : MonoBehaviour
         if (offset.y != verticalRange) { offset.Set(0, verticalRange + pickupTransform.localScale.y, 0); }
         verticalAngle += verticalSpeed * Time.deltaTime;
         var newPos = offset + new Vector3(0, Mathf.Cos(verticalAngle) * verticalRange, 0);
-//        var newPos = offset + new Vector3(0, Mathf.Clamp(Mathf.Cos(verticalAngle) * verticalRange, 0, verticalRange), 0);
         pickupTransform.localPosition = newPos;
         pickupTransform.Rotate(0, rotationAngle * Time.deltaTime, 0);
     }
@@ -56,7 +55,10 @@ public class Pickup : MonoBehaviour
     public void Die()
     {
         var coll = GetComponent<CapsuleCollider>();
-        coll.enabled = false;
+        if (coll != null)
+        {
+            coll.enabled = false;
+        }
         this.enabled = false;
     }
 

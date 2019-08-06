@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3781c10bdaf90904a9d977351a93b081, type: 3}
   m_Name: Pistol Glock
   m_EditorClassIdentifier: 
-  myType: 0
+  myType: 1
   WeaponName: 
   ClipSize: 9
   MaxAmmo: 150

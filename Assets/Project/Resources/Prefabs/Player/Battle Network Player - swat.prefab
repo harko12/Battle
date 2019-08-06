@@ -298,6 +298,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1476381446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1476381447}
+  m_Layer: 0
+  m_Name: rifle mountpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1476381447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476381446}
+  m_LocalRotation: {x: -0.4418355, y: -0.51798534, z: -0.3582416, w: 0.6388549}
+  m_LocalPosition: {x: 0.036, y: -0, z: 0.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 945287959694035413}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -69.336006, y: -78.07001, z: 0}
 --- !u!1 &2105719815
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,9 +889,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 24c28f9581880cd428c816b30ba8e765, type: 2}
   ObstaclePreview: {fileID: 4617419499391014528}
   ObstacleCooldown: {fileID: 11400000, guid: 90a966350687433419c7d2cd6836dc22, type: 2}
-  PistolHolsterMountPoint: {fileID: 945287960672756583}
+  MountPoints:
+  - {fileID: 945287960672756583}
+  - {fileID: 1476381447}
   HeldWeaponMountPoint: {fileID: 945287960459577224}
-  ActionStanceTime: 2
+  ActionStanceTime: 15
   shootOrigin: {fileID: 945287960005500470}
   weaponRange: 100
 --- !u!114 &2018476735867670810
@@ -1720,12 +1752,6 @@ PrefabInstance:
       objectReference: {fileID: 945287959707605155}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a980fb7137f2e194a8a2e064607659c8, type: 3}
---- !u!4 &945287959694035341 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400010, guid: a980fb7137f2e194a8a2e064607659c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 945287959693906695}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &945287959694035421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400090, guid: a980fb7137f2e194a8a2e064607659c8,
@@ -1798,21 +1824,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 945287959693906695}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &945287959694035331 stripped
+--- !u!4 &945287959694035387 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400004, guid: a980fb7137f2e194a8a2e064607659c8,
-    type: 3}
-  m_PrefabInstance: {fileID: 945287959693906695}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &945287959694035361 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400038, guid: a980fb7137f2e194a8a2e064607659c8,
+  m_CorrespondingSourceObject: {fileID: 400060, guid: a980fb7137f2e194a8a2e064607659c8,
     type: 3}
   m_PrefabInstance: {fileID: 945287959693906695}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &945287959694035389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400058, guid: a980fb7137f2e194a8a2e064607659c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 945287959693906695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &945287959694035341 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400010, guid: a980fb7137f2e194a8a2e064607659c8,
     type: 3}
   m_PrefabInstance: {fileID: 945287959693906695}
   m_PrefabAsset: {fileID: 0}
@@ -1852,9 +1878,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 945287959693906695}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &945287959694035387 stripped
+--- !u!4 &945287959694035331 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 400060, guid: a980fb7137f2e194a8a2e064607659c8,
+  m_CorrespondingSourceObject: {fileID: 400004, guid: a980fb7137f2e194a8a2e064607659c8,
+    type: 3}
+  m_PrefabInstance: {fileID: 945287959693906695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &945287959694035361 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400038, guid: a980fb7137f2e194a8a2e064607659c8,
     type: 3}
   m_PrefabInstance: {fileID: 945287959693906695}
   m_PrefabAsset: {fileID: 0}

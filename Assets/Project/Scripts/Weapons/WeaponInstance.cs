@@ -24,14 +24,17 @@ public class WeaponInstance
     public int TotalAmmo { get; set; }
     public int ClipAmmo { get; set; }
 
-    public int WeaponTypeIndex()
+    /// <summary>
+    /// WeaponTYPEs are about the class of the weapon, not the specific weapon (sniper and rifle are both 'rifle' types as far as the animations are concerned)
+    /// </summary>
+    /// <returns></returns>
+    public int WeaponClassIndex()
     {
         switch (baseWeapon.myType)
         {
             case WeaponType.Pistol:
                 return 1;
             case WeaponType.Shotgun:
-                return 2;
             case WeaponType.Rifle:
             case WeaponType.Sniper:
                 return 3;

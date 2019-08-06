@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3781c10bdaf90904a9d977351a93b081, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  myType: 1
+  myType: 2
   WeaponName: 
   ClipSize: 6
   MaxAmmo: 20
-  ReloadTime: 5
+  ReloadTime: 0.2
   CooldownTime: 1
   MaxRange: 50
   IsAutomatic: 0

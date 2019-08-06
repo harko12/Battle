@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40709fabfa4640e40a3a8e7a0ca4c172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 2
   ShootOrigin: {fileID: 8296655538584530942}
 --- !u!114 &9166748540578407460
 MonoBehaviour:
@@ -140,7 +141,7 @@ MonoBehaviour:
   Value: 24
   pickupTransform: {fileID: 9166748540252620490}
   rotationAngle: 30
-  verticalRange: 0.5
+  verticalRange: 0.05
   verticalSpeed: 2
 --- !u!1001 &764295568266437263
 PrefabInstance:
@@ -159,11 +160,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.179
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalRotation.x
@@ -199,15 +200,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.31
+      value: 0.49902433
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.31
+      value: 0.49902433
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.31
+      value: 0.49902433
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fddeeac0ebed86c4cab4320764b5c227, type: 3}

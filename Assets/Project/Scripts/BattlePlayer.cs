@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Battle
 {
+            public enum WeaponMountPoints { RightHand, Pistol, Rifle, Auto, Sniper, RPG };
+
+
     public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
         public static BattlePlayer instance;
@@ -84,12 +87,12 @@ namespace Battle
         private Mesh ObstaclePreviewMesh;
         public Cooldown ObstacleCooldown;
         [Header("Weapons")]
-        public Transform PistolHolsterMountPoint;
+        public Transform[] MountPoints;
         public Transform HeldWeaponMountPoint;
         public bool InActionStance { get; set; }
         public float ActionStanceTime = 10;
-        [SerializeField]
         private WeaponInstance currentWeapon;
+        private WeaponInstance previousWeapon;
         private SCG.List<WeaponInstance> weapons;
         private Cooldown_counter WeaponFireCooldown, WeaponReloadCooldown, WeaponEquipCooldown, InActionStanceCooldown;
         public Transform shootOrigin;
@@ -175,7 +178,6 @@ namespace Battle
         {
             if (!tno.isMine) { return; }
             waitingToRespawn = true;
-            //gameCamera.Release();
             gameEvents.OnPlayerDeath.Invoke(this);
         }
 
@@ -233,7 +235,7 @@ namespace Battle
             var cameraAnchor = gameCamera.GetRotationAnchor();
             var aimTargetPos = cameraTransform.position + (cameraTransform.forward * weaponRange);
             SetAimTargetPosition(aimTargetPos);
-            tno.Send("SetAimTargetPosition", Target.Others, aimTargetPos);
+            tno.SendQuickly("SetAimTargetPosition", Target.Others, aimTargetPos);
             //        Debug.DrawLine(cameraTransform.position, aimTargetPos, Color.blue);
 #if UNITY_EDITOR
 #endif
@@ -273,12 +275,13 @@ namespace Battle
         void handleWeaponSwitchKeys()
         {
             if (weaponSwitching) return;
-            for (int lcv = 1, length = weapons.Count; lcv <= length; lcv++)
+            foreach (WeaponType wt in System.Enum.GetValues(typeof(WeaponType)))
             {
-                if (lcv > 9) { break; } // max 9 for now
+                var lcv = (int)wt;
                 if (Input.GetKeyDown(lcv.ToString()))
                 {
                     SwitchWeapon(lcv);
+                    break;
                 }
             }
         }
@@ -286,23 +289,18 @@ namespace Battle
         void UpdateIK()
         {
             var lookWeight = 0;
-            var aimWeight = currentWeapon != null && InActionStance && currentWeapon.WeaponTypeIndex() > 0 ? 1 : 0;
-            //SetIKWeights(aimWeight, lookWeight);
-            tno.Send("SetIKWeights", Target.All, aimWeight, lookWeight);
-            if (!tno.isMine)
-            {
-                if (currentWeapon == null) return;
-                Debug.LogFormat("ik update {0} - {1}, inaction {3}, wptypeindex {4}", aimWeight, lookWeight, InActionStance, currentWeapon.WeaponTypeIndex());
-            }
-
-            //            if (ikManager != null) { ikManager.UpdateIK(currentWeapon, isAiming); }
+            var aimWeight = currentWeapon != null && (InActionStance && !weaponSwitching) && (int)currentWeapon.baseWeapon.myType > 0 ? 1 : 0;
+            tno.SendQuickly("SetIKWeights", Target.All, aimWeight, lookWeight);
         }
 
         [RFC]
-        public void SetIKWeights(float aimWeight, float lookWeight)
+        public void SetIKWeights(float targetAimWeight, float targetLookWeight)
         {
-            aimIk.solver.IKPositionWeight = aimWeight;
-            lookIk.solver.IKPositionWeight = lookWeight;
+            var currentAimW = aimIk.solver.IKPositionWeight;
+            var aimW = Mathf.Lerp(currentAimW, targetAimWeight, Time.deltaTime * focalSmoothness);
+            aimIk.solver.IKPositionWeight = aimW;
+
+            lookIk.solver.IKPositionWeight = targetLookWeight;
         }
 
         void UpdateWeapon()
@@ -348,8 +346,6 @@ namespace Battle
             if (InActionStance != inActionStance)
             {
                 InActionStance = inActionStance;
-                //BattlePlayerInput.instance.SetAnimValue("ActionStance", "BOOL", InActionStance);
-
                 tno.Send("SetAnimValue", Target.AllSaved, "ActionStance", "BOOL", InActionStance);
             }
         }
@@ -360,7 +356,8 @@ namespace Battle
             if (currentWeapon != null)
             {
                 currentWeapon.SwitchingOut();
-                if (currentWeapon.WeaponTypeIndex() == weaponType) { index = -1; } // reclickng the same weapon key unequps the weapon for now
+                if (currentWeapon.baseWeapon.myType == (WeaponType)weaponType) { index = -1; } // reclickng the same weapon key unequps the weapon for now
+                previousWeapon = GetWeaponByWeaponType(currentWeapon.baseWeapon.myType);
             }
 
             if (index < 0) // setting weapon to none
@@ -370,15 +367,15 @@ namespace Battle
             else
             {
                 SetTool(PlayerTool.None);
-                currentWeapon = weapons[index];
+                currentWeapon = GetWeaponByWeaponType((WeaponType)weaponType);
             }
             weaponSwitching = true;
             WeaponEquipCooldown.Start(2, () =>
             {
                 weaponSwitching = false;
             });
-            var wpTypeIndex = currentWeapon != null ? currentWeapon.WeaponTypeIndex() : 0;
-            Battle.BattlePlayerInput.instance.tno.Send("SetWeapon", Target.AllSaved, wpTypeIndex);
+            var wpTypeIndex = currentWeapon != null ? currentWeapon.WeaponClassIndex() : 0;
+            Battle.BattlePlayerInput.instance.tno.Send("SetWeaponType", Target.AllSaved, (int)wpTypeIndex);
         }
 
         void handleInteractionKey(IInteractable i)
@@ -561,7 +558,8 @@ namespace Battle
         {
             if (!tno.isMine) return;
             Debug.Log("drawing Weapon");
-            tno.Send("PlacePrefab", Target.AllSaved, currentWeapon.prefabInstance.tno.uid, WeaponMountPoints.RightHand);
+            currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
+            tno.Send("SetAnimValue", Target.All, "SwitchingWeapons", "BOOL", false);
             UpdateActionStance(true);
         }
 
@@ -569,28 +567,27 @@ namespace Battle
         {
             if (!tno.isMine) return;
             Debug.Log("Holstering Weapon");
-            var prevWeapon = weapons.Where(w => w.WeaponTypeIndex() == weaponType).FirstOrDefault();
-            if (prevWeapon != null && prevWeapon.prefabInstance != null)
+            if (previousWeapon != null && previousWeapon.prefabInstance != null)
             {
-                tno.Send("PlacePrefab", Target.AllSaved, prevWeapon.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
+                previousWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, previousWeapon.prefabInstance.mountPoint);
+            }
+            if (currentWeapon != null && currentWeapon.WeaponClassIndex() == previousWeapon.WeaponClassIndex())
+            {
+                currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
+                UpdateActionStance(true);
             }
         }
 
-        [RFC]
-        public void SetWeaponActionStance(bool inStance)
-        {
-
-        }
-
-        public enum WeaponMountPoints { RightHand, Pistol, Auto, Sniper, RPG };
-        [RFC]
-        public void PlacePrefab(uint prefabID, int mountPoint)
+        public void PlaceGameObject(GameObject mountable, int mountPoint)
         {
             Transform parent = transform;
             switch ((WeaponMountPoints)mountPoint)
             {
                 case WeaponMountPoints.Pistol:
-                    parent = PistolHolsterMountPoint;
+                    parent = MountPoints[0];
+                    break;
+                case WeaponMountPoints.Rifle:
+                    parent = MountPoints[1];
                     break;
                 case WeaponMountPoints.RightHand:
                     parent = HeldWeaponMountPoint;
@@ -598,20 +595,28 @@ namespace Battle
                 default:
                     break;
             }
-            var prefab = TNObject.Find(tno.channelID, prefabID);
-            if (prefab == null)
+            Debug.LogFormat("Setting prefab {0} to parent {1}", mountable.name, parent.name);
+            mountable.transform.SetParent(parent);
+            mountable.transform.localPosition = Vector3.zero;
+            mountable.transform.localRotation = Quaternion.identity;
+        }
+
+        private WeaponInstance GetWeaponByWeaponType(WeaponType t)
+        {
+            //            return weapons.Where(w => w.baseWeapon.myType == t).FirstOrDefault();
+            foreach (WeaponInstance w in weapons)
             {
-                Debug.LogFormat("unable to find prefab ID {0}", prefabID);
-                return;
+                if (w.baseWeapon.myType == t)
+                {
+                    return w;
+                }
             }
-            prefab.transform.SetParent(parent);
-            prefab.transform.localPosition = Vector3.zero;
-            prefab.transform.localRotation = Quaternion.identity;
+            return null;
         }
 
         private bool AddWeaponFromPickup(Pickup p)
         {
-            var weaponToAdd = weapons.Where(w => w.baseWeapon.myType == p.baseWeapon.myType).FirstOrDefault();
+            var weaponToAdd = GetWeaponByWeaponType(p.baseWeapon.myType);
             if (weaponToAdd != null)
             {
                 return false; // can't pick up a weapon type you already have, for now
@@ -622,7 +627,7 @@ namespace Battle
             if (weaponPrefabInstance != null)
             {
                 weaponToAdd.SetWeaponPrefab(weaponPrefabInstance);
-                tno.Send("PlacePrefab", Target.AllSaved, weaponToAdd.prefabInstance.tno.uid, WeaponMountPoints.Pistol);
+                weaponToAdd.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, weaponToAdd.prefabInstance.mountPoint);
             }
 
             weaponToAdd.AddAmmo(p.Value);
@@ -633,7 +638,7 @@ namespace Battle
         private bool AddAmmoFromPickup(Pickup p)
         {
             var pickedUp = false;
-            var currentWeapon = weapons.Where(w => w.baseWeapon.myType == p.baseWeapon.myType).FirstOrDefault();
+            var currentWeapon = GetWeaponByWeaponType(p.baseWeapon.myType);
             if (currentWeapon != null)
             {
                 currentWeapon.AddAmmo(p.Value);

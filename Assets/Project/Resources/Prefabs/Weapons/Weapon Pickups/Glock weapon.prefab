@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40709fabfa4640e40a3a8e7a0ca4c172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mountPoint: 1
   ShootOrigin: {fileID: 7721059995855462631}
 --- !u!114 &9166748540578407460
 MonoBehaviour:
@@ -140,7 +141,7 @@ MonoBehaviour:
   Value: 24
   pickupTransform: {fileID: 9166748540252620490}
   rotationAngle: 30
-  verticalRange: 0.5
+  verticalRange: 0.05
   verticalSpeed: 2
 --- !u!1001 &3291271581832451305
 PrefabInstance:

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3781c10bdaf90904a9d977351a93b081, type: 3}
   m_Name: MachineGun
   m_EditorClassIdentifier: 
-  myType: 2
+  myType: 3
   WeaponName: 
   ClipSize: 30
   MaxAmmo: 120
-  ReloadTime: 2
+  ReloadTime: 0.5
   CooldownTime: 0.15
   MaxRange: 600
   IsAutomatic: 1

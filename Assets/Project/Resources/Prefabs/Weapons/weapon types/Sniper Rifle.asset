@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3781c10bdaf90904a9d977351a93b081, type: 3}
   m_Name: Sniper Rifle
   m_EditorClassIdentifier: 
-  myType: 3
+  myType: 4
   WeaponName: 
   ClipSize: 1
   MaxAmmo: 10
-  ReloadTime: 2
+  ReloadTime: 0.4
   CooldownTime: 0.5
   MaxRange: 1000
   IsAutomatic: 0

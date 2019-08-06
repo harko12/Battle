@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4841426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.24, y: -2.520002, z: 1.61}
+  m_LocalPosition: {x: 1.66, y: -2.520002, z: 5.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -173,7 +173,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 0
+  Index: 51
   Contents: 3
   Value: 500
 --- !u!1001 &6599729
@@ -434,6 +434,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b127815fd0f2074eae3a0c6a4786d0b, type: 3}
+--- !u!1 &64371936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 64371937}
+  - component: {fileID: 64371938}
+  m_Layer: 2
+  m_Name: shotgun spawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &64371937
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64371936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.44, y: -2.520002, z: 3.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &64371938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64371936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: b4d0b3352f1d3ee4e922598f4382e20b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 67
+  Contents: 3
+  Value: 500
 --- !u!1001 &72778479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1104,6 +1154,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 832979253}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &147136652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 147136653}
+  - component: {fileID: 147136654}
+  m_Layer: 2
+  m_Name: m4a1 rifle spawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &147136653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147136652}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.19, y: -2.520002, z: 4.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &147136654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147136652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 1ef30412954acf041a1ee21423805db9, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 52
+  Contents: 3
+  Value: 500
 --- !u!1001 &151382873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1306,7 +1406,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162890635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.163, y: -2.520002, z: 0}
+  m_LocalPosition: {x: 3.163, y: -2.520002, z: 5.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -1328,7 +1428,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 1
+  Index: 53
   Contents: 3
   Value: 500
 --- !u!4 &166571015 stripped
@@ -1605,7 +1705,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1248104175}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 2
+  Index: 40
 --- !u!1001 &204583847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1688,7 +1788,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206157992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.68, y: -2.52, z: 1.61}
+  m_LocalPosition: {x: -0.48, y: -2.52, z: 5.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -1710,7 +1810,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 3
+  Index: 54
   Contents: 3
   Value: 500
 --- !u!1001 &208726452
@@ -1830,6 +1930,56 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0.0000005364418, y: 1.9999999, z: 0}
+--- !u!1 &215661619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 215661620}
+  - component: {fileID: 215661621}
+  m_Layer: 2
+  m_Name: m4a1 rifle spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &215661620
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215661619}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.0710006, y: -2.520002, z: 4.799999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &215661621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215661619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 1ef30412954acf041a1ee21423805db9, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 55
+  Contents: 3
+  Value: 500
 --- !u!4 &221500002 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2b127815fd0f2074eae3a0c6a4786d0b,
@@ -1964,7 +2114,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 4
+  Index: 41
 --- !u!4 &244314178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52,
@@ -2285,7 +2435,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1564799983}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 5
+  Index: 42
 --- !u!4 &285990839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52,
@@ -3726,7 +3876,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 6
+  Index: 43
 --- !u!1001 &455873353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3989,6 +4139,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 996663502}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &497808688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 497808689}
+  - component: {fileID: 497808690}
+  m_Layer: 2
+  m_Name: m4a1 rifle spawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &497808689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497808688}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.34, y: -2.520002, z: 4.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &497808690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497808688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 1ef30412954acf041a1ee21423805db9, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 56
+  Contents: 3
+  Value: 500
 --- !u!1001 &500314233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4917,6 +5117,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b127815fd0f2074eae3a0c6a4786d0b, type: 3}
+--- !u!1 &641902589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641902590}
+  - component: {fileID: 641902591}
+  m_Layer: 2
+  m_Name: m4a1 rifle spawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &641902590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641902589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.04, y: -2.520002, z: 4.73}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &641902591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641902589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 1ef30412954acf041a1ee21423805db9, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 57
+  Contents: 3
+  Value: 500
 --- !u!4 &654332824 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52,
@@ -5384,7 +5634,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 725707991}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.94}
+  m_LocalPosition: {x: -6.55, y: 0, z: 4.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -7036,6 +7286,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1309150508}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &879619261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 879619262}
+  - component: {fileID: 879619263}
+  m_Layer: 2
+  m_Name: shotgun spawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &879619262
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879619261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.49, y: -2.520002, z: 3.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &879619263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879619261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: b4d0b3352f1d3ee4e922598f4382e20b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 60
+  Contents: 3
+  Value: 500
 --- !u!1 &882701314
 GameObject:
   m_ObjectHideFlags: 0
@@ -7240,6 +7540,56 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0.0000005364418, y: 1.9999999, z: 0}
+--- !u!1 &893320499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 893320500}
+  - component: {fileID: 893320501}
+  m_Layer: 2
+  m_Name: sniper rifle spawner (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &893320500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893320499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.36, y: -2.520002, z: 2.0500002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &893320501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893320499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 69961f84c8db8b3448b1dbfdbd53533b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 61
+  Contents: 3
+  Value: 500
 --- !u!4 &895807269 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2b127815fd0f2074eae3a0c6a4786d0b,
@@ -7786,7 +8136,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 7
+  Index: 44
 --- !u!4 &952279428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6852225315492546307, guid: 49ddf4176ba618d4da17c6269dedeba1,
@@ -8970,7 +9320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1099818665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.68, y: -2.520002, z: 3.97}
+  m_LocalPosition: {x: -1.68, y: -2.520002, z: 5.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -8992,7 +9342,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 8
+  Index: 58
   Contents: 3
   Value: 500
 --- !u!4 &1103310272 stripped
@@ -9042,6 +9392,56 @@ Transform:
   m_Father: {fileID: 1266038246}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1116736732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1116736733}
+  - component: {fileID: 1116736734}
+  m_Layer: 2
+  m_Name: sniper rifle spawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1116736733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116736732}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.76, y: -2.520002, z: 2.0500002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1116736734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116736732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 69961f84c8db8b3448b1dbfdbd53533b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 62
+  Contents: 3
+  Value: 500
 --- !u!1 &1117919391 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 3f79402ff4ca9c54d96a09d1a77540d5,
@@ -9360,7 +9760,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 9
+  Index: 45
 --- !u!1 &1155258937
 GameObject:
   m_ObjectHideFlags: 0
@@ -9946,7 +10346,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1564799983}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 10
+  Index: 46
 --- !u!1001 &1218461016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10901,6 +11301,18 @@ Transform:
   - {fileID: 4841427}
   - {fileID: 206157993}
   - {fileID: 1099818666}
+  - {fileID: 215661620}
+  - {fileID: 147136653}
+  - {fileID: 497808689}
+  - {fileID: 641902590}
+  - {fileID: 1799456877}
+  - {fileID: 64371937}
+  - {fileID: 1629975796}
+  - {fileID: 879619262}
+  - {fileID: 1527082179}
+  - {fileID: 1116736733}
+  - {fileID: 1858585333}
+  - {fileID: 893320500}
   m_Father: {fileID: 289819067}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11054,7 +11466,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324742068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.51, y: 0.78, z: -4.29}
+  m_LocalPosition: {x: -10.29, y: 0.78, z: -4.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -11290,7 +11702,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 11
+  Index: 59
   Contents: 0
   Value: 30
 --- !u!4 &1348113461 stripped
@@ -11556,7 +11968,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 12
+  Index: 47
 --- !u!1 &1367791374
 GameObject:
   m_ObjectHideFlags: 0
@@ -11787,8 +12199,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391113278}
-  m_LocalRotation: {x: 0.43611962, y: 0.53930235, z: 0.38715854, w: -0.6075039}
-  m_LocalPosition: {x: 17.187233, y: -72.06, z: -2.0515342}
+  m_LocalRotation: {x: 0.20160949, y: 0.35757154, z: 0.07935902, w: -0.90840435}
+  m_LocalPosition: {x: 28.96701, y: -33.618683, z: -1.652874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12503,7 +12915,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1248104175}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 13
+  Index: 48
 --- !u!1001 &1437982642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12906,6 +13318,56 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0.0000005364418, y: 1.9999999, z: 0}
+--- !u!1 &1527082178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1527082179}
+  - component: {fileID: 1527082180}
+  m_Layer: 2
+  m_Name: sniper rifle spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1527082179
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527082178}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.163, y: -2.520002, z: 2.0500002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1527082180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527082178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 69961f84c8db8b3448b1dbfdbd53533b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 63
+  Contents: 3
+  Value: 500
 --- !u!1001 &1550662774
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13612,6 +14074,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b127815fd0f2074eae3a0c6a4786d0b, type: 3}
+--- !u!1 &1629975795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629975796}
+  - component: {fileID: 1629975797}
+  m_Layer: 2
+  m_Name: shotgun spawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629975796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629975795}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.39, y: -2.520002, z: 3.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1629975797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629975795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: b4d0b3352f1d3ee4e922598f4382e20b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 64
+  Contents: 3
+  Value: 500
 --- !u!1001 &1632787432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14564,7 +15076,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775520409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.79, y: 0, z: -2.17}
+  m_LocalPosition: {x: -6.87, y: 0, z: -7.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1308515437}
@@ -14709,6 +15221,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b127815fd0f2074eae3a0c6a4786d0b, type: 3}
+--- !u!1 &1799456876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1799456877}
+  - component: {fileID: 1799456878}
+  m_Layer: 2
+  m_Name: shotgun spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1799456877
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799456876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.163, y: -2.520002, z: 3.54}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1799456878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799456876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: b4d0b3352f1d3ee4e922598f4382e20b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 65
+  Contents: 3
+  Value: 500
 --- !u!1001 &1803482339
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15331,6 +15893,56 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1858585332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1858585333}
+  - component: {fileID: 1858585334}
+  m_Layer: 2
+  m_Name: sniper rifle spawner (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1858585333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858585332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.04, y: -2.520002, z: 2.0500002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1308515437}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1858585334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858585332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d9d77c5f4c35743a2ff225b8047e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 11400000, guid: 69961f84c8db8b3448b1dbfdbd53533b, type: 2}
+  ParentTransform: {fileID: 406069237}
+  Persistent: 1
+  preview: {fileID: 0}
+  Index: 66
+  Contents: 3
+  Value: 500
 --- !u!4 &1868697633 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52,
@@ -16038,7 +16650,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 14
+  Index: 49
 --- !u!1001 &1939283048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17687,7 +18299,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 15
+  Index: 50
 --- !u!1 &2139278331 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 3f79402ff4ca9c54d96a09d1a77540d5,

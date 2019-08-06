@@ -168,13 +168,11 @@ namespace Battle
                 }
                 m_Aim = new_aim;
 
-                //_battlePlayer.ToggleAim(m_Aim);
                 m_TurnAmount =  Input.GetAxis("Mouse X");
                 VerticalAngle = Input.GetAxis("Mouse Y");
                 // calculate move direction to pass to character
                 if (m_Cam != null)
                 {
-//                    Debug.Log("setting move from camera perspective");
                     // calculate camera relative direction to move:
                     m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
                     m_Move = v * m_CamForward + h * m_Cam.right;
@@ -214,7 +212,7 @@ namespace Battle
                     }
                     */
                     mLastInputSend = time;
-                    tno.Send("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_Crouch);
+                    tno.SendQuickly("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_Crouch);
                     
                     // Since the input is sent frequently, rigidbody only needs to be corrected every couple of seconds.
                     // Faster-paced games will require more frequent updates.
@@ -253,14 +251,6 @@ namespace Battle
             mRb.angularVelocity = angVel;
         }
 
-        public void NewEvent()
-        {
-
-        }
-        public void WeaponHolstered()
-        {
-
-        }
         bool lastAim = false;
         void UpdateCharacter()
         {
@@ -284,7 +274,7 @@ namespace Battle
         }
 
         [RFC]
-        public void SetWeapon(int weaponIndex) //needs to be tnet serializable
+        public void SetWeaponType(int weaponIndex) //needs to be tnet serializable
         {
             var index = 0;
             float weight = 1;
@@ -298,6 +288,7 @@ namespace Battle
             m_Character.SetAnimValue("WeaponType", "INT", index);
             SetAnimValue("ActionStance", "BOOL", actionStance);
             m_Character.SetAnimValue("SwitchWeapon", "TRIGGER");
+            m_Character.SetAnimValue("SwitchingWeapon", "BOOL", true);
             m_Character.SetAnimLayerWeight("Upper Body", weight);
         }
 
