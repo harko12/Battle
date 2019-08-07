@@ -68,7 +68,7 @@ public class GameCamera : MonoBehaviour {
         }
         else
         {
-            Debug.LogError("no target set for camera");
+            //Debug.LogError("no target set for camera");
 /*
             var anchor = GetRotationAnchor().transform;
             transform.position = anchor.position;

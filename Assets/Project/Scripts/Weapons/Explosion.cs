@@ -25,7 +25,7 @@ public class Explosion : TNBehaviour
                 // apply damage to destructable object
                 if (destruct != null)
                 {
-                    Debug.LogFormat("{0} taking damage {1}", hit.collider.gameObject.name, damage);
+                    //Debug.LogFormat("{0} taking damage {1}", hit.collider.gameObject.name, damage);
                     destruct.TakeDamage(damage);
                 }
             }

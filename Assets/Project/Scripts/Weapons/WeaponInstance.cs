@@ -161,7 +161,7 @@ public class WeaponInstance
                 {
                     if (!canShootSemiAuto)
                     {
-                        Debug.Log("non auto weapon requires trigger release");
+                        //Debug.Log("non auto weapon requires trigger release");
                         return;
                     }
                 }
@@ -229,7 +229,7 @@ public class WeaponInstance
                 RaycastHit hit;
                 if (Physics.Raycast(raycastOrigin.position, dir, out hit))
                 {
-                    Debug.Log("hit " + hit.collider.gameObject.name);
+                    //Debug.Log("hit " + hit.collider.gameObject.name);
                     MarkerManager.PlaceMarker(hit.point);
                     var gId = hit.collider.gameObject.GetInstanceID();
                     var destruct = hitObjects.ContainsKey(gId) ? hitObjects[gId] : null;

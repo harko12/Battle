@@ -98,7 +98,7 @@ public class BattleGameManager : TNEventReceiver
             TNManager.SetHost(channelID, newHost);
             gameEvents.OnChangeHost.Invoke(newHost.id);
         }
-        Debug.Log("Disconnecting");
+//        Debug.Log("Disconnecting");
         TNManager.Disconnect();
     }
 

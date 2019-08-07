@@ -20,6 +20,16 @@ namespace Battle
             CharacterFreeLook.Priority = 0;
         }
 
+        public void PlayerSpawned(BattlePlayer p)
+        {
+            if (!p.tno.isMine)
+            {
+                return;
+            }
+            OrbitCam.Priority = 5;
+            p.ToggleAim(false);
+        }
+
         public void SetFreeLookTarget(BattlePlayer p)
         {
             if (!p.tno.isMine)

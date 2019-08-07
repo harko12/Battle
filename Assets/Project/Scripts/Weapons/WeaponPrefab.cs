@@ -20,23 +20,6 @@ namespace Battle
             }
             var bp = battlePlayerTno.GetComponent<BattlePlayer>();
             bp.PlaceGameObject(gameObject, mountPoint);
-            /*
-            Transform parent = transform;
-            switch ((WeaponMountPoints)mountPoint)
-            {
-                case WeaponMountPoints.Pistol:
-                    parent = MountPoints[0];
-                    break;
-                case WeaponMountPoints.Rifle:
-                    parent = MountPoints[1];
-                    break;
-                case WeaponMountPoints.RightHand:
-                    parent = HeldWeaponMountPoint;
-                    break;
-                default:
-                    break;
-            }
-            */
         }
     }
 }

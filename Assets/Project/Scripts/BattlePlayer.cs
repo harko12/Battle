@@ -158,7 +158,7 @@ namespace Battle
             if (tno.isMine)
             {
                 //Cursor.lockState = CursorLockMode.Locked;
-                BattleGameCameraManager.instance.SetFreeLookTarget(this);
+                BattleGameCameraManager.instance.PlayerSpawned(this);
                 //            lookIk.solver.target = BattleGameCameraManager.instance.FreeLookDefaultTarget;
                 //            gameCamera.Init(this);
             }
@@ -550,14 +550,14 @@ namespace Battle
                     pickedUp = AddWeaponFromPickup(p);
                     break;
             }
-            if (pickedUp) { Debug.LogFormat("picked up {0}", p.name); }
+            if (pickedUp) { /*Debug.LogFormat("picked up {0}", p.name);*/ }
             return pickedUp;
         }
 
         public void DrawWeapon(int weaponType)
         {
             if (!tno.isMine) return;
-            Debug.Log("drawing Weapon");
+//            Debug.Log("drawing Weapon");
             currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
             tno.Send("SetAnimValue", Target.All, "SwitchingWeapons", "BOOL", false);
             UpdateActionStance(true);
@@ -566,7 +566,7 @@ namespace Battle
         public void PlaceWeapon(int weaponType)
         {
             if (!tno.isMine) return;
-            Debug.Log("Holstering Weapon");
+//            Debug.Log("Holstering Weapon");
             if (previousWeapon != null && previousWeapon.prefabInstance != null)
             {
                 previousWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, previousWeapon.prefabInstance.mountPoint);
@@ -595,7 +595,7 @@ namespace Battle
                 default:
                     break;
             }
-            Debug.LogFormat("Setting prefab {0} to parent {1}", mountable.name, parent.name);
+//            Debug.LogFormat("Setting prefab {0} to parent {1}", mountable.name, parent.name);
             mountable.transform.SetParent(parent);
             mountable.transform.localPosition = Vector3.zero;
             mountable.transform.localRotation = Quaternion.identity;

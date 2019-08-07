@@ -44,7 +44,7 @@ public class BaseEnemy : TNBehaviour, IDamagable
     public void ApplyDamage(float damageAmount)
     {
         Health -= damageAmount;
-        Debug.Log("Enemy damaged for " + damageAmount.ToString());
+        //Debug.Log("Enemy damaged for " + damageAmount.ToString());
         if (Health <= 0)
         {
             Die();
