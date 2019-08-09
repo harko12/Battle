@@ -9,13 +9,32 @@ public class InputItemDisplay : MonoBehaviour
 {
     public Transform InputListRoot;
     public List<InputItem> items;
-
     public GameObject InputLinePrefab;
 
     List<GameObject> InputLines = new List<GameObject>();
 
     protected virtual void Awake()
     {
+    }
+
+    public void SetupSlider(Slider s, InputItem i)
+    {
+        s.gameObject.SetActive(true);
+        s.maxValue = i.Max;
+        s.minValue = i.Min;
+        s.wholeNumbers = true;
+        switch (i.InputType.ToString().ToUpper())
+        {
+            case "INT":
+            case "INT32":
+                s.value = (int)i.InputValue;
+                break;
+            case "FLOAT":
+            case "SINGLE":
+            case "DECIMAL":
+                s.value = (float)i.InputValue;
+                break;
+        }
     }
 
     public void Init()
@@ -47,6 +66,11 @@ public class InputItemDisplay : MonoBehaviour
             input.gameObject.SetActive(false);
             var checkbox = line.GetComponentInChildren<Toggle>();
             checkbox.gameObject.SetActive(false);
+            var slider = line.GetComponentInChildren<Slider>();
+            if (slider != null)
+            {
+                slider.gameObject.SetActive(false);
+            }
             text.text = i.InputName;
             switch (i.InputType.ToString().ToUpper())
             {
@@ -60,9 +84,16 @@ public class InputItemDisplay : MonoBehaviour
                 case "FLOAT":
                 case "SINGLE":
                 case "DECIMAL":
-                    input.gameObject.SetActive(true);
-                    input.contentType = InputField.ContentType.DecimalNumber;
-                    input.text = string.Format("{0}", i.InputValue);
+                    if (i.ShowSlider)
+                    {
+                        SetupSlider(slider, i);
+                    }
+                    else
+                    {
+                        input.gameObject.SetActive(true);
+                        input.text = string.Format("{0}", i.InputValue);
+                        input.contentType = InputField.ContentType.DecimalNumber;
+                    }
                     break;
                 case "ENUM":
                     break;
@@ -89,6 +120,7 @@ public class InputItemDisplay : MonoBehaviour
             var text = line.GetComponentInChildren<Text>();
             var input = line.GetComponentInChildren<InputField>();
             var checkbox = line.GetComponentInChildren<Toggle>();
+            var slider = line.GetComponentInChildren<Slider>();
             text.text = i.InputName;
             var t = i.InputType.ToString().ToUpper();
             switch (t)
@@ -99,7 +131,11 @@ public class InputItemDisplay : MonoBehaviour
                 case "INT":
                 case "INT32":
                     int intVal;
-                    if (!int.TryParse(input.text, out intVal))
+                    if (slider != null && slider.isActiveAndEnabled)
+                    {
+                        intVal = Convert.ToInt32(slider.value);
+                    }
+                    else if (!int.TryParse(input.text, out intVal))
                     {
                         throw new Exception(string.Format("Unable to parse {0} to {1}", input.text, t));
                     }
@@ -108,7 +144,15 @@ public class InputItemDisplay : MonoBehaviour
                 case "FLOAT":
                 case "SINGLE":
                     float fVal;
-                    if (!float.TryParse(input.text, out fVal))
+                    if (slider != null && slider.isActiveAndEnabled)
+                    {
+                        fVal = slider.value;
+                        if (i.CoerceTo01)
+                        {
+                            fVal = fVal / slider.maxValue;
+                        }
+                    }
+                    else if (!float.TryParse(input.text, out fVal))
                     {
                         throw new Exception(string.Format("Unable to parse {0} to {1}", input.text, t));
                     }
@@ -116,7 +160,15 @@ public class InputItemDisplay : MonoBehaviour
                     break;
                 case "DECIMAL":
                     decimal dVal;
-                    if (!decimal.TryParse(input.text, out dVal))
+                    if (slider != null && slider.isActiveAndEnabled)
+                    {
+                        dVal = Convert.ToDecimal(slider.value);
+                        if (i.CoerceTo01)
+                        {
+                            dVal = dVal / Convert.ToDecimal(slider.maxValue);
+                        }
+                    }
+                    else if (!decimal.TryParse(input.text, out dVal))
                     {
                         throw new Exception(string.Format("Unable to parse {0} to {1}", input.text, t));
                     }
@@ -163,6 +215,11 @@ public class InputItem
     public string InputType { get; set; }
     public object InputValue { get; set; }
     public bool ReadOnly { get; set; }
+    public bool ShowSlider { get; set; }
+    public int Max { get; set; }
+    public int Min { get; set; }
+    public int Step { get; set; }
+    public bool CoerceTo01 { get; set; }
 
     public InputItem()
     {

@@ -210,6 +210,7 @@ public class WeaponInstance
     
     public void Fire(RaycastHit lookTargetHit)
     {
+        prefabInstance.tno.SendQuickly("WeaponFireEffects", Target.All);
         if (baseWeapon.ProjectilePrefab != null)
         {
             FireProjectile(lookTargetHit.point);

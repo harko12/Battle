@@ -173,7 +173,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 51
+  Index: 11
   Contents: 3
   Value: 500
 --- !u!1001 &6599729
@@ -481,7 +481,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 67
+  Index: 12
   Contents: 3
   Value: 500
 --- !u!1001 &72778479
@@ -1201,7 +1201,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 52
+  Index: 13
   Contents: 3
   Value: 500
 --- !u!1001 &151382873
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 53
+  Index: 14
   Contents: 3
   Value: 500
 --- !u!4 &166571015 stripped
@@ -1705,7 +1705,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1248104175}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 40
+  Index: 0
 --- !u!1001 &204583847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1810,7 +1810,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 54
+  Index: 15
   Contents: 3
   Value: 500
 --- !u!1001 &208726452
@@ -1977,7 +1977,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 55
+  Index: 16
   Contents: 3
   Value: 500
 --- !u!4 &221500002 stripped
@@ -2114,7 +2114,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 41
+  Index: 1
 --- !u!4 &244314178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52,
@@ -2435,7 +2435,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1564799983}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 42
+  Index: 2
 --- !u!4 &285990839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 93e86b57e56570d46814839867bf9a52,
@@ -3876,7 +3876,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 43
+  Index: 3
 --- !u!1001 &455873353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4186,7 +4186,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 56
+  Index: 17
   Contents: 3
   Value: 500
 --- !u!1001 &500314233
@@ -5164,7 +5164,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 57
+  Index: 18
   Contents: 3
   Value: 500
 --- !u!4 &654332824 stripped
@@ -7333,7 +7333,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 60
+  Index: 19
   Contents: 3
   Value: 500
 --- !u!1 &882701314
@@ -7587,7 +7587,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 61
+  Index: 20
   Contents: 3
   Value: 500
 --- !u!4 &895807269 stripped
@@ -8136,7 +8136,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 44
+  Index: 4
 --- !u!4 &952279428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6852225315492546307, guid: 49ddf4176ba618d4da17c6269dedeba1,
@@ -9342,7 +9342,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 58
+  Index: 21
   Contents: 3
   Value: 500
 --- !u!4 &1103310272 stripped
@@ -9439,7 +9439,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 62
+  Index: 22
   Contents: 3
   Value: 500
 --- !u!1 &1117919391 stripped
@@ -9760,7 +9760,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 45
+  Index: 5
 --- !u!1 &1155258937
 GameObject:
   m_ObjectHideFlags: 0
@@ -9772,6 +9772,8 @@ GameObject:
   - component: {fileID: 1155258939}
   - component: {fileID: 1155258938}
   - component: {fileID: 1155258941}
+  - component: {fileID: 1155258942}
+  - component: {fileID: 1155258940}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -9806,6 +9808,103 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1155258940
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155258937}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 1983782427484114541, guid: 94f61eae5a94e94448266694625332bd,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1155258941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9825,6 +9924,23 @@ MonoBehaviour:
   parkTransform: {fileID: 133624683}
   gameEvents: {fileID: 11400000, guid: a38ec9a8ccfa5204b89b79091ad6be74, type: 2}
   spawnPlayer: 0
+--- !u!114 &1155258942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155258937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb296089fdc118b479db3b278b070a6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 94f61eae5a94e94448266694625332bd, type: 2}
+  MusicSource: {fileID: 1155258940}
+  battleMusic: {fileID: 11400000, guid: 361495acaaa2c07489c338c2258f76b0, type: 2}
+  gameEvents: {fileID: 11400000, guid: a38ec9a8ccfa5204b89b79091ad6be74, type: 2}
+  settings: {fileID: 11400000, guid: 4acdb71a81de17d4a98f5b35b8933407, type: 2}
 --- !u!1 &1158561918 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 3f79402ff4ca9c54d96a09d1a77540d5,
@@ -10346,7 +10462,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1564799983}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 46
+  Index: 6
 --- !u!1001 &1218461016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11702,7 +11818,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 59
+  Index: 23
   Contents: 0
   Value: 30
 --- !u!4 &1348113461 stripped
@@ -11968,7 +12084,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 47
+  Index: 7
 --- !u!1 &1367791374
 GameObject:
   m_ObjectHideFlags: 0
@@ -12199,8 +12315,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1391113278}
-  m_LocalRotation: {x: 0.20160949, y: 0.35757154, z: 0.07935902, w: -0.90840435}
-  m_LocalPosition: {x: 28.96701, y: -33.618683, z: -1.652874}
+  m_LocalRotation: {x: 0.43611962, y: 0.53930235, z: 0.38715854, w: -0.6075039}
+  m_LocalPosition: {x: 17.187233, y: -72.06, z: -2.0515342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12915,7 +13031,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 1248104175}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 48
+  Index: 8
 --- !u!1001 &1437982642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13365,7 +13481,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 63
+  Index: 24
   Contents: 3
   Value: 500
 --- !u!1001 &1550662774
@@ -14121,7 +14237,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 64
+  Index: 25
   Contents: 3
   Value: 500
 --- !u!1001 &1632787432
@@ -15268,7 +15384,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 65
+  Index: 26
   Contents: 3
   Value: 500
 --- !u!1001 &1803482339
@@ -15940,7 +16056,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 406069237}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 66
+  Index: 27
   Contents: 3
   Value: 500
 --- !u!4 &1868697633 stripped
@@ -16650,7 +16766,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 49
+  Index: 9
 --- !u!1001 &1939283048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18299,7 +18415,7 @@ MonoBehaviour:
   ParentTransform: {fileID: 813281437}
   Persistent: 1
   preview: {fileID: 0}
-  Index: 50
+  Index: 10
 --- !u!1 &2139278331 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 3f79402ff4ca9c54d96a09d1a77540d5,

@@ -8,6 +8,9 @@ namespace Battle
     {
         public WeaponMountPoints mountPoint;
         public Transform ShootOrigin;
+        public ParticleSystem MuzzleFlash;
+        public float MuzzleFlashTime = .2f;
+        public AudioSource ShootSound;
 
         [RFC]
         public void Mount(uint battlePlayerID, int mountPoint)
@@ -20,6 +23,29 @@ namespace Battle
             }
             var bp = battlePlayerTno.GetComponent<BattlePlayer>();
             bp.PlaceGameObject(gameObject, mountPoint);
+        }
+
+        [RFC]
+        public void WeaponFireEffects()
+        {
+            ShowMuzzleFlash();
+            PlayFireSound();
+        }
+
+        public void PlayFireSound()
+        {
+            if (ShootSound != null)
+            {
+                ShootSound.Play();
+            }
+        }
+
+        public void ShowMuzzleFlash()
+        {
+            if (MuzzleFlash != null)
+            {
+                MuzzleFlash.Play(true);
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ public class GameEvents : ScriptableObject
     public UnityEvent OnPlayerDisconnect;
     public IntEvent OnChangeHost;
     public BoolEvent OnMouseReleased;
+    public UnityEvent OnSettingsUpdated;
 }
 
 [System.Serializable]

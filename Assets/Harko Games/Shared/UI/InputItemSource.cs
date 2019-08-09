@@ -18,6 +18,21 @@ public class InputItemAttribute: Attribute
     }
 }
 
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+public class RangeInputItemAttribute : InputItemAttribute
+{
+    public int Min, Max, Step;
+    public bool CoerceTo01;
+    public RangeInputItemAttribute(string label, int sortOrder, int min, int max, int step, bool coerce) : base(label,sortOrder)
+    {
+        Min = min;
+        Max = max;
+        Step = step;
+        CoerceTo01 = coerce;
+    }
+
+}
+
 public abstract class InputItemSource : ScriptableObject
 {
     /// <summary>
@@ -25,6 +40,7 @@ public abstract class InputItemSource : ScriptableObject
     /// </summary>
     public virtual string DataKey { get { return null; } }
     public bool Updatable { get { return string.IsNullOrEmpty(DataKey); } }
+    public GameEvents gameEvents;
 
     public abstract List<InputItem> GetInputItemList();
     private void Awake()
@@ -79,10 +95,26 @@ public abstract class InputItemSource : ScriptableObject
                     InputType = field.FieldType.Name,
                     InputValue = field.GetValue(this)
                 };
+                if (attr is RangeInputItemAttribute)
+                {
+                    var rangeAttr = (RangeInputItemAttribute)attr;
+                    if (rangeAttr != null)
+                    {
+                        entry.Max = rangeAttr.Max;
+                        entry.Min = rangeAttr.Min;
+                        entry.CoerceTo01 = rangeAttr.CoerceTo01;
+                        entry.Step = rangeAttr.Step;
+                        entry.ShowSlider = true;
+                    }
+                }
                 result.Add(entry);
             }
         }
         return result;
     }
 
+    public virtual void Updated()
+    {
+
+    }
 }

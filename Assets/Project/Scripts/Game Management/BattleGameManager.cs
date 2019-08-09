@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TNet;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class BattleGameManager : TNEventReceiver
 {
@@ -128,12 +129,12 @@ public class BattleGameManager : TNEventReceiver
             yield return null;
         }
         gameEvents.OnPlayerSpawn.Invoke();
-
     }
 
     public void onPlayerSpawn()
     {
         SpawnPlayer(channelID);
+        BattleGameMusicManager.instance.PlayThemeMusic();
     }
 
     public void ParkPlayer(BattlePlayer p)
@@ -167,4 +168,5 @@ public class BattleGameManager : TNEventReceiver
             found.Respawn();
         }
     }
+
 }
