@@ -231,12 +231,15 @@ public class WeaponInstance
                 if (Physics.Raycast(raycastOrigin.position, dir, out hit))
                 {
                     //Debug.Log("hit " + hit.collider.gameObject.name);
-                    MarkerManager.PlaceMarker(hit.point);
+                    var impactRot = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                    var impactType = ImpactTypes.Dirt;
+//                    MarkerManager.PlaceMarker(hit.point);
                     var gId = hit.collider.gameObject.GetInstanceID();
                     var destruct = hitObjects.ContainsKey(gId) ? hitObjects[gId] : null;
                     if (hitObjects.ContainsKey(gId) && destruct == null)
                     {
                         // non destructable
+                        BattleGameFxManager.instance.SpawnImpact(impactType, hit.point, impactRot);
                         continue;
                     }
                     else
@@ -257,7 +260,9 @@ public class WeaponInstance
                     {
                         float damage = 2;
                         destruct.TakeDamage(damage);
+                        impactType = destruct.GetImpactType();
                     }
+                    BattleGameFxManager.instance.SpawnImpact(impactType, hit.point, impactRot);
                 }
             }
         }

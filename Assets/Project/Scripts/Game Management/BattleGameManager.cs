@@ -10,12 +10,13 @@ public class BattleGameManager : TNEventReceiver
     public static BattleGameManager instance { get; private set; }
     public GameObject[] SpawnPoints;
     public Transform parkTransform;
-    public GameEvents gameEvents;
+    private GameEvents gameEvents;
 
     private int channelID;
 
     private void Awake()
     {
+        gameEvents = BattleGameObjects.instance.gameEvents;
         if (instance == null)
         {
             instance = this;
@@ -134,7 +135,6 @@ public class BattleGameManager : TNEventReceiver
     public void onPlayerSpawn()
     {
         SpawnPlayer(channelID);
-        BattleGameMusicManager.instance.PlayThemeMusic();
     }
 
     public void ParkPlayer(BattlePlayer p)

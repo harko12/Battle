@@ -59,6 +59,8 @@ namespace Battle
             tno.Send("ApplyDamage", Target.AllSaved, damageAmount);
         }
 
+        public ImpactTypes GetImpactType() { return ImpactTypes.Wood; }
+
         [RFC]
         public void Sync(int newHits, float newHealth)
         {

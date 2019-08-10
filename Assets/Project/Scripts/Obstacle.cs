@@ -3,59 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using TNet;
 
-public class Obstacle : TNBehaviour, IDamagable
+namespace Battle
 {
-    public int Cost;
-    public float Health
+
+    public class Obstacle : TNBehaviour, IDamagable
     {
-        get
+        public int Cost;
+        public float Health
         {
-            return _health;
+            get
+            {
+                return _health;
+            }
+            set
+            {
+                _health = value;
+            }
         }
-        set
+        [SerializeField]
+        private float _health;
+        private float targetRotation;
+        private float reactionTime = .1f;
+
+        public void TakeDamage(float damageAmount)
         {
-            _health = value;
+            tno.Send("ApplyDamage", Target.AllSaved, damageAmount);
         }
-    }
-    [SerializeField]
-    private float _health;
-    private float targetRotation;
-    private float reactionTime = .1f;
 
-    public void TakeDamage(float damageAmount)
-    {
-        tno.Send("ApplyDamage", Target.AllSaved, damageAmount);
-    }
+        public ImpactTypes GetImpactType() { return ImpactTypes.Metal; }
 
-    [RFC]
-    public void ApplyDamage(float damageAmount)
-    {
-        Health -= damageAmount;
-        if (Health <= 0)
+        [RFC]
+        public void ApplyDamage(float damageAmount)
         {
-            Die();
-            return;
+            Health -= damageAmount;
+            if (Health <= 0)
+            {
+                Die();
+                return;
+            }
+            StartCoroutine(DamageReactions.ShiftPosition(transform, .1f));
         }
-        StartCoroutine(DamageReactions.ShiftPosition(transform, .1f));
+
+        public void Die()
+        {
+            this.transform.localScale = Vector3.zero;
+        }
+
+        [RCC]
+        static GameObject CreateObstacle(GameObject prefab, Vector3 pos, Quaternion rot)
+        {
+            // Instantiate the prefab
+            GameObject go = prefab.Instantiate();
+
+            // Set the position and rotation based on the passed values
+            Transform t = go.transform;
+            t.position = pos;
+            t.rotation = rot;
+
+            return go;
+        }
     }
-
-    public void Die()
-    {
-        this.transform.localScale = Vector3.zero;
-    }
-
-    [RCC]
-    static GameObject CreateObstacle(GameObject prefab, Vector3 pos, Quaternion rot)
-    {
-        // Instantiate the prefab
-        GameObject go = prefab.Instantiate();
-
-        // Set the position and rotation based on the passed values
-        Transform t = go.transform;
-        t.position = pos;
-        t.rotation = rot;
-
-        return go;
-    }
-
 }

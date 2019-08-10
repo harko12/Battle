@@ -13,7 +13,7 @@ namespace Battle
     public class BattlePlayerInput : TNBehaviour
     {
         public static BattlePlayerInput instance;
-        public BattleGameSettings Settings;
+        private BattleGameSettings Settings;
         private BattlePlayer _battlePlayer;
         private BattleThirdPersonController m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
@@ -42,6 +42,7 @@ namespace Battle
             {
                 instance = this;
             }
+            Settings = BattleGameObjects.instance.settings;
             _battlePlayer = GetComponent<BattlePlayer>();
             mRb = GetComponent<Rigidbody>();
         }

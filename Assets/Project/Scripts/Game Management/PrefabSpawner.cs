@@ -82,14 +82,14 @@ public class PrefabSpawner : MonoBehaviour
         t.position = pos;
         t.rotation = rot;
 
-        if (spawnerIndex > spawners.Count - 1)
+        if (spawnerIndex < spawners.Count)
         {
             var spawner = PrefabSpawner.spawners[spawnerIndex];
             t.SetParent(spawner.ParentTransform);
         }
         else
         {
-            var blah = "why";
+            Debug.LogFormat("Spawner index {0} for prefab {1} is invalid", spawnerIndex, prefab.name);
         }
         return go;
     }

@@ -11,7 +11,7 @@ namespace Battle
         public CanvasGroup playerMenu;
         public CanvasGroup hudScreen;
         public CanvasGroup gameOverScreen;
-        public GameEvents gameEvents;
+        private GameEvents gameEvents;
         public RectTransform crossHair;
         public UIValues myValues;
 
@@ -34,6 +34,7 @@ namespace Battle
         {
             base.Awake();
             myCanvas = GetComponent<Canvas>();
+            gameEvents = BattleGameObjects.instance.gameEvents;
         }
 
         private void Start()

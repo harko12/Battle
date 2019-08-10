@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TNet;
+using Battle;
 
 public class BaseEnemy : TNBehaviour, IDamagable
 {
@@ -39,6 +40,8 @@ public class BaseEnemy : TNBehaviour, IDamagable
     {
         tno.Send("ApplyDamage", Target.AllSaved, damageAmount);
     }
+
+    public ImpactTypes GetImpactType() { return ImpactTypes.Metal; }
 
     [RFC]
     public void ApplyDamage(float damageAmount)

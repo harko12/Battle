@@ -11,7 +11,7 @@ namespace Battle
     public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
         public static BattlePlayer instance;
-        public GameEvents gameEvents;
+        private GameEvents gameEvents;
         [SerializeField] public UIValues uiValues;
         public enum PlayerTool
         {
@@ -102,6 +102,7 @@ namespace Battle
         protected override void Awake()
         {
             base.Awake();
+            gameEvents = BattleGameObjects.instance.gameEvents;
             if (tno.isMine)
             {
                 BattlePlayer.instance = this;
@@ -651,6 +652,13 @@ namespace Battle
         public void TakeDamage(float damageAmount)
         {
             tno.Send("ApplyDamage", Target.AllSaved, damageAmount);
+        }
+
+        public ImpactTypes GetImpactType() { return ImpactTypes.Player; }
+
+        public void SpawnEffect(Vector3 hit)
+        {
+            //BattleGameFxManager.instance.
         }
 
         [RFC]

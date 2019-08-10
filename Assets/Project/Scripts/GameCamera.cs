@@ -15,6 +15,13 @@ public class GameCamera : MonoBehaviour {
 
     public float VerticalRotationAngle { get; set; }
 
+    private BattleGameSettings Settings;
+
+    private void Awake()
+    {
+        Settings = BattleGameObjects.instance.settings;
+    }
+
     public Transform GetRotationAnchor()
     {
         return rotationAnchorObject.transform;
@@ -56,11 +63,11 @@ public class GameCamera : MonoBehaviour {
             transform.LookAt(t.position + translationOffset);
 
             var verticalInput = bpInput.VerticalAngle;
-            if (bpInput.Settings.InvertMouse)
+            if (Settings.InvertMouse)
             {
                 verticalInput *= -1;
             }
-            var rotationSensitivity = bpInput.Settings.MouseSensitivity;
+            var rotationSensitivity = Settings.MouseSensitivity;
             // Make the camera look up or down.
             VerticalRotationAngle = Mathf.Clamp(VerticalRotationAngle + verticalInput * rotationSensitivity, minViewingAngle, maxViewingAngle);
             var rot = GetRotationAnchor();

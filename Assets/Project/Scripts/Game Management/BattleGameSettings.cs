@@ -41,6 +41,6 @@ public class BattleGameSettings : InputItemSource
     public override void Updated()
     {
         base.Updated();
-        gameEvents.OnSettingsUpdated.Invoke();
+        BattleGameObjects.instance.gameEvents.OnSettingsUpdated.Invoke();
     }
 }

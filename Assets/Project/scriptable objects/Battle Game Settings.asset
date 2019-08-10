@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd231fbbcd2324468e4fcf2d0b698c0, type: 3}
   m_Name: Battle Game Settings
   m_EditorClassIdentifier: 
-  gameEvents: {fileID: 11400000, guid: a38ec9a8ccfa5204b89b79091ad6be74, type: 2}
-  MouseSensitivity: 4
-  InvertMouse: 0
-  MasterVolume: -24
-  SoundVolume: 5
-  MusicVolume: -13
+  MouseSensitivity: 3
+  InvertMouse: 1
+  MasterVolume: 0
+  SoundVolume: -8
+  MusicVolume: -7

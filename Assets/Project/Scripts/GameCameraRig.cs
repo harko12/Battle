@@ -13,7 +13,8 @@ public class GameCameraRig : MonoBehaviour {
     [SerializeField] private Vector3 followOffset;
     [SerializeField] private float maxViewingAngle;
     [SerializeField] private float minViewingAngle;
-//    [SerializeField] private float rotationSensitivity;
+    //    [SerializeField] private float rotationSensitivity;
+    private BattleGameSettings Settings;
 
     private float verticalRotationAngle, horizontalRotationAngle;
     /*
@@ -35,6 +36,11 @@ public class GameCameraRig : MonoBehaviour {
         return DefaultTarget.transform;
     }
     */
+    private void Awake()
+    {
+        Settings = BattleGameObjects.instance.settings;
+    }
+
     public void Init(BattlePlayer p)
     {
         //target = p.focalPoint;
@@ -64,11 +70,11 @@ public class GameCameraRig : MonoBehaviour {
             */
             var verticalInput = BattlePlayerInput.instance.VerticalAngle;
             var turnAmount = BattlePlayerInput.instance.m_TurnAmount;
-            if (BattlePlayerInput.instance.Settings.InvertMouse)
+            if (Settings.InvertMouse)
             {
                 verticalInput *= -1;
             }
-            var rotationSensitivity = BattlePlayerInput.instance.Settings.MouseSensitivity;
+            var rotationSensitivity = Settings.MouseSensitivity;
             // Make the camera look up or down.
             verticalRotationAngle = Mathf.Clamp(t.eulerAngles.x + verticalInput * rotationSensitivity, minViewingAngle, maxViewingAngle);
 //            verticalRotationAngle = Mathf.Clamp(verticalRotationAngle + verticalInput * rotationSensitivity, minViewingAngle, maxViewingAngle);

@@ -1794,6 +1794,7 @@ GameObject:
   - component: {fileID: 956712397}
   - component: {fileID: 956712396}
   - component: {fileID: 956712399}
+  - component: {fileID: 956712400}
   m_Layer: 0
   m_Name: TEST OBJECTS
   m_TagString: Untagged
@@ -2025,6 +2026,18 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 94f61eae5a94e94448266694625332bd, type: 2}
   MusicSource: {fileID: 956712397}
   battleMusic: {fileID: 11400000, guid: 361495acaaa2c07489c338c2258f76b0, type: 2}
+--- !u!114 &956712400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956712395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d5eabc95fda8646acbd0708aa9847e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   gameEvents: {fileID: 11400000, guid: a38ec9a8ccfa5204b89b79091ad6be74, type: 2}
   settings: {fileID: 11400000, guid: 4acdb71a81de17d4a98f5b35b8933407, type: 2}
 --- !u!1 &1170524281

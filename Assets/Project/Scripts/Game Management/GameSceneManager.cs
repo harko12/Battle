@@ -6,7 +6,12 @@ using UnityEngine.SceneManagement;
 public enum SceneNames { connect, Game, GameUI};
 public class GameSceneManager : MonoBehaviour
 {
-    public GameEvents gameEvents;
+    private GameEvents gameEvents;
+    private void Awake()
+    {
+        gameEvents = BattleGameObjects.instance.gameEvents;
+    }
+
     private void Start()
     {
         var uiScene = SceneManager.GetSceneByName(SceneNames.GameUI.ToString());

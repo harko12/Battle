@@ -40,7 +40,6 @@ public abstract class InputItemSource : ScriptableObject
     /// </summary>
     public virtual string DataKey { get { return null; } }
     public bool Updatable { get { return string.IsNullOrEmpty(DataKey); } }
-    public GameEvents gameEvents;
 
     public abstract List<InputItem> GetInputItemList();
     private void Awake()
