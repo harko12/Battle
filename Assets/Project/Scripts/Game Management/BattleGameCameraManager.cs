@@ -17,7 +17,10 @@ namespace Battle
         private void Start()
         {
             OrbitCam.Priority = 15;
-            CharacterFreeLook.Priority = 0;
+            if (CharacterFreeLook != null)
+            {
+                CharacterFreeLook.Priority = 0;
+            }
         }
 
         public void PlayerSpawned(BattlePlayer p)

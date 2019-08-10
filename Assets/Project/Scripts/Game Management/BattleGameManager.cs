@@ -135,6 +135,7 @@ public class BattleGameManager : TNEventReceiver
     public void onPlayerSpawn()
     {
         SpawnPlayer(channelID);
+        BattleGameMusicManager.instance.PlayThemeMusic();
     }
 
     public void ParkPlayer(BattlePlayer p)

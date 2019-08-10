@@ -27,22 +27,12 @@ namespace Battle
 
         private void OnEnable()
         {
-            gameEvents.OnPlayerSpawn.AddListener(onPlayerSpawn);
             gameEvents.OnSettingsUpdated.AddListener(UpdateSettings);
         }
 
         private void OnDisable()
         {
-            gameEvents.OnPlayerSpawn.RemoveListener(onPlayerSpawn);
             gameEvents.OnSettingsUpdated.RemoveListener(UpdateSettings);
-        }
-
-        public void onPlayerSpawn()
-        {
-            if (!MusicSource.isPlaying)
-            {
-                PlayThemeMusic();
-            }
         }
 
         public void PlayThemeMusic()

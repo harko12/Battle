@@ -143,7 +143,7 @@ MonoBehaviour:
   PickupRadius: 1
   myType: 3
   baseWeapon: {fileID: 11400000, guid: 8a5d748a7b7ce264da7bce139910004f, type: 2}
-  Value: 24
+  Value: 300
   pickupTransform: {fileID: 9166748540252620490}
   rotationAngle: 30
   verticalRange: 0.05

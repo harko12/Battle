@@ -455,13 +455,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945287960459577227}
-  m_LocalRotation: {x: -0.7300904, y: 0.6833506, z: -0.00000011920926, w: 0}
+  m_LocalRotation: {x: -0.72906464, y: 0.68239063, z: -0.03868667, w: -0.03620989}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 945287959694035331}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: -93.788}
+  m_LocalEulerAnglesHint: {x: 6.0620003, y: 179.59702, z: -93.809006}
 --- !u!1 &945287960672756582
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9e5c91c891152498556d70a880a9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Settings: {fileID: 11400000, guid: 4acdb71a81de17d4a98f5b35b8933407, type: 2}
   m_Aim: 0
   inputUpdates: 10
   rigidbodyUpdates: 1
@@ -862,7 +861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b4915bd0c2cb46449d54f8955252fe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEvents: {fileID: 11400000, guid: a38ec9a8ccfa5204b89b79091ad6be74, type: 2}
   uiValues: {fileID: 11400000, guid: cc92710da2ac4a2459fad2bb48c4643a, type: 2}
   rotationPoint: {fileID: 4617419499131841296}
   focalPoint: {fileID: 4617419499739712382}
