@@ -4,14 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TNet;
 using Battle;
+using Cinemachine;
 
 public class WeaponInstance
 {
     [SerializeField]
     public Weapon baseWeapon { get; private set; }
     private Cooldown_counter FireCooldown, ReloadCooldown;
+    public bool isReady;
+    public bool isAiming;
     private Transform raycastOrigin;
-    private Camera mainCam;
+    public CinemachineVirtualCamera aimCamera;
     private TNObject tno;
     public WeaponPrefab prefabInstance { get; private set; }
 
@@ -50,9 +53,13 @@ public class WeaponInstance
         ReloadCooldown = reload;
         baseWeapon = w;
         raycastOrigin = t;
-        mainCam = Camera.main;
-        baseCameraFOV = mainCam.fieldOfView;
         tno = tnObject;
+    }
+
+    public void SetAimCamera(CinemachineVirtualCamera aimCam)
+    {
+        aimCamera = aimCam;
+        baseCameraFOV = aimCamera.m_Lens.FieldOfView;
     }
 
     public void AddAmmo(float amount)
@@ -119,17 +126,32 @@ public class WeaponInstance
     /// </summary>
     public void SwitchingOut()
     {
-        mainCam.fieldOfView = baseCameraFOV;
+        AdjustAimFieldOfView(0);
 
     }
 
+    private void AdjustAimFieldOfView(float fov)
+    {
+
+        aimCamera.m_Lens.FieldOfView = baseCameraFOV + fov;
+    }
+
+    private int shotsFired = 0;
+
     public void Update(float deltatime, RaycastHit lookTargetHit)
     {
-        mainCam.fieldOfView = baseCameraFOV;
+        //AdjustAimFieldOfView(0);
         // run every time regardless
-        if (baseWeapon.ZoomFactor != 0 && Input.GetMouseButton(1))
+        if (baseWeapon.ZoomFactor != 0 && isAiming)
         {
-            mainCam.fieldOfView -= baseWeapon.ZoomFactor;
+            if (Input.GetAxis("Mouse ScrollWheel") > 0)
+            {
+                AdjustAimFieldOfView(-baseWeapon.ZoomFactor);
+            }
+            else if (Input.GetAxis("Mouse ScrollWheel") < 0)
+            {
+                AdjustAimFieldOfView(0);
+            }
         }
 
         // firing related logic.  Reloadrunning cuts that all out
@@ -149,6 +171,7 @@ public class WeaponInstance
         var pressingTrigger = BattlePlayerInput.instance.GetAxis("Fire1") > .01f;
         if (!pressingTrigger)
         {
+            shotsFired = 0;
             canShootSemiAuto = true;
         }
 
@@ -167,6 +190,7 @@ public class WeaponInstance
                 }
                 FireCooldown.Start(baseWeapon.CooldownTime);
                 BattlePlayer.instance.UpdateActionStance(true);
+                shotsFired++;
                 Fire(lookTargetHit);
                 canShootSemiAuto = false;
             }
@@ -176,6 +200,8 @@ public class WeaponInstance
 
     public bool CanFireWeapon()
     {
+        if (!isReady) return false;
+
         bool canFire = true;
         if (Mathf.Max(ClipAmmo, TotalAmmo) == 0)
         {
@@ -193,12 +219,13 @@ public class WeaponInstance
     }
 
 
-    public Vector3 GetJitter()
+    public Vector3 GetJitter(int shots)
     {
+        var variation = baseWeapon.AimVariation; // + (.05f * shots);
         float x, y, z;
-        x = UnityEngine.Random.Range(-baseWeapon.AimVariation, baseWeapon.AimVariation);
-        y = UnityEngine.Random.Range(-baseWeapon.AimVariation, baseWeapon.AimVariation);
-        z = UnityEngine.Random.Range(-baseWeapon.AimVariation, baseWeapon.AimVariation);
+        x = UnityEngine.Random.Range(-variation, variation);
+        y = UnityEngine.Random.Range(-variation, variation);
+        z = UnityEngine.Random.Range(-variation, variation);
         var jitter = new Vector3(x, y, z);
         return jitter;
     }
@@ -211,6 +238,7 @@ public class WeaponInstance
     public void Fire(RaycastHit lookTargetHit)
     {
         prefabInstance.tno.SendQuickly("WeaponFireEffects", Target.All);
+        tno.SendQuickly("Recoil", Target.All, 1);
         if (baseWeapon.ProjectilePrefab != null)
         {
             FireProjectile(lookTargetHit.point);
@@ -224,7 +252,7 @@ public class WeaponInstance
             {
                 var targetPos = lookTargetHit.point;
                 var dir = (targetPos - raycastOrigin.position).normalized;
-                dir += GetJitter();
+                dir += GetJitter(shotsFired);
                 dir.Normalize();
 
                 RaycastHit hit;

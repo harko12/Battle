@@ -44,6 +44,8 @@ namespace Battle
         private RootMotion.FinalIK.AimIK aimIk;
         [SerializeField]
         private RootMotion.FinalIK.LookAtIK lookIk;
+        [SerializeField]
+        private RootMotion.FinalIK.Recoil weaponRecoil;
         [Header("Gameplay")]
         [SerializeField]
         public PlayerTool Tool;
@@ -97,12 +99,14 @@ namespace Battle
         private Cooldown_counter WeaponFireCooldown, WeaponReloadCooldown, WeaponEquipCooldown, InActionStanceCooldown;
         public Transform shootOrigin;
         private bool isAiming;
+        public bool weaponReady; // { get; set; }
         private bool isFocalPointOnLeft = true;
 
         protected override void Awake()
         {
             base.Awake();
             gameEvents = BattleGameObjects.instance.gameEvents;
+            weaponRecoil = GetComponent<RootMotion.FinalIK.Recoil>();
             if (tno.isMine)
             {
                 BattlePlayer.instance = this;
@@ -198,12 +202,6 @@ namespace Battle
         {
             if (!tno.isMine) { return; }
             UpdateIK();
-            /*
-                    if (currentWeapon != null)
-                    {
-                        aimIk.solver.axis = aimIk.solver.transform.InverseTransformDirection(currentWeapon.prefabInstance.transform.forward);
-                    }
-                    */
         }
 
         [RFC]
@@ -271,7 +269,7 @@ namespace Battle
 
             UpdateWeapon();
         }
-
+        [SerializeField]
         private bool weaponSwitching = false;
         void handleWeaponSwitchKeys()
         {
@@ -290,7 +288,7 @@ namespace Battle
         void UpdateIK()
         {
             var lookWeight = 0;
-            var aimWeight = currentWeapon != null && (InActionStance && !weaponSwitching) && (int)currentWeapon.baseWeapon.myType > 0 ? 1 : 0;
+            var aimWeight = currentWeapon != null && (InActionStance && weaponReady) && (int)currentWeapon.baseWeapon.myType > 0 ? 1 : 0;
             tno.SendQuickly("SetIKWeights", Target.All, aimWeight, lookWeight);
         }
 
@@ -309,6 +307,8 @@ namespace Battle
             handleWeaponSwitchKeys();
             if (currentWeapon != null)
             {
+                currentWeapon.isReady = weaponReady;
+                currentWeapon.isAiming = isAiming;
                 var distanceFromCamera = Vector3.Distance(gameCamera.transform.position, shootOrigin.transform.position);
                 RaycastHit hit;
                 Physics.Raycast((gameCamera.transform.position + gameCamera.transform.forward * distanceFromCamera), gameCamera.transform.forward, out hit);
@@ -351,9 +351,19 @@ namespace Battle
             }
         }
 
+        [RFC]
+        public void Recoil(float magnitude)
+        {
+            if (weaponRecoil != null)
+            {
+                weaponRecoil.Fire(magnitude);
+            }
+        }
+
         void SwitchWeapon(int weaponType)
         {
             int index = weaponType - 1;
+            weaponSwitching = true;
             if (currentWeapon != null)
             {
                 currentWeapon.SwitchingOut();
@@ -364,17 +374,14 @@ namespace Battle
             if (index < 0) // setting weapon to none
             {
                 currentWeapon = null;
+                weaponSwitching = false;
             }
             else
             {
                 SetTool(PlayerTool.None);
                 currentWeapon = GetWeaponByWeaponType((WeaponType)weaponType);
             }
-            weaponSwitching = true;
-            WeaponEquipCooldown.Start(2, () =>
-            {
-                weaponSwitching = false;
-            });
+
             var wpTypeIndex = currentWeapon != null ? currentWeapon.WeaponClassIndex() : 0;
             Battle.BattlePlayerInput.instance.tno.Send("SetWeaponType", Target.AllSaved, (int)wpTypeIndex);
         }
@@ -562,6 +569,7 @@ namespace Battle
             currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
             tno.Send("SetAnimValue", Target.All, "SwitchingWeapons", "BOOL", false);
             UpdateActionStance(true);
+            weaponSwitching = false;
         }
 
         public void PlaceWeapon(int weaponType)
@@ -572,11 +580,19 @@ namespace Battle
             {
                 previousWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, previousWeapon.prefabInstance.mountPoint);
             }
+
             if (currentWeapon != null && currentWeapon.WeaponClassIndex() == previousWeapon.WeaponClassIndex())
             {
                 currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
                 UpdateActionStance(true);
+                weaponSwitching = false;
             }
+            
+            if (currentWeapon == null)
+            {
+                weaponSwitching = false;
+            }
+
         }
 
         public void PlaceGameObject(GameObject mountable, int mountPoint)
@@ -623,6 +639,7 @@ namespace Battle
                 return false; // can't pick up a weapon type you already have, for now
             }
             weaponToAdd = new WeaponInstance(p.baseWeapon, WeaponFireCooldown, WeaponReloadCooldown, shootOrigin, tno);
+            weaponToAdd.SetAimCamera(aimCamera);
             weapons.Add(weaponToAdd);
             var weaponPrefabInstance = p.GetComponent<WeaponPrefab>();
             if (weaponPrefabInstance != null)
@@ -655,11 +672,6 @@ namespace Battle
         }
 
         public ImpactTypes GetImpactType() { return ImpactTypes.Player; }
-
-        public void SpawnEffect(Vector3 hit)
-        {
-            //BattleGameFxManager.instance.
-        }
 
         [RFC]
         public void ApplyDamage(float damageAmount)

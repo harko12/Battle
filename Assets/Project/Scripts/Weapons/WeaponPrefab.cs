@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TNet;
+using RootMotion.FinalIK;
+
 namespace Battle
 {
     public class WeaponPrefab : TNBehaviour
@@ -32,7 +34,7 @@ namespace Battle
             PlayFireSound();
         }
 
-        public void PlayFireSound()
+        private void PlayFireSound()
         {
             if (ShootSound != null)
             {
@@ -40,7 +42,7 @@ namespace Battle
             }
         }
 
-        public void ShowMuzzleFlash()
+        private void ShowMuzzleFlash()
         {
             if (MuzzleFlash != null)
             {

@@ -19,9 +19,6 @@ public class Weapon : ScriptableObject
     public bool IsAutomatic;
     public float AimVariation;
 
-    [Header("model and mount points")]
-    public PrefabPath WeaponPrefab;
-
     [Header("Ammo")]
     public int RaysPerShot = 1;
     public PrefabPath ProjectilePrefab;

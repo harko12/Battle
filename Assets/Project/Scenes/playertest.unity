@@ -1036,6 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 1
+  recoil: {fileID: 0}
 --- !u!114 &635167470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1886,6 +1887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 1
+  recoil: {fileID: 0}
 --- !u!114 &766305500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2448,6 +2450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 1
+  recoil: {fileID: 0}
 --- !u!114 &776526993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4296,6 +4299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 1
+  recoil: {fileID: 0}
 --- !u!114 &1320281325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5804,6 +5808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 1
+  recoil: {fileID: 0}
 --- !u!114 &1910342927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6483,6 +6488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magnitude: 1
+  recoil: {fileID: 0}
 --- !u!114 &2028728491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7147,10 +7153,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1861232010975052768, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: ActionStanceTime
-      value: 5
+    - target: {fileID: 696359121, guid: 27ed25aacec8a03429a4feecc7ba1ee0, type: 3}
+      propertyPath: m_Lens.FieldOfView
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27ed25aacec8a03429a4feecc7ba1ee0, type: 3}
