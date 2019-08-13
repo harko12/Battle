@@ -65,7 +65,10 @@ public class InputItemDisplay : MonoBehaviour
             var input = line.GetComponentInChildren<InputField>();
             input.gameObject.SetActive(false);
             var checkbox = line.GetComponentInChildren<Toggle>();
-            checkbox.gameObject.SetActive(false);
+            if (checkbox != null)
+            {
+                checkbox.gameObject.SetActive(false);
+            }
             var slider = line.GetComponentInChildren<Slider>();
             if (slider != null)
             {
@@ -98,8 +101,11 @@ public class InputItemDisplay : MonoBehaviour
                 case "ENUM":
                     break;
                 case "BOOLEAN":
-                    checkbox.gameObject.SetActive(true);
-                    checkbox.isOn = (bool)i.InputValue;
+                    if (checkbox != null)
+                    {
+                        checkbox.gameObject.SetActive(true);
+                        checkbox.isOn = (bool)i.InputValue;
+                    }
                     break;
                 default:
                     Debug.LogError("InputDialog unable to parse type " + i.InputType.ToString().ToUpper());

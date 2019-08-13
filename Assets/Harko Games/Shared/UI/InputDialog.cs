@@ -29,6 +29,7 @@ public class InputDialog : InputItemDisplay {
     public Image ModalBackground;
 
     public UnityEngine.UI.Button OkButton;
+    public UnityEngine.UI.Button CancelButton;
 
     protected override void Awake()
     {
@@ -36,11 +37,22 @@ public class InputDialog : InputItemDisplay {
         instance = this;
     }
 
-    public void OpenDialog(List<InputItem> itemList, UnityEngine.Events.UnityAction okFunc)
+    public void OpenDialog(List<InputItem> itemList, UnityEngine.Events.UnityAction okFunc, UnityEngine.Events.UnityAction cancelFunc = null)
     {
         items = itemList;
         Init();
         OkButton.onClick.AddListener(okFunc);
+        if (CancelButton != null)
+        {
+            if (cancelFunc != null)
+            {
+                CancelButton.onClick.AddListener(cancelFunc);
+            }
+            else
+            {
+                CancelButton.onClick.AddListener(delegate { ShowDialog(false); });
+            }
+        }
         ShowDialog(true);
     }
 

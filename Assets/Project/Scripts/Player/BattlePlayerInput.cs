@@ -67,6 +67,15 @@ namespace Battle
             Cursor.visible = (CursorLockMode.Locked != wantedMode);
         }
 
+        private void OnApplicationFocus(bool focus)
+        {
+            if (focus)
+            {
+                wantedMode = mInputSuspended ? CursorLockMode.None : CursorLockMode.Locked;
+                SetCursorState();
+            }
+        }
+
         private bool mInputSuspended;
         public void SuspendInputs(bool suspend)
         {
@@ -160,7 +169,11 @@ namespace Battle
                 float h = CrossPlatformInputManager.GetAxis("Horizontal");
                 float v = CrossPlatformInputManager.GetAxis("Vertical");
                 var inputVector = new Vector3(h, 0, v);
-                m_Crouch = Input.GetKey(KeyCode.C);
+                if (Input.GetKeyUp(KeyCode.C))
+                {
+                    m_Crouch = !m_Crouch;
+                }
+//                m_Crouch = true; // Input.GetKey(KeyCode.C);
                 
                 var new_aim = Input.GetAxis("Fire2") > .01f;
                 if (m_Aim != new_aim)
@@ -185,7 +198,7 @@ namespace Battle
                 }
 #if !MOBILE_INPUT
                 // walk speed multiplier
-                if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
+                if (!Input.GetKey(KeyCode.LeftShift)) m_Move *= 0.5f;
 #endif
 
 

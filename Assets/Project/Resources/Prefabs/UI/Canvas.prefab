@@ -2248,7 +2248,7 @@ MonoBehaviour:
   playerMenu: {fileID: 177231740803638370}
   hudScreen: {fileID: 177231740845814967}
   gameOverScreen: {fileID: 177231739652114471}
-  gameEvents: {fileID: 11400000, guid: a38ec9a8ccfa5204b89b79091ad6be74, type: 2}
+  crossHair: {fileID: 0}
   myValues: {fileID: 11400000, guid: cc92710da2ac4a2459fad2bb48c4643a, type: 2}
   resourceText: {fileID: 177231741633502558}
   toolMessage: {fileID: 177231741048131945}

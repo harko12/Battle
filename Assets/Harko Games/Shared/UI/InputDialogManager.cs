@@ -76,11 +76,22 @@ public class InputDialogManager : MonoBehaviour {
         grp.blocksRaycasts = show;
     }
     
-    public void OpenDialog(List<InputItem> items, UnityEngine.Events.UnityAction okFunc)
+    public void OpenDialog(List<InputItem> items, UnityEngine.Events.UnityAction okFunc, UnityEngine.Events.UnityAction cancelFunc = null)
     {
         CurrentDialog.items = items;
         CurrentDialog.Init();
         CurrentDialog.OkButton.onClick.AddListener(okFunc);
+        if (CurrentDialog.CancelButton != null)
+        {
+            if (cancelFunc != null)
+            {
+                CurrentDialog.CancelButton.onClick.AddListener(cancelFunc);
+            }
+            else
+            {
+                CurrentDialog.CancelButton.onClick.AddListener(delegate { ShowDialog(false); });
+            }
+        }
         ShowDialog(true);
     }
     
