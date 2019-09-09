@@ -13,6 +13,8 @@ namespace Battle
         public Transform FreeLookDefaultTarget;
 
         public CinemachineVirtualCamera OrbitCam;
+        public CinemachineVirtualCamera AimCam;
+        public CinemachineVirtualCamera FollowCam;
 
         private void Start()
         {

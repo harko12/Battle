@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameCamera : MonoBehaviour {
     [SerializeField] private GameObject target;
-    [SerializeField] private GameObject rotationAnchorObject;
+    [SerializeField] private Transform rotationAnchorObject;
     public float focalDistance;
     [SerializeField] private Vector3 translationOffset;
     [SerializeField] private Vector3 followOffset;
@@ -20,11 +20,6 @@ public class GameCamera : MonoBehaviour {
     private void Awake()
     {
         Settings = BattleGameObjects.instance.settings;
-    }
-
-    public Transform GetRotationAnchor()
-    {
-        return rotationAnchorObject.transform;
     }
 
     public Transform GetTarget()
@@ -48,19 +43,27 @@ public class GameCamera : MonoBehaviour {
 	{
         if (target != null)
         {
-            var t = GetTarget();
             var bpInput = BattlePlayerInput.instance;
+            var t = GetTarget();
             if (t == null || bpInput == null)
             {
                 return;
             }
+//            var rotAdjust = Quaternion.FromToRotation(Vector3.up, t.up);
+
+            
+            var tOffset = translationOffset;
+            var fOffset = followOffset;
 
             // Make the camera look at the target.
-            float yAngle = t.eulerAngles.y;
-            Quaternion rotation = Quaternion.Euler(0, yAngle, 0);
+            //float yAngle = t.eulerAngles.y;
+            //            var eu = new Vector3(0, yAngle, 0);
+            var eu = t.eulerAngles; // rotAdjust * new Vector3(0, yAngle, 0);
 
-            transform.position = t.position - (rotation * followOffset);
-            transform.LookAt(t.position + translationOffset);
+            Quaternion rotation = Quaternion.Euler(eu);
+
+            transform.position = t.position - (rotation * fOffset);
+            transform.LookAt(t.position + tOffset);
 
             var verticalInput = bpInput.VerticalAngle;
             if (Settings.InvertMouse)
@@ -70,8 +73,7 @@ public class GameCamera : MonoBehaviour {
             var rotationSensitivity = Settings.MouseSensitivity;
             // Make the camera look up or down.
             VerticalRotationAngle = Mathf.Clamp(VerticalRotationAngle + verticalInput * rotationSensitivity, minViewingAngle, maxViewingAngle);
-            var rot = GetRotationAnchor();
-            transform.RotateAround(rot.transform.position, rot.transform.right, -VerticalRotationAngle);
+            transform.RotateAround(rotationAnchorObject.position, rotationAnchorObject.transform.right, -VerticalRotationAngle);
         }
         else
         {

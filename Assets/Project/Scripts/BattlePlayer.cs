@@ -5,8 +5,7 @@ using UnityEngine;
 
 namespace Battle
 {
-            public enum WeaponMountPoints { RightHand, Pistol, Rifle, Auto, Sniper, RPG };
-
+    public enum WeaponMountPoints { RightHand, Pistol, Rifle, Auto, Sniper, RPG };
 
     public class BattlePlayer : TNBehaviour, IPickupCollector, IDamagable
     {
@@ -21,13 +20,13 @@ namespace Battle
         }
 
         [Header("Focal Point variables")]
-        public GameObject rotationPoint;
+        public Transform rotationPoint;
         public GameObject focalPoint;
         public float focalSmoothness;
         public KeyCode changeFocalSideKey;
 
         [Header("Interaction")]
-        public GameCamera[] GameCameras;
+        private GameCamera[] GameCameras;
         private GameCamera gameCamera;
         public KeyCode InteractionKey;
         public KeyCode ToolSwitchKey;
@@ -36,9 +35,9 @@ namespace Battle
         [SerializeField]
         public Transform aimTarget;
         [SerializeField]
-        private Cinemachine.CinemachineVirtualCamera aimCamera;
+        public Cinemachine.CinemachineVirtualCamera aimCamera;
         [SerializeField]
-        private Cinemachine.CinemachineVirtualCamera followCamera;
+        public Cinemachine.CinemachineVirtualCamera followCamera;
         [Header("IK solvers")]
         [SerializeField]
         private RootMotion.FinalIK.AimIK aimIk;
@@ -46,6 +45,8 @@ namespace Battle
         private RootMotion.FinalIK.LookAtIK lookIk;
         [SerializeField]
         private RootMotion.FinalIK.Recoil weaponRecoil;
+        [Header("Stances")]
+        public BodyStanceManager stanceManger;
         [Header("Gameplay")]
         [SerializeField]
         public PlayerTool Tool;
@@ -101,16 +102,49 @@ namespace Battle
         private bool isAiming;
         public bool weaponReady; // { get; set; }
         private bool isFocalPointOnLeft = true;
+        private void OnEnable()
+        {
+            if (stanceManger != null)
+            {
+                stanceManger.OnStanceChanged += onStanceChanged;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (stanceManger != null)
+            {
+                stanceManger.OnStanceChanged -= onStanceChanged;
+            }
+        }
+
+        private void onStanceChanged(BodyStance newStance)
+        {
+            var stanceData = stanceManger.GetStanceData(newStance);
+            rotationPoint = stanceData.RotationPoint;
+            GameCameras[0] = stanceData.FollowCam;
+            GameCameras[1] = stanceData.AimCam;
+            aimCamera.Follow = stanceData.AimCam.transform;
+            aimCamera.LookAt = aimTarget;
+            followCamera.Follow = stanceData.FollowCam.transform;
+            followCamera.LookAt = aimTarget;
+            gameCamera = GameCameras[(isAiming ? 1 : 0)];
+        }
 
         protected override void Awake()
         {
             base.Awake();
+            GameCameras = new GameCamera[2];
             gameEvents = BattleGameObjects.instance.gameEvents;
+
             weaponRecoil = GetComponent<RootMotion.FinalIK.Recoil>();
             if (tno.isMine)
             {
                 BattlePlayer.instance = this;
-                gameCamera = GameCameras[0];
+                aimCamera = BattleGameCameraManager.instance.AimCam;
+                followCamera = BattleGameCameraManager.instance.FollowCam;
+                onStanceChanged(stanceManger.Stance);
+                //gameCamera = GameCameras[0];
                 tno.Send("ToggleAim", Target.AllSaved, false);
             }
         }
@@ -162,15 +196,14 @@ namespace Battle
         {
             if (tno.isMine)
             {
-                //Cursor.lockState = CursorLockMode.Locked;
                 BattleGameCameraManager.instance.PlayerSpawned(this);
-                //            lookIk.solver.target = BattleGameCameraManager.instance.FreeLookDefaultTarget;
-                //            gameCamera.Init(this);
             }
             else
             {
+                /*
                 aimCamera.Priority = 0;
                 followCamera.Priority = 0;
+                */
             }
             Health = 50;
             Resources = 0;// to init the counter
@@ -230,12 +263,12 @@ namespace Battle
             focalPoint.transform.localPosition = new Vector3(smoothX, focalPoint.transform.localPosition.y, focalPoint.transform.localPosition.z);
 
             // interaction
-            var cameraTransform = gameCamera.transform;
-            var cameraAnchor = gameCamera.GetRotationAnchor();
+            var cameraTransform = stanceManger.CurrentStanceData().AimCam.transform;
+            var cameraAnchor = rotationPoint;
             var aimTargetPos = cameraTransform.position + (cameraTransform.forward * weaponRange);
             SetAimTargetPosition(aimTargetPos);
             tno.SendQuickly("SetAimTargetPosition", Target.Others, aimTargetPos);
-            //        Debug.DrawLine(cameraTransform.position, aimTargetPos, Color.blue);
+                    Debug.DrawLine(cameraTransform.position, aimTargetPos, Color.blue);
 #if UNITY_EDITOR
 #endif
             // get any interactable in our range (only one)
@@ -330,7 +363,8 @@ namespace Battle
                     InActionStanceCooldown.Restart();
                     return;
                 }
-                InActionStanceCooldown.Start(ActionStanceTime, () => {
+                InActionStanceCooldown.Start(ActionStanceTime, () =>
+                {
                     tno.Send("SetActionStance", Target.AllSaved, false);
                 });
             }
@@ -360,8 +394,21 @@ namespace Battle
             }
         }
 
+        public bool CanSwitchWeapon()
+        {
+            /* switching rules
+             * not when prone
+             */
+            if (stanceManger.Stance == BodyStance.Prone)
+            {
+                return false;
+            }
+            return true;
+        }
+
         void SwitchWeapon(int weaponType)
         {
+            if (!CanSwitchWeapon()) { return; }
             int index = weaponType - 1;
             weaponSwitching = true;
             if (currentWeapon != null)
@@ -565,7 +612,7 @@ namespace Battle
         public void DrawWeapon(int weaponType)
         {
             if (!tno.isMine) return;
-//            Debug.Log("drawing Weapon");
+            //            Debug.Log("drawing Weapon");
             currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
             tno.Send("SetAnimValue", Target.All, "SwitchingWeapons", "BOOL", false);
             UpdateActionStance(true);
@@ -575,7 +622,7 @@ namespace Battle
         public void PlaceWeapon(int weaponType)
         {
             if (!tno.isMine) return;
-//            Debug.Log("Holstering Weapon");
+            //            Debug.Log("Holstering Weapon");
             if (previousWeapon != null && previousWeapon.prefabInstance != null)
             {
                 previousWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, previousWeapon.prefabInstance.mountPoint);
@@ -587,7 +634,7 @@ namespace Battle
                 UpdateActionStance(true);
                 weaponSwitching = false;
             }
-            
+
             if (currentWeapon == null)
             {
                 weaponSwitching = false;
@@ -612,7 +659,7 @@ namespace Battle
                 default:
                     break;
             }
-//            Debug.LogFormat("Setting prefab {0} to parent {1}", mountable.name, parent.name);
+            //            Debug.LogFormat("Setting prefab {0} to parent {1}", mountable.name, parent.name);
             mountable.transform.SetParent(parent);
             mountable.transform.localPosition = Vector3.zero;
             mountable.transform.localRotation = Quaternion.identity;

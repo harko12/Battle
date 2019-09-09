@@ -65,9 +65,18 @@ public class Pickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var pickupCollector = other.GetComponent<IPickupCollector>();
+        var go = other.gameObject;
+        if (pickupCollector == null)
+        {
+            pickupCollector = other.GetComponentInParent<IPickupCollector>();
+            if (pickupCollector != null)
+            {
+                go = other.transform.parent.gameObject;
+            }
+        }
         if (pickupCollector != null)
         {
-            var playerTno = other.gameObject.GetComponent<TNObject>();
+            var playerTno = go.GetComponent<TNObject>();
             if (playerTno.isMine)
             {
                 var success = pickupCollector.PickedUp(this);

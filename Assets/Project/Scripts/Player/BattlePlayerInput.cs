@@ -8,6 +8,14 @@ using UnityStandardAssets.CrossPlatformInput;
 
 namespace Battle
 {
+    public class BattlePlayerMovementState
+    {
+        public Vector3 Move { get; set; }
+        public bool Grounded { get; set; }
+        public Vector3 Velocity { get; set; }
+        public BodyStance Stance { get; set; }
+    }
+
     [RequireComponent(typeof(BattlePlayer))]
     [RequireComponent(typeof(BattleThirdPersonController))]
     public class BattlePlayerInput : TNBehaviour
@@ -22,9 +30,11 @@ namespace Battle
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
         [SerializeField]
         private bool m_Aim;
-        private bool m_Crouch;
+        private BodyStance m_stance;
         public float m_TurnAmount { get; private set; }
         public float VerticalAngle { get; private set; }
+
+        public BattlePlayerMovementState MoveState;
 
         [Range(1f, 20f)]
         public float inputUpdates = 10f;
@@ -87,7 +97,7 @@ namespace Battle
                 m_TurnAmount = 0;
                 VerticalAngle = 0;
                 m_Move = Vector3.zero;
-                tno.Send("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_Crouch);
+                tno.Send("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_stance);
             }
         }
 
@@ -156,6 +166,16 @@ namespace Battle
                 {
                     tno.Send("SetJump", Target.AllSaved, CrossPlatformInputManager.GetButtonDown("Jump"));
                 }
+
+                if (Input.GetKeyUp(KeyCode.C))
+                {
+                    _battlePlayer.stanceManger.StanceMove(false);
+                }
+                else if (Input.GetKeyUp(KeyCode.V))
+                {
+                    _battlePlayer.stanceManger.StanceMove(true);
+                }
+                m_stance = _battlePlayer.stanceManger.Stance;
             }
         }
 
@@ -169,12 +189,6 @@ namespace Battle
                 float h = CrossPlatformInputManager.GetAxis("Horizontal");
                 float v = CrossPlatformInputManager.GetAxis("Vertical");
                 var inputVector = new Vector3(h, 0, v);
-                if (Input.GetKeyUp(KeyCode.C))
-                {
-                    m_Crouch = !m_Crouch;
-                }
-//                m_Crouch = true; // Input.GetKey(KeyCode.C);
-                
                 var new_aim = Input.GetAxis("Fire2") > .01f;
                 if (m_Aim != new_aim)
                 {
@@ -226,7 +240,8 @@ namespace Battle
                     }
                     */
                     mLastInputSend = time;
-                    tno.SendQuickly("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_Crouch);
+//                    BattlePlayer.instance.stanceManger.CheckInputs(ref m_Move, ref m_TurnAmount);
+                    tno.SendQuickly("SetInputs", Target.OthersSaved, m_Move, m_TurnAmount, m_stance);
                     
                     // Since the input is sent frequently, rigidbody only needs to be corrected every couple of seconds.
                     // Faster-paced games will require more frequent updates.
@@ -247,9 +262,9 @@ namespace Battle
         }
 
         [RFC]
-        protected void SetInputs(Vector3 m, float t, bool c) {
+        protected void SetInputs(Vector3 m, float t, int c) {
             //Debug.LogFormat("{0} setting inputs m:{1}", tno.owner.name, m);
-            m_Move = m; m_TurnAmount = t;  m_Crouch = c;
+            m_Move = m; m_TurnAmount = t;  m_stance = (BodyStance)c;
         }
 
         /// <summary>
@@ -273,7 +288,7 @@ namespace Battle
                 //Debug.LogFormat("{0} updating character with inputs m:{1}", tno.owner.name, m_Move);
             }
             // pass all parameters to the character control script
-            Vector3 vizOrigin = transform.position + Vector3.up * 1;
+            Vector3 vizOrigin = transform.position + transform.up * 1;
             Debug.DrawLine(vizOrigin, vizOrigin + m_Move.normalized, Color.green);
 
             if (m_Aim != lastAim)
@@ -283,7 +298,9 @@ namespace Battle
                 lastAim = m_Aim;
             }
 
-            m_Character.Move(m_Move, m_TurnAmount, m_Crouch, m_Jump);
+            if (m_Move.sqrMagnitude > 1f) m_Move.Normalize();
+
+            MoveState = m_Character.Move(m_Move, m_TurnAmount, m_stance, m_Jump);
             m_Jump = false;
         }
 

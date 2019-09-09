@@ -6,7 +6,7 @@ using TNet;
 namespace Battle
 {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(CapsuleCollider))]
+    [RequireComponent(typeof(BodyStanceManager))]
     [RequireComponent(typeof(Animator))]
     public class BattleThirdPersonController : TNBehaviour
     {
@@ -32,99 +32,88 @@ namespace Battle
         Vector3 m_GroundNormal;
         float m_CapsuleHeight;
         Vector3 m_CapsuleCenter;
-        CapsuleCollider m_Capsule;
         bool m_Crouching;
+        BodyStance m_stance;
 
         private bool started = false;
         void Start()
         {
             m_Animator = GetComponent<Animator>();
             m_Rigidbody = GetComponent<Rigidbody>();
-            m_Capsule = GetComponent<CapsuleCollider>();
-            m_CapsuleHeight = m_Capsule.height;
-            m_CapsuleCenter = m_Capsule.center;
-
             m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             m_OrigGroundCheckDistance = m_GroundCheckDistance;
             started = true;
         }
 
-
-        public void Move(Vector3 move, float turnAmount, bool crouch, bool jump)
+        public BattlePlayerMovementState Move(Vector3 move, float turnAmount, BodyStance stance, bool jump)
         {
-            if (!started) { return; }
+            var moveState = new BattlePlayerMovementState();
+            if (!started) { return null; }
             // convert the world relative moveInput vector into a local-relative
             // turn amount and forward amount required to head in the desired
             // direction.
-            if (move.magnitude > 1f) move.Normalize();
+            CheckGroundStatus();
 
-            m_Rigidbody.velocity = new Vector3(move.x * m_MoveSpeedMultiplier, m_Rigidbody.velocity.y, move.z * m_MoveSpeedMultiplier);
+            var speedFactor = m_MoveSpeedMultiplier;
+            var bodyAngle = Vector3.up;
+            if (stance == BodyStance.Crouch)
+            {
+                speedFactor *= .5f;
+            }
+            else if (stance == BodyStance.Prone)
+            {
+                bodyAngle = m_GroundNormal;
+                speedFactor *= .35f;
+            }
+
+            Vector3 myForward = Vector3.Cross(transform.right, m_GroundNormal);
+            // align character to the new myNormal while keeping the forward direction:
+            Quaternion targetRot = Quaternion.LookRotation(myForward, m_GroundNormal);
+            var lerpSpeed = 2;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, lerpSpeed * Time.deltaTime);
+
+            var oldMove = move;
+            move = Vector3.ProjectOnPlane(move, m_GroundNormal);
+            var uphill = oldMove.y < move.y;
+            var moveSlope = Vector3.Angle(oldMove, move);
+/*
+            var sign = (!uphill ? "-" : "+");
+            Debug.Log("angle is "+ sign+ " " + moveSlope.ToString());
+*/
+            Debug.DrawLine(transform.position, transform.position + move * 5, Color.red);
+            
+            m_Rigidbody.velocity = new Vector3(move.x * speedFactor, m_Rigidbody.velocity.y, move.z * speedFactor);
+            moveState.Velocity = m_Rigidbody.velocity;
 
             move = transform.InverseTransformDirection(move);
-            CheckGroundStatus();
-            move = Vector3.ProjectOnPlane(move, m_GroundNormal);
             m_ForwardAmount = move.z;
             m_TurnAmount = turnAmount * m_CursorSensitivity;
             m_StrafeAmount = move.x;
+            moveState.Move = move;
 
             ApplyExtraTurnRotation();
-
+            bool crouch = stance == BodyStance.Crouch;
+            m_stance = stance;
+            moveState.Stance = stance;
             // control and velocity handling is different when grounded and airborne:
             if (m_IsGrounded)
             {
                 HandleGroundedMovement(crouch, jump);
+                moveState.Grounded = true;
             }
             else
             {
                 HandleAirborneMovement();
+                moveState.Grounded = false;
             }
 
-            ScaleCapsuleForCrouching(crouch);
-            PreventStandingInLowHeadroom();
+//            ScaleCapsuleForCrouching(crouch);
+//            PreventStandingInLowHeadroom();
 
             // send input and other state parameters to the animator
             UpdateAnimator(move);
+            return moveState;
         }
-
-
-        void ScaleCapsuleForCrouching(bool crouch)
-        {
-            if (m_IsGrounded && crouch)
-            {
-                if (m_Crouching) return;
-                m_Capsule.height = m_Capsule.height / 2f;
-                m_Capsule.center = m_Capsule.center / 2f;
-                m_Crouching = true;
-            }
-            else
-            {
-                Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
-                float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
-                if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
-                {
-                    m_Crouching = true;
-                    return;
-                }
-                m_Capsule.height = m_CapsuleHeight;
-                m_Capsule.center = m_CapsuleCenter;
-                m_Crouching = false;
-            }
-        }
-
-        void PreventStandingInLowHeadroom()
-        {
-            // prevent standing up in crouch-only zones
-            if (!m_Crouching)
-            {
-                Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
-                float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
-                if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
-                {
-                    m_Crouching = true;
-                }
-            }
-        }
-
         public void SetAnimLayerWeight(string layerName, float weight)
         {
             var index = m_Animator.GetLayerIndex(layerName);
@@ -157,6 +146,7 @@ namespace Battle
             m_Animator.SetFloat("Turn", m_TurnAmount, 0.1f, Time.deltaTime);
             m_Animator.SetFloat("Strafe", m_StrafeAmount, 0.1f, Time.deltaTime);
             m_Animator.SetFloat("MovementMagnitude", move.sqrMagnitude);
+            m_Animator.SetInteger("Stance", (int)m_stance);
             m_Animator.SetBool("Crouch", m_Crouching);
             m_Animator.SetBool("OnGround", m_IsGrounded);
             if (!m_IsGrounded)
@@ -259,5 +249,46 @@ namespace Battle
                 m_Animator.applyRootMotion = false;
             }
         }
+
+        /*
+        void ScaleCapsuleForCrouching(bool crouch)
+        {
+            if (m_IsGrounded && crouch)
+            {
+                if (m_Crouching) return;
+                m_Capsule.height = m_Capsule.height / 2f;
+                m_Capsule.center = m_Capsule.center / 2f;
+                m_Crouching = true;
+            }
+            else
+            {
+                Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
+                float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
+                if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+                {
+                    m_Crouching = true;
+                    return;
+                }
+                m_Capsule.height = m_CapsuleHeight;
+                m_Capsule.center = m_CapsuleCenter;
+                m_Crouching = false;
+            }
+        }
+
+        void PreventStandingInLowHeadroom()
+        {
+            // prevent standing up in crouch-only zones
+            if (!m_Crouching)
+            {
+                Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
+                float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
+                if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+                {
+                    m_Crouching = true;
+                }
+            }
+        }
+        */
+
     }
 }
