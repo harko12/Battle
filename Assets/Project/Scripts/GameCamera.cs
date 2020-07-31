@@ -84,8 +84,9 @@ public class GameCamera : MonoBehaviour {
             transform.rotation = anchor.rotation;
             transform.LookAt(DefaultTarget.transform.position);
             */
-    }
+        }
         var euler = transform.rotation.eulerAngles;
         transform.rotation.eulerAngles.Set(euler.x, euler.y, 0);
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 30, Color.green);
     }
 }

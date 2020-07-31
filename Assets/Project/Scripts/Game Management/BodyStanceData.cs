@@ -10,6 +10,8 @@ namespace Battle
         public Collider BodyCollider;
         public GameCamera FollowCam;
         public GameCamera AimCam;
+        public bool StickToGroundAngle;
+        public float AngleSpeedAdjust;
+        public float SpeedFactor;
     }
-
 }

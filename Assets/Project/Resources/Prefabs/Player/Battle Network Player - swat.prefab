@@ -377,6 +377,9 @@ MonoBehaviour:
   BodyCollider: {fileID: 4153395456378416694}
   FollowCam: {fileID: 6106281152066850151}
   AimCam: {fileID: 4009750910880955781}
+  StickToGroundAngle: 0
+  AngleSpeedAdjust: 0
+  SpeedFactor: 0.5
 --- !u!136 &4153395456378416694
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -834,6 +837,7 @@ MonoBehaviour:
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 0.3
   m_CursorSensitivity: 1
+  stanceManager: {fileID: 269281978}
 --- !u!114 &1861232010975052768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1746,6 +1750,9 @@ MonoBehaviour:
   BodyCollider: {fileID: 630874069995571677}
   FollowCam: {fileID: 358827766}
   AimCam: {fileID: 696359122}
+  StickToGroundAngle: 0
+  AngleSpeedAdjust: 0
+  SpeedFactor: 1
 --- !u!136 &630874069995571677
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1809,6 +1816,9 @@ MonoBehaviour:
   BodyCollider: {fileID: 3577877001285241217}
   FollowCam: {fileID: 7004497109136070014}
   AimCam: {fileID: 42584846306896947}
+  StickToGroundAngle: 1
+  AngleSpeedAdjust: 0.25
+  SpeedFactor: 0.35
 --- !u!136 &3577877001285241217
 CapsuleCollider:
   m_ObjectHideFlags: 0
