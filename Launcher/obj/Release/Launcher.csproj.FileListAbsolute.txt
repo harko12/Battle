@@ -1,0 +1,44 @@
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\Launcher.exe.config
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\Launcher.exe
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\Launcher.pdb
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.csprojAssemblyReference.cache
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\MainWindow.g.cs
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\App.g.cs
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher_MarkupCompile.cache
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher_MarkupCompile.lref
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\MainWindow.baml
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.g.resources
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.Properties.Resources.resources
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.csproj.GenerateResource.cache
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.csproj.CoreCompileInputs.cache
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.exe
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.pdb
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\DotNetZip.dll
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\Ookii.Dialogs.Wpf.dll
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\DotNetZip.pdb
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\DotNetZip.xml
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\Ookii.Dialogs.Wpf.pdb
+U:\Unity\projects\HackerCCG\Launcher\bin\Release\Ookii.Dialogs.Wpf.xml
+U:\Unity\projects\HackerCCG\Launcher\obj\Release\Launcher.csproj.CopyComplete
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\Launcher.exe.config
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\Launcher.exe
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\Launcher.pdb
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\DotNetZip.dll
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\Ookii.Dialogs.Wpf.dll
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\DotNetZip.pdb
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\DotNetZip.xml
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\Ookii.Dialogs.Wpf.pdb
+E:\Unity Projects\udemy courses\Battle\Launcher\bin\Release\Ookii.Dialogs.Wpf.xml
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.csproj.AssemblyReference.cache
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\MainWindow.g.cs
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\App.g.cs
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher_MarkupCompile.cache
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher_MarkupCompile.lref
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\MainWindow.baml
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.g.resources
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.Properties.Resources.resources
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.csproj.GenerateResource.cache
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.csproj.CoreCompileInputs.cache
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.csproj.CopyComplete
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.exe
+E:\Unity Projects\udemy courses\Battle\Launcher\obj\Release\Launcher.pdb

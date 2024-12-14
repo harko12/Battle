@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+    </startup>
+  <appSettings>
+    <add key="ServerUri" value="FILE_URI"/>
+    <add key="VersionFileName" value="VERSION_FILE_NAME"/>
+    <add key="ZipFileName" value="ZIP_FILE_NAME"/>
+    <add key="ExeFileName" value="EXE_FILE_NAME"/>
+    <add key="GetUser" value="USER_NAME_FOR_WEBCLIENT_AUTH"/>
+    <add key="GetPass" value="PASSWORD_FOR_WEB_CLIENT_AUTH"/>
+  </appSettings>
+</configuration>

@@ -33,7 +33,10 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-HighOrLow_Data/
+builds/
+battle.zip
+battle_*
+upload_battle*
 
 Web/
 
