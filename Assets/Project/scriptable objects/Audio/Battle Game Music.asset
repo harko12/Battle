@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765a84844104c1f498c07d38e99248df, type: 3}
   m_Name: Battle Game Music
   m_EditorClassIdentifier: 
-  ThemeMusic: {fileID: 8300000, guid: 4da998446d12242149593fba1fa13cc4, type: 3}
-  BattleMusic: {fileID: 8300000, guid: ddbfe8ed2829a4607b2500c704210648, type: 3}
-  EvadeMusic: {fileID: 8300000, guid: 5622d4a206b14400b8f6f4d1fb43265d, type: 3}
+  ThemeMusic: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
+  BattleMusic: {fileID: 8300000, guid: 547742badd22e4813a1f3e1e650a1b39, type: 3}
+  EvadeMusic: {fileID: 8300000, guid: 7c601e21b7bc1404fa0ffa29deae1140, type: 3}

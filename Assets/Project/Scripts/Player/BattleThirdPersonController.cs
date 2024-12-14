@@ -30,18 +30,39 @@ namespace Battle
         float m_ForwardAmount;
         float m_StrafeAmount;
         Vector3 m_GroundNormal;
+        Vector3 myNormal;
         float m_CapsuleHeight;
         Vector3 m_CapsuleCenter;
         bool m_Crouching;
         BodyStance m_stance;
+        BodyStanceData currentStance;
+        public BodyStanceManager stanceManager;
+
+        private void OnEnable()
+        {
+            stanceManager.OnStanceChanged += onStanceChanged;
+        }
+
+        private void OnDisable()
+        {
+            stanceManager.OnStanceChanged -= onStanceChanged;
+        }
+
+        public void onStanceChanged(BodyStance s)
+        {
+            currentStance = stanceManager.CurrentStanceData();
+        }
 
         private bool started = false;
+
         void Start()
         {
             m_Animator = GetComponent<Animator>();
             m_Rigidbody = GetComponent<Rigidbody>();
             m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             m_OrigGroundCheckDistance = m_GroundCheckDistance;
+            currentStance = stanceManager.CurrentStanceData();
+            myNormal = transform.up;
             started = true;
         }
 
@@ -55,33 +76,25 @@ namespace Battle
             CheckGroundStatus();
 
             var speedFactor = m_MoveSpeedMultiplier;
-            var bodyAngle = Vector3.up;
-            if (stance == BodyStance.Crouch)
+            speedFactor *= currentStance.SpeedFactor;
+            if (currentStance.StickToGroundAngle) //TODO make a 'myNormal' for the character, break out this code
             {
-                speedFactor *= .5f;
-            }
-            else if (stance == BodyStance.Prone)
-            {
-                bodyAngle = m_GroundNormal;
-                speedFactor *= .35f;
+                var oldMove = move;
+                move = Vector3.ProjectOnPlane(move, m_GroundNormal);
+                var uphill = oldMove.y < move.y;
+                var moveSlope = Vector3.Angle(oldMove, move);
+                if (uphill && moveSlope > 5)
+                {
+                    speedFactor *= currentStance.AngleSpeedAdjust * moveSlope;
+                }
+                /*
+                var sign = (!uphill ? "-" : "+");
+                Debug.Log("angle is "+ sign+ " " + moveSlope.ToString());
+                */
+                Debug.DrawLine(transform.position, transform.position + move * 5, Color.red);
             }
 
-            Vector3 myForward = Vector3.Cross(transform.right, m_GroundNormal);
-            // align character to the new myNormal while keeping the forward direction:
-            Quaternion targetRot = Quaternion.LookRotation(myForward, m_GroundNormal);
-            var lerpSpeed = 2;
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, lerpSpeed * Time.deltaTime);
 
-            var oldMove = move;
-            move = Vector3.ProjectOnPlane(move, m_GroundNormal);
-            var uphill = oldMove.y < move.y;
-            var moveSlope = Vector3.Angle(oldMove, move);
-/*
-            var sign = (!uphill ? "-" : "+");
-            Debug.Log("angle is "+ sign+ " " + moveSlope.ToString());
-*/
-            Debug.DrawLine(transform.position, transform.position + move * 5, Color.red);
-            
             m_Rigidbody.velocity = new Vector3(move.x * speedFactor, m_Rigidbody.velocity.y, move.z * speedFactor);
             moveState.Velocity = m_Rigidbody.velocity;
 
@@ -179,6 +192,23 @@ namespace Battle
             }
         }
 
+        private void FixedUpdate()
+        {
+            var targetNormal = Vector3.up;
+            if (currentStance.StickToGroundAngle) //TODO make a 'myNormal' for the character, break out this code
+            {
+                targetNormal = m_GroundNormal;
+            }
+            var lerpSpeed = 4;
+            if (myNormal != targetNormal)
+            {
+                myNormal = Vector3.Lerp(myNormal, targetNormal, lerpSpeed * Time.deltaTime);
+                Vector3 myForward = Vector3.Cross(transform.right, myNormal);
+                // align character to the new myNormal while keeping the forward direction:
+                Quaternion targetRot = Quaternion.LookRotation(myForward, myNormal);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRot, lerpSpeed * Time.deltaTime);
+            }
+        }
 
         void HandleAirborneMovement()
         {

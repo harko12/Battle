@@ -52,6 +52,12 @@ public class JoinMenu : MonoBehaviour
             Init();
             StartCoroutine("UpdateChannelList");
         }
+        else
+        {
+            Messages.text = "Unable to connect.";
+        }
+
+
     }
 
     public void OnDisconnect()

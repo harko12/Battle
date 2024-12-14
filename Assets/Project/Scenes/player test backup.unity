@@ -162,7 +162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47927318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.46, y: 0, z: 0}
+  m_LocalPosition: {x: 15.6, y: 22.1, z: -19.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1910342925}
@@ -254,26 +254,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Battle Network Player - swat (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021225747
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99977475
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419500273298810, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -369,6 +349,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0050000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.021225747
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99977475
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419499131841299, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -497,26 +497,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Network Player - swat (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021225747
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99977475
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.4320002
-      objectReference: {fileID: 0}
     - target: {fileID: 4617419500273298810, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -611,6 +591,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0050000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.021225747
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99977475
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419499131841299, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -3138,26 +3138,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Network Player - swat (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021225747
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99977475
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.4320002
-      objectReference: {fileID: 0}
     - target: {fileID: 4617419500273298810, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3252,6 +3232,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0050000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.021225747
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99977475
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419499131841299, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -3405,26 +3405,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Network Player - swat (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021225747
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99977475
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.4320002
-      objectReference: {fileID: 0}
     - target: {fileID: 4617419500273298810, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3519,6 +3499,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0050000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.021225747
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99977475
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419499131841299, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -4008,19 +4008,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 120801268, guid: 9de485b0a2067b54bbb0a0947d52de72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 62.904953
+      value: 62.90515
       objectReference: {fileID: 0}
     - target: {fileID: 120801268, guid: 9de485b0a2067b54bbb0a0947d52de72, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -68.422485
+      value: -68.42268
       objectReference: {fileID: 0}
     - target: {fileID: 833759209, guid: 9de485b0a2067b54bbb0a0947d52de72, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 62.90493
+      value: 62.90513
       objectReference: {fileID: 0}
     - target: {fileID: 833759209, guid: 9de485b0a2067b54bbb0a0947d52de72, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -68.42248
+      value: -68.422676
       objectReference: {fileID: 0}
     - target: {fileID: 778603279, guid: 9de485b0a2067b54bbb0a0947d52de72, type: 3}
       propertyPath: m_Enabled
@@ -4165,26 +4165,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Network Player - swat (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021225747
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99977475
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.4320002
-      objectReference: {fileID: 0}
     - target: {fileID: 4617419500273298810, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4279,6 +4259,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0050000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.021225747
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99977475
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419499131841299, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -5201,26 +5201,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Battle Network Player - swat (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.021225747
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.99977475
-      objectReference: {fileID: 0}
-    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.4320002
-      objectReference: {fileID: 0}
     - target: {fileID: 4617419500273298810, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5315,6 +5295,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.0050000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.021225747
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99977475
+      objectReference: {fileID: 0}
+    - target: {fileID: 945287959694035415, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 2.4320002
       objectReference: {fileID: 0}
     - target: {fileID: 4617419499131841299, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
         type: 3}
@@ -8242,6 +8242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6750829279826299240, guid: 27ed25aacec8a03429a4feecc7ba1ee0,
+        type: 3}
+      propertyPath: AngleSpeedAdjust
+      value: 0.17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27ed25aacec8a03429a4feecc7ba1ee0, type: 3}

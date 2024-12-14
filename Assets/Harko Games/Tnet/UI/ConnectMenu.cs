@@ -74,7 +74,7 @@ public class ConnectMenu : MonoBehaviour {
             }
         }
 
-        var serverIP = pInfo.ServerIP;
+        var serverIP = "68.66.205.126:5137"; // pInfo.ServerIP;
         if (!string.IsNullOrEmpty(serverIP))
         {
             serverAddress.text = serverIP;
@@ -115,6 +115,7 @@ public class ConnectMenu : MonoBehaviour {
     {
         if (!success)
         {
+            Debug.Log("connection failed: " + error);
             mMessage = error;
         }
     }

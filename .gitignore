@@ -45,6 +45,7 @@ battle_*
 
 #third party stuff
 Assets/Third Party*
+Plugins/*
 #tnet*
 Logs
 Debug
