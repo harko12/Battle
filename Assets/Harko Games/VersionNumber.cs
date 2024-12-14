@@ -11,7 +11,7 @@ using System.Reflection;
 /// The following number are the build number (which is increased automatically
 ///  once a day, and the revision number which is increased every second). 
 /// </remarks>
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.1")]
 public class VersionNumber : MonoBehaviour
 {
     /// <summary>

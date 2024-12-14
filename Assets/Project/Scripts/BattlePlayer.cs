@@ -312,6 +312,7 @@ namespace Battle
                 var lcv = (int)wt;
                 if (Input.GetKeyDown(lcv.ToString()))
                 {
+                    Debug.LogFormat("switching to weapon {0}", lcv);
                     SwitchWeapon(lcv);
                     break;
                 }
@@ -421,7 +422,9 @@ namespace Battle
             if (index < 0) // setting weapon to none
             {
                 currentWeapon = null;
-                weaponSwitching = false;
+				Debug.Log("weapon set to none");
+
+				weaponSwitching = false;
             }
             else
             {
@@ -612,32 +615,36 @@ namespace Battle
         public void DrawWeapon(int weaponType)
         {
             if (!tno.isMine) return;
-            //            Debug.Log("drawing Weapon");
-            currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
+            Debug.Log("drawing Weapon");
+            currentWeapon.prefabInstance.tno.Send(nameof(WeaponPrefab.Mount), Target.AllSaved, tno.uid, (int)WeaponMountPoints.RightHand);
             tno.Send("SetAnimValue", Target.All, "SwitchingWeapons", "BOOL", false);
             UpdateActionStance(true);
-            weaponSwitching = false;
+			Debug.Log("drawing Weapon 2");
+
+			weaponSwitching = false;
         }
 
         public void PlaceWeapon(int weaponType)
         {
             if (!tno.isMine) return;
-            //            Debug.Log("Holstering Weapon");
             if (previousWeapon != null && previousWeapon.prefabInstance != null)
             {
-                previousWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, previousWeapon.prefabInstance.mountPoint);
+				Debug.LogFormat("Placing Weapon to point {0}", (int)previousWeapon.prefabInstance.mountPoint);
+				previousWeapon.prefabInstance.tno.Send(nameof(WeaponPrefab.Mount), Target.AllSaved, tno.uid, (int)previousWeapon.prefabInstance.mountPoint);
             }
 
             if (currentWeapon != null && currentWeapon.WeaponClassIndex() == previousWeapon.WeaponClassIndex())
             {
-                currentWeapon.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, WeaponMountPoints.RightHand);
+				Debug.LogFormat("Placing Weapon 2 to point {0}", WeaponMountPoints.RightHand);
+				currentWeapon.prefabInstance.tno.Send(nameof(WeaponPrefab.Mount), Target.AllSaved, tno.uid, (int)WeaponMountPoints.RightHand);
                 UpdateActionStance(true);
-                weaponSwitching = false;
+				weaponSwitching = false;
             }
 
             if (currentWeapon == null)
             {
-                weaponSwitching = false;
+				Debug.Log("Holstering Weapon 3");
+				weaponSwitching = false;
             }
 
         }
@@ -692,7 +699,7 @@ namespace Battle
             if (weaponPrefabInstance != null)
             {
                 weaponToAdd.SetWeaponPrefab(weaponPrefabInstance);
-                weaponToAdd.prefabInstance.tno.Send("Mount", Target.AllSaved, tno.uid, weaponToAdd.prefabInstance.mountPoint);
+                weaponToAdd.prefabInstance.tno.Send(nameof(WeaponPrefab.Mount), Target.AllSaved, tno.uid, (int)weaponToAdd.prefabInstance.mountPoint);
             }
 
             weaponToAdd.AddAmmo(p.Value);

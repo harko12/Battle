@@ -319,7 +319,7 @@ namespace Battle
             m_Character.SetAnimValue("WeaponType", "INT", index);
             SetAnimValue("ActionStance", "BOOL", actionStance);
             m_Character.SetAnimValue("SwitchWeapon", "TRIGGER");
-            m_Character.SetAnimValue("SwitchingWeapon", "BOOL", true);
+            m_Character.SetAnimValue("SwitchingWeapons", "BOOL", true);
             m_Character.SetAnimLayerWeight("Upper Body", weight);
         }
 
