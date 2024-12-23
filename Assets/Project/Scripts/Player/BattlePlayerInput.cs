@@ -1,10 +1,6 @@
 ﻿using Cinemachine;
-using HarkoGames.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using TNet;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
 
 namespace Battle
 {
@@ -164,7 +160,7 @@ namespace Battle
 
                 if (!m_Jump)
                 {
-                    tno.Send("SetJump", Target.AllSaved, CrossPlatformInputManager.GetButtonDown("Jump"));
+                    tno.Send("SetJump", Target.AllSaved, Input.GetButtonDown("Jump"));
                 }
 
                 if (Input.GetKeyUp(KeyCode.C))
@@ -186,8 +182,8 @@ namespace Battle
             if (tno.isMine && !mInputSuspended)
             {
                 // read inputs
-                float h = CrossPlatformInputManager.GetAxis("Horizontal");
-                float v = CrossPlatformInputManager.GetAxis("Vertical");
+                float h = Input.GetAxis("Horizontal");
+                float v = Input.GetAxis("Vertical");
                 var inputVector = new Vector3(h, 0, v);
                 var new_aim = Input.GetAxis("Fire2") > .01f;
                 if (m_Aim != new_aim)

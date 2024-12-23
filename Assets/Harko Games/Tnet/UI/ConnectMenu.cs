@@ -237,8 +237,8 @@ public class ConnectMenu : MonoBehaviour {
                     go.transform.SetParent(ServerListRoot.transform);
                     Serverlines.Add(go);
                 }
-                ServerList.Entry ent = list[i];
-                go = Serverlines[i];
+                ServerList.Entry ent = list.buffer[i];
+                go = Serverlines.buffer[i];
                 go.SetActive(true);
                 var button = go.GetComponentInChildren<UnityEngine.UI.Button>();
                 var textFields = go.GetComponentsInChildren<Text>();
@@ -261,7 +261,7 @@ public class ConnectMenu : MonoBehaviour {
             // hide any extra lines
             for (int i = list.size; i < Serverlines.Count; i++)
             {
-                Serverlines[i].SetActive(false);
+                Serverlines.buffer[i].SetActive(false);
             }
             yield return new WaitForSeconds(.5f);
         }

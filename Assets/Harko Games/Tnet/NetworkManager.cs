@@ -34,8 +34,8 @@ public class NetworkManager : MonoBehaviour
     public GameObject myCanvas;
     public GameObject crosshair;
     public Text networkMessages;
-    public UnityEngine.UI.Text playerName;
-    public UnityEngine.UI.Button spawnButton, spButton, mpButton, observerButton;
+    public Text playerName;
+    public Button spawnButton, spButton, mpButton, observerButton;
     public DropDown teamInput;
     public GameObject TeamPanel, MenuPanel;
     public LobbyMenu myLobbyMenu;
@@ -191,19 +191,7 @@ public class NetworkManager : MonoBehaviour
             }
         }
     }
-    /*
-    void OnNetworkConnect(bool success, string message)
-    {
-        networkMessages.text = message == null ? "Connected" : message;
-        TNManager.JoinChannel(1, null, false, 999, null);
-    }
 
-    public void Connect()
-    {
-        networkMessages.text = "Attempting to Connect.";
-        TNManager.Connect("localhost");
-    }
-    */
     public void StartSinglePlayer()
     {
         JoinGame();
@@ -216,10 +204,12 @@ public class NetworkManager : MonoBehaviour
         SpawnPlayer();
     }
 
-    void OnNetworkJoinChannel(int channelID, bool result, string message)
+    private int gameChannelId = 0;
+    void OnJoinChannel(int channelID, bool result, string message)
     {
         if (result)
         {
+            this.gameChannelId = channelID;
             var p = TNManager.playerData;
             p.SetChild(NODE_TeamId, -1);
             p.SetChild(NODE_Kills, 0);
@@ -232,7 +222,7 @@ public class NetworkManager : MonoBehaviour
             if (TNManager.IsHosting(channelID))
             {
                 // update the channel data
-                TNManager.channelData = string.Format("{0}'s Game", TNManager.playerName);
+                TNManager.SetChannelData(channelID, "name", string.Format("{0}'s Game", TNManager.playerName));
             }
         }
         else
@@ -243,7 +233,7 @@ public class NetworkManager : MonoBehaviour
 
     public void LeaveChannel()
     {
-        TNManager.LeaveChannel();
+        TNManager.LeaveChannel(this.gameChannelId);
     }
 
     void OnNetworkLeaveChannel()
