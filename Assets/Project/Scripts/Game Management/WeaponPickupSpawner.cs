@@ -9,7 +9,7 @@ public class WeaponPickupSpawner : PrefabSpawner
     public PickupType Contents;
     public float Value;
 
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
         mSpawnFunction = "SpawnWeaponPickupPrefab";

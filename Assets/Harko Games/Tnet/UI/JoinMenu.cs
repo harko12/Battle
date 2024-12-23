@@ -138,7 +138,7 @@ public class JoinMenu : MonoBehaviour
             // hide any extra lines
             for (int i = list.size; i < ChannelLines.Count; i++)
             {
-                ChannelLines[i].SetActive(false);
+                ChannelLines.buffer[i].SetActive(false);
             }
 
             yield return new WaitForSeconds(GetComponent<TNChannelList>().RefreshInterval);

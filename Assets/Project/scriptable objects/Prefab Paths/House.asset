@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 424b702ecd3a30b4caff514d935a8347, type: 3}
   m_Name: House
   m_EditorClassIdentifier: 
-  PrefabObject: {fileID: 4899245216675500113, guid: ef75ff05effaa2a4a9e5b37b5e0c746a,
+  PrefabObject: {fileID: 8598920193495894646, guid: db5dc70c3abf16f40b43935fd1953bb7,
     type: 3}
   ResourcesPath: Assets/Project/Resources/
-  AssetPath: Assets/Project/Resources/Prefabs/House.prefab
-  PathInResources: Prefabs/House
+  AssetPath: Assets/Project/Resources/Prefabs/house 1.prefab
+  PathInResources: Prefabs/house 1

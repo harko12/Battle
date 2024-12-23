@@ -67,7 +67,7 @@ public class LobbyMenu : MonoBehaviour {
                         teamRow.SetActive(false);
                         TeamLines.Add(teamRow);
                     }
-                    teamRow = TeamLines[teamLcv];
+                    teamRow = TeamLines.buffer[teamLcv];
                     teamRow.transform.SetParent(TeamListPanel.transform);
                     teamRow.SetActive(true);
                     var tr = teamRow.GetComponent<TeamRow>();
@@ -90,7 +90,7 @@ public class LobbyMenu : MonoBehaviour {
                     playerRow.SetActive(false);
                     PlayerLines.Add(playerRow);
                 }
-                playerRow = PlayerLines[playerLcv];
+                playerRow = PlayerLines.buffer[playerLcv];
                 playerRow.transform.SetParent(TeamListPanel.transform);
                 playerRow.SetActive(true);
                 var prScript = playerRow.GetComponent<PlayerRow>();
@@ -102,13 +102,13 @@ public class LobbyMenu : MonoBehaviour {
             // hide and move any unused panels until needed
             for (int lcv = teamLcv; lcv < TeamLines.Count; lcv++)
             {
-                TeamLines[lcv].transform.SetParent(TeamPanel.transform);
-                TeamLines[lcv].SetActive(false);
+                TeamLines.buffer[lcv].transform.SetParent(TeamPanel.transform);
+                TeamLines.buffer[lcv].SetActive(false);
             }
             for (int lcv = playerLcv; lcv < PlayerLines.Count; lcv++)
             {
-                PlayerLines[lcv].transform.SetParent(TeamPanel.transform);
-                PlayerLines[lcv].SetActive(false);
+                PlayerLines.buffer[lcv].transform.SetParent(TeamPanel.transform);
+                PlayerLines.buffer[lcv].SetActive(false);
             }
 
             yield return new WaitForSeconds(refreshTime);

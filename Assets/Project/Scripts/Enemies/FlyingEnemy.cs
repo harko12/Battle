@@ -109,8 +109,8 @@ public class FlyingEnemy : BaseEnemy
                 targetVelocity = dir.normalized; // * chasingSmoothness;
                 targetRotation = Quaternion.LookRotation(targetVelocity, Vector3.up);
             }
-            tno.Send("SetTargetRotation", Target.AllSaved, Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * chasingSmoothness));
-            tno.Send("SetTargetVelocity", Target.AllSaved, targetVelocity);
+            tno.Send(nameof(SetTargetRotation), Target.AllSaved, Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * chasingSmoothness));
+            tno.Send(nameof(SetTargetVelocity), Target.AllSaved, targetVelocity);
         }
         transform.rotation = mTargetRotation;
         myRigidbody.velocity = Vector3.Lerp(myRigidbody.velocity, mTargetVelocity, Time.deltaTime * chasingSmoothness);
